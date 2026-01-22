@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <time.h>
 #define HASH_SIZE 128
+#define USER_FILENAME "user.txt"
 
 typedef struct User {
     char username[50];

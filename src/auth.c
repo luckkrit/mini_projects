@@ -1,6 +1,7 @@
 #include "auth.h"  
 #include <crypt.h>
 #include <string.h>
+#include <stdio.h>
 
 
 char* hash_password(const char *password) {
@@ -40,27 +41,123 @@ User* getUserBySession(User *head, unsigned long sid) {
     return NULL;
 }
 
-User* registerUser(User *head,const char *username, const char *password){
+User* registerUser(User *head, const char *username, const char *password) {
     if(strlen(password) == 0 || strlen(username) == 0) return NULL;
-    char *hashPwd = hash_password(password);
-    User *user = (User *)malloc(sizeof(User));
-    strcpy(user->username, username);
-    strcpy(user->passwordHash, hashPwd);
+
+    // 1. Check if user already exists
     User *curr = head;
+    User *last = NULL;
     while (curr != NULL) {
+        if(strcmp(curr->username, username) == 0) return NULL; // Already exists
+        last = curr;      // Keep track of the last node we saw
         curr = curr->next;
     }
-    curr = user;
-    // save to file
-    return user;
-}
 
+    // 2. Create the new user
+    char *hashPwd = hash_password(password);
+    User *newUser = (User *)calloc(1, sizeof(User));
+    strcpy(newUser->username, username);
+    strcpy(newUser->passwordHash, hashPwd);
+
+    // 3. Attach to the list
+    if (head->username[0] == '\0') {
+        // Special case: The head node is empty (from your empty file logic)
+        strcpy(head->username, username);
+        strcpy(head->passwordHash, hashPwd);
+        free(newUser); // We don't need the extra node, we filled the head
+        newUser = head;
+    } else {
+        // Attach to the end of the list
+        last->next = newUser;
+    }
+
+    // 4. Save and return
+    saveUser(newUser, USER_FILENAME);
+    return newUser;
+}
 User* loginUser(User *head, const char *username, const char *password){
     if(strlen(password) == 0 || strlen(username) == 0) return NULL;
     User *curr = head;
     
     while (curr != NULL) {
-        
+        char *hashPwd = hash_password(password);
+        // printf("%d\n",strcmp(curr->username, username));
+        // printf("%s, %s\n", curr->passwordHash, hashPwd);
+        // printf("%d\n",strcmp(curr->passwordHash, hashPwd));
+        if(strcmp(curr->username, username)==0&&strcmp(curr->passwordHash, hashPwd)==0){            
+            curr->sessionID = generate_session_id(curr->username);
+            return curr;
+        }
         curr = curr->next;
     }
+}
+int saveUser(User *head, char *fileName){
+    FILE *file_ptr;
+
+    
+    file_ptr = fopen(fileName, "a");
+
+    
+    if (file_ptr == NULL) {
+        printf("Error opening file!\n");        
+        return 1;
+    }
+
+    User *user = head;
+    while(user!=NULL){
+        fprintf(file_ptr, "%s %s\n", user->username, user->passwordHash);
+        user = user->next;
+    }
+    
+
+    fclose(file_ptr);
+}
+int loadUser(User *user, char *fileName){
+    FILE *file_ptr;
+    char buffer[255];
+    User *current = user;
+    file_ptr = fopen(fileName, "r");
+
+    
+    if (file_ptr == NULL) {
+        printf("Error opening file!\n");        
+        return 1;
+    }
+    int l=0;
+    while (fgets(buffer, sizeof(buffer), file_ptr) != NULL) {
+        char *token = strtok(buffer, " ");
+        User *newUser = (User *)calloc(1,sizeof(User));
+        int c = 0;    
+        while(token!=NULL){
+            
+            if(c==0){
+                strcpy(newUser->username, token);                    
+                // newUser->next = current->next;
+                
+            }
+            if(c==1){
+                token[strcspn(token, "\n")] = 0;
+                strcpy(newUser->passwordHash, token);
+            }
+            c++;
+            token = strtok(NULL, " ");
+        }
+        if(l==0){
+            strcpy(current->username, newUser->username);
+            strcpy(current->passwordHash, newUser->passwordHash);
+            free(newUser);
+        }else{
+            current->next = newUser;
+            current = newUser;
+        }
+        
+        
+        l++;
+        
+        
+        
+    }
+    
+    fclose(file_ptr);
+    return 0;
 }
