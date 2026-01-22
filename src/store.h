@@ -1,5 +1,6 @@
 #define PRODUCTID_SIZE 5
 #define STORE_FILENAME "store.txt"
+#define STORE_SIZE 2048
 typedef struct stock Stock;
 
 struct stock {
@@ -19,3 +20,4 @@ int printStore(Store *store);
 int saveStore(Store *store, char *fileName);
 int loadStore(Store *store, char *fileName);
 void freeStore(Store *store);
+void getStore(Store *store, char *output, size_t outputSize);

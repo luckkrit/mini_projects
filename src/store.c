@@ -125,10 +125,28 @@ void freeStore(Store *store) {
     store->stock = NULL; 
 }
 
-// int main(){
-//     Store *store = (Store *)malloc(sizeof(Store));
-//     loadStore(store, "store.txt");
-//     printStore(store);
-//     saveStore(store, "store.txt");
-//     return 0;
-// }
+void getStore(Store *store, char *output, size_t outputSize) {
+    // 1. Initialize the buffer properly
+    output[0] = '\0'; 
+    strncat(output, "--- OUR STORE ---\n", outputSize - 1);
+
+    Stock *stock = store->stock;
+    int c = 1;
+    char lineBuffer[128]; // Temporary buffer for each line
+
+    while(stock != NULL) {
+        // 2. Format the line into a temporary buffer
+        snprintf(lineBuffer, sizeof(lineBuffer), "%d). %s - Qty: %d\n", 
+                 c, stock->productId, stock->quantity);
+
+        // 3. Check if there is enough space left in 'output' to append
+        if (strlen(output) + strlen(lineBuffer) < outputSize - 1) {
+            strcat(output, lineBuffer);
+        } else {
+            break; // Buffer is full
+        }
+
+        stock = stock->next;
+        c++;
+    }
+}
