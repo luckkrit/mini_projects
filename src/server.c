@@ -1,40 +1,11 @@
 #include "server.h"
 #include <signal.h>
 #include <sys/mman.h>
-// int handleClient(Store *store, SOCKET socket_client,char *read){
-//     printf("%s\n", read);
-//     char *token = strtok(read," ");
-//     int c=0;
-//     int isBuy = 0;
-//     char productId[PRODUCTID_SIZE];
-//     int quantity = 0;
-//     while(token!=NULL){
-//         if(c==0){
-//             if(strcmp(token, "BUY")==0){
-//                 isBuy = 1;
-//             }
-//         }
-//         if(c==1){
-//             strcpy(productId, token);
-//         }
-//         if(c==2){
-//             quantity = atoi(token);
-//             updateStore(store, productId, quantity);
-//             saveStore(store, STORE_FILENAME);
-//             printStore(store);
-//         }
-//         c++;
-//         token = strtok(NULL, " ");
-//     }
-//     if(isBuy==1){
-//         char *buffer = "BUY 1\0";
-//         send(socket_client, buffer, strlen(buffer), 0);
-//     }else{
-//         char *buffer = "BUY 0\0";
-//         send(socket_client, buffer, strlen(buffer), 0);
-//     }
-//     return 0;
-// }
+#include <semaphore.h>
+#include <fcntl.h>    /* For O_CREAT, O_RDWR constants */
+#include <sys/stat.h> /* For mode constants like 0644 */
+
+
 CommandEntry commandTable[] = {
     {"BUY", handleBuy},
     {"VIEW", handleView},
@@ -45,6 +16,7 @@ CommandEntry commandTable[] = {
 SOCKET socket_listen = -1;
 Store *store = NULL;
 User *user = NULL;
+sem_t *sem = NULL;
 
 void handleBuy(User *user,Store *store, SOCKET client, char *saveptr) {
   char *sessionId = strtok_r(NULL, " ", &saveptr);
@@ -65,9 +37,16 @@ void handleBuy(User *user,Store *store, SOCKET client, char *saveptr) {
         send(client, response, strlen(response), 0);
   }else{
     if (productId && qtyStr) {
+        // 1. Wait for the lock (Block if another process is buying)
+        sem_wait(sem);
         sprintf(response, "BUY 0\n");
+
+        // 2. CRITICAL SECTION: Only one process can be here at a time
         updateStore(store, productId, atoi(qtyStr));
         saveStore(store, STORE_FILENAME);
+        // 3. Release the lock
+        sem_post(sem);
+        
         send(client, response, strlen(response), 0);
       } else {
         sprintf(response, "BUY 1\n");
@@ -150,6 +129,9 @@ int setup(char *port) {
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_flags = AI_PASSIVE;
   
+  // init semaphore
+  sem = sem_open("/store_lock", O_CREAT, 0644, 1);
+
   // Init store and user using shared memory (mmap)
   store = mmap(NULL, sizeof(Store), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1 ,0);
   loadStore(store, STORE_FILENAME);  
