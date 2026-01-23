@@ -33,6 +33,8 @@ int main() {
     // printf("%lu", luser->sessionID);
     luser2 = getUserBySession(luser, luser->sessionID);
     printf("%lu %d\n", luser->sessionID, luser->sessionID == luser2->sessionID);
+
+    freeUser(user);
     // strcpy(user->username, username);
 
 

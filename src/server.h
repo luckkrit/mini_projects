@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <netdb.h>
 #include "store.h"
+#include "auth.h"
 
 
 #define ISVALIDSOCKET(s) ((s) >= 0)
@@ -21,14 +22,14 @@
 #define SOCKET int
 #define GETSOCKETERRNO() (errno)
 
-typedef void (*CommandHandler)(Store*, SOCKET, char*);
+typedef void (*CommandHandler)(User*,Store*, SOCKET, char*);
 
 typedef struct {
     char *commandName;
     CommandHandler handler;
 } CommandEntry;
-void handleBuy(Store *store, SOCKET client, char *saveptr);
-void handleView(Store *store, SOCKET client, char *saveptr);
-void handleLogin(Store *store, SOCKET client, char *saveptr);
-int handleClient(Store *store,SOCKET socket_client,char *read);
+void handleBuy(User *user,Store *store, SOCKET client, char *saveptr);
+void handleView(User *user,Store *store, SOCKET client, char *saveptr);
+void handleLogin(User *user,Store *store, SOCKET client, char *saveptr);
+int handleClient(User *user,Store *store,SOCKET socket_client,char *read);
 int setup(char *port);

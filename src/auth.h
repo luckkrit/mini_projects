@@ -19,3 +19,4 @@ User* registerUser(User *head,const char *username, const char *password);
 User* loginUser(User *head, const char *username, const char *password);
 int saveUser(User *head, char *fileName);
 int loadUser(User *user, char *fileName);
+void freeUser(User *user);

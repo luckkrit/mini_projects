@@ -75,21 +75,35 @@ User* registerUser(User *head, const char *username, const char *password) {
     saveUser(newUser, USER_FILENAME);
     return newUser;
 }
-User* loginUser(User *head, const char *username, const char *password){
+User* loginUser(User *head, const char *username, const char *password){    
     if(strlen(password) == 0 || strlen(username) == 0) return NULL;
     User *curr = head;
     
     while (curr != NULL) {
         char *hashPwd = hash_password(password);
-        // printf("%d\n",strcmp(curr->username, username));
-        // printf("%s, %s\n", curr->passwordHash, hashPwd);
-        // printf("%d\n",strcmp(curr->passwordHash, hashPwd));
-        if(strcmp(curr->username, username)==0&&strcmp(curr->passwordHash, hashPwd)==0){            
+    
+        if(strcmp(curr->username, username)==0&&verify_password(password, hashPwd)==1){            
             curr->sessionID = generate_session_id(curr->username);
             return curr;
         }
         curr = curr->next;
     }
+    return curr;
+}
+void freeUser(User *user) {
+    if (user == NULL) return;
+
+    User *current = user;
+    User *next_node;
+
+    while (current != NULL) {
+        printf("Clean user: %s\n", current->username);
+        next_node = current->next; // Save reference to next
+        free(current);             // Delete current node
+        current = next_node;       // Move to next
+    }
+    
+    user->next = NULL; 
 }
 int saveUser(User *head, char *fileName){
     FILE *file_ptr;

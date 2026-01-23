@@ -1,5 +1,6 @@
 #include "server.h"
 #include <signal.h>
+#include <sys/mman.h>
 // int handleClient(Store *store, SOCKET socket_client,char *read){
 //     printf("%s\n", read);
 //     char *token = strtok(read," ");
@@ -40,37 +41,79 @@ CommandEntry commandTable[] = {
     {"LOGIN", handleLogin},
     {NULL, NULL} // Sentinel to mark the end
 };
-void handleBuy(Store *store, SOCKET client, char *saveptr) {
+
+void handleBuy(User *user,Store *store, SOCKET client, char *saveptr) {
+  char *sessionId = strtok_r(NULL, " ", &saveptr);
   char *productId = strtok_r(NULL, " ", &saveptr);
   char *qtyStr = strtok_r(NULL, " ", &saveptr);
-
-  if (productId && qtyStr) {
-    updateStore(store, productId, atoi(qtyStr));
-    send(client, "BUY 1", 5, 0);
-  } else {
-    send(client, "BUY 0", 5, 0);
+  char response[255];
+  sessionId = atol(sessionId);
+  User *luser = getUserBySession(user, sessionId);
+  if(luser==NULL){
+        sprintf(response, "LOGIN 2\n");
+        // printf("%s %d\n",response, strlen(response));
+        send(client, response, strlen(response), 0);
+  }else{
+    if (productId && qtyStr) {
+        sprintf(response, "BUY 1\n");
+        updateStore(store, productId, atoi(qtyStr));
+        send(client, response, strlen(response), 0);
+      } else {
+        sprintf(response, "BUY 0\n");
+        send(client, response, strlen(response), 0);
+      }
   }
+
 }
 
-void handleView(Store *store, SOCKET client, char *saveptr) {
+void handleView(User *user,Store *store, SOCKET client, char *saveptr) {
   // Logic for viewing store...
   send(client, "VIEW_SUCCESS", 12, 0);
 }
-void handleLogin(Store *store, SOCKET client, char *saveptr) {
-  // Logic for viewing store...
-  send(client, "LOGIN_SUCCESS", 12, 0);
+void handleLogin(User *user, Store *store, SOCKET client, char *saveptr) {
+  // printf("line: %s\n", saveptr);
+  char *username = strtok_r(NULL, " ", &saveptr);
+  char *password = strtok_r(NULL, " ", &saveptr);
+  char response[255];
+
+  // printf("username: %s\n", username);
+  // printf("password: %s\n", password);
+
+  // send(client, "LOGIN_SUCCESS", 13, 0);
+  if (username && password) {
+    // send(client, "LOGIN_SUCCESS", 13, 0);
+    User *luser = loginUser(user, username, password);
+    
+    // send(client, "LOGIN_SUCCESS", 13, 0);
+    if(luser!=NULL){
+      sprintf(response,"LOGIN 0 %lu", luser->sessionID);
+      send(client, response, strlen(response), 0);
+    }else{
+      sprintf(response,"LOGIN 1");
+      send(client, response, strlen(response), 0);
+    }
+    
+    // send(client, response, strlen(response), 0);
+  }else{
+    sprintf(response,"LOGIN 1");
+    send(client, response, strlen(response), 0);
+  }
+  
+  
 }
-int handleClient(Store *store, SOCKET socket_client, char *read) {
+int handleClient(User *user,Store *store, SOCKET socket_client, char *read) {
+  // printf("line: %s\n", read);
   char *saveptr;
   char *commandName = strtok_r(read, " \n\r", &saveptr);
-
+  
   if (commandName == NULL)
     return -1;
 
   for (int i = 0; commandTable[i].commandName != NULL; i++) {
     if (strcmp(commandName, commandTable[i].commandName) == 0) {
       // Found the command! Execute its function.
-      commandTable[i].handler(store, socket_client, saveptr);
+      printf("Found command: %s\n", commandName);
+      commandTable[i].handler(user, store, socket_client, saveptr);
       return 0;
     }
   }
@@ -85,6 +128,16 @@ int setup(char *port) {
   hints.ai_family = AF_INET;
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_flags = AI_PASSIVE;
+  // // Init shared memory
+  // GameState *shared_state = mmap(NULL, sizeof(GameState), 
+  //                                  PROT_READ | PROT_WRITE, 
+  //                                  MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+
+  // Init store and user
+  Store *store = (Store *)malloc(sizeof(Store));
+  loadStore(store, STORE_FILENAME);
+  User *user = (User *)calloc(1,sizeof(User));    
+  loadUser(user, USER_FILENAME);
 
   struct addrinfo *bind_address;
   getaddrinfo(0, port, &hints, &bind_address);
@@ -138,27 +191,23 @@ int setup(char *port) {
     int pid = fork();
     if (pid == 0) { // child process
       CLOSESOCKET(socket_listen);
-      Store *store = (Store *)malloc(sizeof(Store));
-      loadStore(store, STORE_FILENAME);
+      
+      
       while (1) {
         char read[1024];
         int bytes_received = recv(socket_client, read, 1024, 0);
         if (bytes_received < 1) {
-          printf("Client disconnected. Cleaning up...\n");
+          printf("Client disconnected.\n");
 
-          // 1. Free all Stock nodes in the linked list
-          freeStore(store);
-
-          // 2. Free the Store struct itself
-          free(store);
+          
           CLOSESOCKET(socket_client);
           exit(0);
         }
         int j;
         for (j = 0; j < bytes_received; ++j)
-          read[j] = toupper(read[j]);
+          read[j] = read[j];
 
-        handleClient(store, socket_client, read);
+        handleClient(user,store, socket_client, read);
         // send(socket_client, read, bytes_received, 0);
       }
     }
@@ -167,6 +216,16 @@ int setup(char *port) {
 
   printf("Closing listening socket...\n");
   CLOSESOCKET(socket_listen);
+
+  // 1. Free all Stock nodes in the linked list
+  freeStore(store);
+
+  // 2. Free the Store struct itself
+  free(store);
+
+  // 3. Free user
+  freeUser(user);
+
   printf("Finished.\n");
   return 0;
 }
