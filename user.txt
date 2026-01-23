@@ -1,2 +1,3 @@
-Krit $2b$12$R9h/cIPz0gi.URQHue91zu1pzwNYJ6hVwLQo1WxeLl3mJKBGi4Qeu
-Krit2 $2b$12$R9h/cIPz0gi.URQHue91zu1pzwNYJ6hVwLQo1WxeLl3mJKBGi4Qeu
+admin $2b$12$R9h/cIPz0gi.URQHue91zuuqiediOP9nmtLyp9mFO198MJIHDLhH6 1
+Krit $2b$12$R9h/cIPz0gi.URQHue91zu1pzwNYJ6hVwLQo1WxeLl3mJKBGi4Qeu 0
+Krit2 $2b$12$R9h/cIPz0gi.URQHue91zu1pzwNYJ6hVwLQo1WxeLl3mJKBGi4Qeu 0

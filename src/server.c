@@ -15,10 +15,10 @@ CommandEntry commandTable[] = {
 
 SOCKET socket_listen = -1;
 Store *store = NULL;
-User *user = NULL;
+UserSessions *user = NULL;
 sem_t *sem = NULL;
 
-void handleBuy(User *user,Store *store, SOCKET client, char *saveptr) {
+void handleBuy(UserSessions *user,Store *store, SOCKET client, char *saveptr) {
   char *sessionId = strtok_r(NULL, " ", &saveptr);
   char *productId = strtok_r(NULL, " ", &saveptr);
   char *qtyStr = strtok_r(NULL, " ", &saveptr);
@@ -33,7 +33,7 @@ void handleBuy(User *user,Store *store, SOCKET client, char *saveptr) {
   User *luser = getUserBySession(user, sessionId2);
   if(luser==NULL){
         sprintf(response, "BUY 2\n");
-        // printf("%s %d\n",response, strlen(response));
+        
         send(client, response, strlen(response), 0);
   }else{
     if (productId && qtyStr) {
@@ -42,12 +42,17 @@ void handleBuy(User *user,Store *store, SOCKET client, char *saveptr) {
         sprintf(response, "BUY 0\n");
 
         // 2. CRITICAL SECTION: Only one process can be here at a time
-        updateStore(store, productId, atoi(qtyStr));
+        int result = updateStore(store, productId, atoi(qtyStr));
         saveStore(store, STORE_FILENAME);
         // 3. Release the lock
         sem_post(sem);
+        if(result==0){
+          send(client, response, strlen(response), 0);
+        }else{
+          sprintf(response, "BUY 2\n");
+          send(client, response, strlen(response), 0);  
+        }
         
-        send(client, response, strlen(response), 0);
       } else {
         sprintf(response, "BUY 1\n");
         send(client, response, strlen(response), 0);
@@ -56,25 +61,21 @@ void handleBuy(User *user,Store *store, SOCKET client, char *saveptr) {
 
 }
 
-void handleView(User *user,Store *store, SOCKET client, char *saveptr) {
+void handleView(UserSessions *user,Store *store, SOCKET client, char *saveptr) {
   // Logic for viewing store...
   send(client, "VIEW_SUCCESS", 12, 0);
 }
-void handleLogin(User *user, Store *store, SOCKET client, char *saveptr) {
+void handleLogin(UserSessions *user, Store *store, SOCKET client, char *saveptr) {
   // printf("line: %s\n", saveptr);
   char *username = strtok_r(NULL, " ", &saveptr);
   char *password = strtok_r(NULL, " ", &saveptr);
   char response[255];
 
-  // printf("username: %s\n", username);
-  // printf("password: %s\n", password);
-
-  // send(client, "LOGIN_SUCCESS", 13, 0);
+ 
   if (username && password) {
-    // send(client, "LOGIN_SUCCESS", 13, 0);
-    User *luser = loginUser(user, username, password);
     
-    // send(client, "LOGIN_SUCCESS", 13, 0);
+    User *luser = loginUser(user, username, password);
+
     if(luser!=NULL){
       sprintf(response,"LOGIN 0 %lu", luser->sessionID);
       send(client, response, strlen(response), 0);
@@ -83,7 +84,7 @@ void handleLogin(User *user, Store *store, SOCKET client, char *saveptr) {
       send(client, response, strlen(response), 0);
     }
     
-    // send(client, response, strlen(response), 0);
+    
   }else{
     sprintf(response,"LOGIN 1");
     send(client, response, strlen(response), 0);
@@ -91,7 +92,7 @@ void handleLogin(User *user, Store *store, SOCKET client, char *saveptr) {
   
   
 }
-int handleClient(User *user,Store *store, SOCKET socket_client, char *read) {
+int handleClient(UserSessions *user,Store *store, SOCKET socket_client, char *read) {
   // printf("line: %s\n", read);
   char *saveptr;
   char *commandName = strtok_r(read, " \n\r", &saveptr);
@@ -147,7 +148,7 @@ int setup(char *port) {
   // Init store and user using shared memory (mmap)
   store = mmap(NULL, sizeof(Store), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1 ,0);
   loadStore(store, STORE_FILENAME);  
-  user = mmap(NULL, sizeof(User), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1 ,0);
+  user = mmap(NULL, sizeof(UserSessions), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1 ,0);
   loadUser(user, USER_FILENAME);
 
   struct addrinfo *bind_address;
@@ -223,7 +224,7 @@ int setup(char *port) {
           read[j] = read[j];
 
         handleClient(user,store, socket_client, read);
-        // send(socket_client, read, bytes_received, 0);
+        
       }
     }
     CLOSESOCKET(socket_client);

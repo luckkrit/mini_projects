@@ -22,14 +22,15 @@
 #define SOCKET int
 #define GETSOCKETERRNO() (errno)
 
-typedef void (*CommandHandler)(User*,Store*, SOCKET, char*);
+typedef void (*CommandHandler)(UserSessions*,Store*, SOCKET, char*);
 
 typedef struct {
     char *commandName;
     CommandHandler handler;
 } CommandEntry;
-void handleBuy(User *user,Store *store, SOCKET client, char *saveptr);
-void handleView(User *user,Store *store, SOCKET client, char *saveptr);
-void handleLogin(User *user,Store *store, SOCKET client, char *saveptr);
-int handleClient(User *user,Store *store,SOCKET socket_client,char *read);
+void handleBuy(UserSessions *user,Store *store, SOCKET client, char *saveptr);
+void handleView(UserSessions *user,Store *store, SOCKET client, char *saveptr);
+void handleLogin(UserSessions *user,Store *store, SOCKET client, char *saveptr);
+int handleClient(UserSessions *user,Store *store,SOCKET socket_client,char *read);
+void handle_shutdown(int sig);
 int setup(char *port);

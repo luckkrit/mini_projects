@@ -7,80 +7,64 @@ int main() {
     printf("=== Starting Bcrypt Authentication Test ===\n");
 
     const char *username = "Krit";
+    const char *username2 = "Krit2";
     const char *password = "password123";
+    const char *adminUser = "admin";
+    const char *adminPwd = "admin";
 
-
-
-
-    User *user = (User *)calloc(1,sizeof(User));    
-    loadUser(user, USER_FILENAME);
-    
-    if(strcmp(user->username, "")==0 && strcmp(user->passwordHash, "")==0){        
-        registerUser(user, username, password);
-        printf("register user: %s %s\n", user->username, user->passwordHash);
-    }else{
-        printf("load user: %s %s\n", user->username, user->passwordHash);
+    UserSessions *head = (UserSessions *)calloc(1, sizeof(UserSessions));
+    if(loadUser(head, USER_FILENAME)==1){
+        registerUser(head, adminUser, adminPwd, 1);        
     }
 
-    registerUser(user, "Krit2", password);
+    User *user = registerUser(head, username, password, 0);
+    if(user!=NULL){
+        printf("register user: %s %s\n", user->username, user->passwordHash);
+    }
+    
 
-    User *luser = loginUser(user, username, password);
-    // printf("%lu", luser->sessionID);
-    User *luser2 = getUserBySession(luser, luser->sessionID);
-    printf("%lu %d\n", luser->sessionID,luser->sessionID == luser2->sessionID);
+    User *user2 = registerUser(head, username2, password, 0);
+    if(user2!=NULL){
+        printf("register user: %s %s\n", user2->username, user2->passwordHash);
+    }
+    
 
-    luser = loginUser(user, "Krit2", password);
-    // printf("%lu", luser->sessionID);
-    luser2 = getUserBySession(luser, luser->sessionID);
-    printf("%lu %d\n", luser->sessionID, luser->sessionID == luser2->sessionID);
+    User *luser = loginUser(head, username, password);
+    if(luser!=NULL){
+        printf("%lu\n", luser->sessionID);    
+    }
+    User *luser2 = getUserBySession(head, luser->sessionID);
+    if(luser2!=NULL&&luser!=NULL){
+        printf("%lu %lu %d\n", luser->sessionID,luser2->sessionID,luser->sessionID == luser2->sessionID);    
+    }
+    // // printf("%lu", luser->sessionID);
+    // User *luser2 = getUserBySession(head, luser->sessionID);
+    // printf("%lu %d\n", luser->sessionID,luser->sessionID == luser2->sessionID);
 
-    freeUser(user);
-    // strcpy(user->username, username);
-
-
-    // char *hashed_pw = hash_password(password);
-
-    // if (hashed_pw == NULL) {
-    //     printf("[FAIL] Hashing failed\n");
-    //     return 1;
-    // }
-
-    // strcpy(user->passwordHash, hashed_pw);
-
-    // printf("[PASS] Hash generated successfully.\n");
-
-    // if (verify_password(password, hashed_pw)) {
-    //     printf("[PASS] Verification successful\n");
-    // } else {
-    //     printf("[FAIL] Verification failed\n");
-    // }
-
-    // unsigned session_id = generate_session_id(username);
-    // if(session_id>0){
-    //     user->sessionID = session_id;
-    //     printf("Username: %s\nSession ID: %lu\n",user->username, user->sessionID);
-        
-    //     printf("[PASS] Generate session successful\n");
+    // User *user = (User *)calloc(1,sizeof(User));    
+    // loadUser(user, USER_FILENAME);
+    
+    // if(strcmp(user->username, "")==0 && strcmp(user->passwordHash, "")==0){        
+    //     registerUser(user, username, password);
+    //     printf("register user: %s %s\n", user->username, user->passwordHash);
     // }else{
-    //     printf("[FAIL] Generate session failed\n");
+    //     printf("load user: %s %s\n", user->username, user->passwordHash);
     // }
 
-    // if(getUserBySession(user, user->sessionID)!=NULL){
-    //     printf("[PASS] Authorize user\n");
-    // }else{
-    //     printf("[FAIL] Unauthorize user\n");
-    // }
+    // registerUser(user, "Krit2", password);
 
-    // const char *username2 = "Krit2";
-    // const char *password2 = password;
-    // User *user2 = registerUser(user, username2, password2);
-    // if(user2!=NULL){
-    //     printf("[PASS] Register user\n");
-    //     printf("Username: %s\n", user2->username);
-    // }else{
-    //     printf("[FAIL] Register user\n");
-    // }
+    // User *luser = loginUser(user, username, password);
+    // // printf("%lu", luser->sessionID);
+    // User *luser2 = getUserBySession(luser, luser->sessionID);
+    // printf("%lu %d\n", luser->sessionID,luser->sessionID == luser2->sessionID);
 
+    // luser = loginUser(user, "Krit2", password);
+    // // printf("%lu", luser->sessionID);
+    // luser2 = getUserBySession(luser, luser->sessionID);
+    // printf("%lu %d\n", luser->sessionID, luser->sessionID == luser2->sessionID);
+
+    // freeUser(user);
+    
 
 
     return 0;

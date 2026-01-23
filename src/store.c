@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
 #include "store.h"
 
 int updateStore(Store *store, char *productId, int quantity)
@@ -10,9 +8,9 @@ int updateStore(Store *store, char *productId, int quantity)
     {
         if (store->items[i].isUsed && strcmp(store->items[i].productId, productId) == 0)
         {
-            if (store->items[i].quantity + quantity < 0)
+            if (store->items[i].quantity - quantity < 0)
                 return 1;
-            store->items[i].quantity += quantity;
+            store->items[i].quantity -= quantity;
             printf("Update stock %s %d\n",store->items[i].productId, store->items[i].quantity);
             return 0;
         }
@@ -55,7 +53,8 @@ int saveStore(Store *store, char *fileName)
         printf("Error opening file!\n");
         return 1;
     }
-
+    int fd = fileno(file_ptr);
+    flock(fd, LOCK_EX);
     Stock *stock = store->items;
     for (int i = 0; i < MAX_STOCK; i++)
     {
@@ -66,7 +65,7 @@ int saveStore(Store *store, char *fileName)
 
         stock++;
     }
-
+    flock(fd, LOCK_UN);
     fclose(file_ptr);
     return 0;
 }
@@ -79,7 +78,8 @@ int loadStore(Store *store, char *fileName)
 
     char buffer[255];
     int i = 0;
-
+    int fd = fileno(file_ptr);
+    flock(fd, LOCK_EX);
     while (fgets(buffer, sizeof(buffer), file_ptr) != NULL && i < MAX_STOCK)
     {
         // 1. Remove newline
@@ -98,7 +98,7 @@ int loadStore(Store *store, char *fileName)
             i++;
         }
     }
-
+    flock(fd, LOCK_UN);
     fclose(file_ptr);
     return 0;
 }

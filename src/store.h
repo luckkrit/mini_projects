@@ -1,3 +1,7 @@
+#include <sys/file.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #define PRODUCTID_SIZE 10
 #define MAX_STOCK 100
 #define STORE_FILENAME "store.txt"

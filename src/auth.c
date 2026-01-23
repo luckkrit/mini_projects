@@ -31,85 +31,69 @@ unsigned long generate_session_id(char *username) {
     return hash;
 }
 
-User* getUserBySession(User *head, unsigned long sid) {
+User* getUserBySession(UserSessions *head, unsigned long sid) {
     if (sid == 0) return NULL; 
-    User *curr = head;
-    while (curr != NULL) {
-        if (curr->sessionID == sid) return curr;
-        curr = curr->next;
+    for(int i=0;i<MAX_USERS;i++){
+        if(head->users[i].sessionID == sid){
+            return &head->users[i];
+        }
     }
     return NULL;
 }
 
-User* registerUser(User *head, const char *username, const char *password) {
+User* registerUser(UserSessions *head, const char *username, const char *password, bool isAdmin) {
     if(strlen(password) == 0 || strlen(username) == 0) return NULL;
 
     // 1. Check if user already exists
-    User *curr = head;
-    User *last = NULL;
-    while (curr != NULL) {
-        if(strcmp(curr->username, username) == 0) return NULL; // Already exists
-        last = curr;      // Keep track of the last node we saw
-        curr = curr->next;
+    for(int i=0;i<MAX_USERS;i++){
+        
+        if(head->users[i].isUsed){
+            
+            if(strcmp(head->users[i].username, username)==0){
+                
+                printf("Duplicate user\n");
+                return NULL;
+            }            
+        }
     }
 
     // 2. Create the new user
     char *hashPwd = hash_password(password);
-    User *newUser = (User *)calloc(1, sizeof(User));
-    strcpy(newUser->username, username);
-    strcpy(newUser->passwordHash, hashPwd);
-
-    // 3. Attach to the list
-    if (head->username[0] == '\0') {
-        // Special case: The head node is empty (from your empty file logic)
-        strcpy(head->username, username);
-        strcpy(head->passwordHash, hashPwd);
-        free(newUser); // We don't need the extra node, we filled the head
-        newUser = head;
-    } else {
-        // Attach to the end of the list
-        last->next = newUser;
+    User *newUser = NULL;
+    for(int i=0;i<MAX_USERS;i++){
+        if(head->users[i].username[0] == '\0'){
+            strcpy(head->users[i].username, username);
+            strcpy(head->users[i].passwordHash, hashPwd);
+            head->users[i].isAdmin = isAdmin;
+            head->users[i].isUsed = true;
+            newUser = &head->users[i];
+            break;
+        }
     }
 
-    // 4. Save and return
-    saveUser(newUser, USER_FILENAME);
+    
+    // 3. Save and return
+    saveUser(head, USER_FILENAME);
     return newUser;
 }
-User* loginUser(User *head, const char *username, const char *password){    
+User* loginUser(UserSessions *head, const char *username, const char *password){    
     if(strlen(password) == 0 || strlen(username) == 0) return NULL;
-    User *curr = head;
     
-    while (curr != NULL) {
-        char *hashPwd = hash_password(password);
-    
-        if(strcmp(curr->username, username)==0&&verify_password(password, hashPwd)==1){            
-            curr->sessionID = generate_session_id(curr->username);
-            return curr;
+    for(int i=0;i<MAX_USERS;i++){
+        char *hashPwd = hash_password(password);    
+        if(strcmp(head->users[i].username, username)==0&&verify_password(password, hashPwd)==1){            
+            head->users[i].sessionID = generate_session_id(head->users[i].username);
+            return &head->users[i];
         }
-        curr = curr->next;
     }
-    return curr;
+    return NULL;
 }
-void freeUser(User *user) {
-    if (user == NULL) return;
 
-    User *current = user;
-    User *next_node;
-
-    while (current != NULL) {
-        printf("Clean user: %s\n", current->username);
-        next_node = current->next; // Save reference to next
-        free(current);             // Delete current node
-        current = next_node;       // Move to next
-    }
-    
-    user->next = NULL; 
-}
-int saveUser(User *head, char *fileName){
+int saveUser(UserSessions *head, char *fileName){
     FILE *file_ptr;
 
     
-    file_ptr = fopen(fileName, "a");
+    file_ptr = fopen(fileName, "w");
 
     
     if (file_ptr == NULL) {
@@ -117,19 +101,23 @@ int saveUser(User *head, char *fileName){
         return 1;
     }
 
-    User *user = head;
-    while(user!=NULL){
-        fprintf(file_ptr, "%s %s\n", user->username, user->passwordHash);
-        user = user->next;
+    int fd = fileno(file_ptr);
+    flock(fd, LOCK_EX);
+    
+    for(int i=0;i<MAX_USERS;i++){
+        if(head->users[i].isUsed){
+            fprintf(file_ptr, "%s %s %d\n", head->users[i].username, head->users[i].passwordHash, head->users[i].isAdmin);        
+        }
     }
     
-
+    flock(fd, LOCK_UN);
     fclose(file_ptr);
+    return 0;
 }
-int loadUser(User *user, char *fileName){
+int loadUser(UserSessions *head, char *fileName){
     FILE *file_ptr;
     char buffer[255];
-    User *current = user;
+    
     file_ptr = fopen(fileName, "r");
 
     
@@ -137,41 +125,32 @@ int loadUser(User *user, char *fileName){
         printf("Error opening file!\n");        
         return 1;
     }
-    int l=0;
-    while (fgets(buffer, sizeof(buffer), file_ptr) != NULL) {
-        char *token = strtok(buffer, " ");
-        User *newUser = (User *)calloc(1,sizeof(User));
-        int c = 0;    
-        while(token!=NULL){
+    int i=0;
+    int fd = fileno(file_ptr);
+    flock(fd, LOCK_EX);
+    while (fgets(buffer, sizeof(buffer), file_ptr) != NULL && i < MAX_USERS)
+    {
+        // 1. Remove newline
+        buffer[strcspn(buffer, "\n")] = 0;
+        
+
+        // 2. Collect user
+        char *username = strtok(buffer, " ");
+        char *hashPwd = strtok(NULL, " ");
+        char *isAdmin = strtok(NULL, " ");
+        
+        if (username != NULL && hashPwd != NULL && isAdmin != NULL)
+        {
             
-            if(c==0){
-                strcpy(newUser->username, token);                    
-                // newUser->next = current->next;
-                
-            }
-            if(c==1){
-                token[strcspn(token, "\n")] = 0;
-                strcpy(newUser->passwordHash, token);
-            }
-            c++;
-            token = strtok(NULL, " ");
+            strcpy(head->users[i].username, username);
+            strcpy(head->users[i].passwordHash, hashPwd);
+            head->users[i].isAdmin = atoi(isAdmin);
+            head->users[i].isUsed = true;
+            i++;
         }
-        if(l==0){
-            strcpy(current->username, newUser->username);
-            strcpy(current->passwordHash, newUser->passwordHash);
-            free(newUser);
-        }else{
-            current->next = newUser;
-            current = newUser;
-        }
-        
-        
-        l++;
-        
-        
-        
     }
     
+    flock(fd, LOCK_UN);
     fclose(file_ptr);
     return 0;
 }
