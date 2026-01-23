@@ -7,7 +7,7 @@ int main() {
 
     // Initialize an empty store
     Store *myStore = (Store *)malloc(sizeof(Store));
-    myStore->stock = NULL;
+    
 
     // 1. Add items to the store
     printf("Adding items...\n");
@@ -21,13 +21,13 @@ int main() {
     printf("\nCurrent Store Contents:\n");
     printStore(myStore);
 
-    // 3. Save to file
+    // // 3. Save to file
     printf("\nSaving to test_inventory.txt...\n");
     saveStore(myStore, "test_inventory.txt");
 
-    // 4. Create a second store to test loading
+    // // 4. Create a second store to test loading
     Store *loadedStore = (Store *)malloc(sizeof(Store));
-    loadedStore->stock = NULL;
+    
 
     printf("Loading into a new store object...\n");
     if (loadStore(loadedStore, "test_inventory.txt") == 0) {
@@ -44,7 +44,7 @@ int main() {
     getStore(myStore, storeDetails, STORE_SIZE);
     printf(storeDetails);
 
-    // Clean up memory (In a real app, you'd have a freeStore function)
+    
     printf("\n=== Store Test Complete ===\n");
     return 0;
 }

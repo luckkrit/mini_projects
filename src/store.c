@@ -3,150 +3,131 @@
 #include <string.h>
 #include "store.h"
 
-int updateStore(Store *store,char *productId, int quantity){
-    
-    if(store->stock!=NULL){
-        Stock *oldStock = store->stock;
-        int found = 0;
-        while(oldStock!=NULL){
-            if(strcmp(productId, oldStock->productId)==0){
-                if(oldStock->quantity + quantity < 0){
-                    return 1;
-                }
-                oldStock->quantity += quantity;
-                printf("update stock %d\n", oldStock->quantity);
-                found = 1;
-                break;
-            }else{
-                if(oldStock->next == NULL){
-                    break;
-                }else{
-                    oldStock = oldStock->next;
-                }
-                
-            }
+int updateStore(Store *store, char *productId, int quantity)
+{
+    // Search for existing
+    for (int i = 0; i < MAX_STOCK; i++)
+    {
+        if (store->items[i].isUsed && strcmp(store->items[i].productId, productId) == 0)
+        {
+            if (store->items[i].quantity + quantity < 0)
+                return 1;
+            store->items[i].quantity += quantity;
+            printf("Update stock %s %d\n",store->items[i].productId, store->items[i].quantity);
+            return 0;
         }
-        if(found==0){
-            Stock *newStock = (Stock *)malloc(sizeof(Stock));
-            strcpy(newStock->productId, productId);
-            newStock->quantity = quantity;
-            oldStock = store->stock;
-            newStock->next = oldStock;
-            store->stock = newStock;
+    }
+    // Add new if not found
+    for (int i = 0; i < MAX_STOCK; i++)
+    {
+        if (!store->items[i].isUsed)
+        {
+            store->items[i].isUsed = 1;
+            strncpy(store->items[i].productId, productId, PRODUCTID_SIZE);
+            store->items[i].quantity = quantity;
+            return 0;
         }
-    }else{
-        Stock *newStock = (Stock *)malloc(sizeof(Stock));
-        strcpy(newStock->productId, productId);
-        newStock->quantity = quantity;
-        newStock->next = NULL; 
-        store->stock = newStock;
+    }
+    return -1; // Full
+}
+int printStore(Store *store)
+{
+    Stock *stock = store->items;
+    for (int i = 0; i < MAX_STOCK; i++)
+    {
+        if (stock->isUsed)
+        {
+            printf("%s %d\n", stock->productId, stock->quantity);
+        }
+
+        stock++;
     }
     return 0;
 }
-int printStore(Store *store){
-    Stock *stock = store->stock;
-    while(stock!=NULL){
-        printf("%s %d\n", stock->productId, stock->quantity);
-        stock = stock->next;
-    }
-    return 0;
-}
-int saveStore(Store *store, char *fileName){
+int saveStore(Store *store, char *fileName)
+{
     FILE *file_ptr;
 
-    
     file_ptr = fopen(fileName, "w");
 
-    
-    if (file_ptr == NULL) {
-        printf("Error opening file!\n");        
+    if (file_ptr == NULL)
+    {
+        printf("Error opening file!\n");
         return 1;
     }
 
-    Stock *stock = store->stock;
-    while(stock!=NULL){
-        fprintf(file_ptr, "%s %d\n", stock->productId, stock->quantity);
-        stock = stock->next;
-    }
-    
-
-    fclose(file_ptr);
-    return 0;
-}
-
-int loadStore(Store *store,char *fileName){
-    FILE *file_ptr;
-    char buffer[255];
-    
-    file_ptr = fopen(fileName, "r");
-
-    
-    if (file_ptr == NULL) {
-        printf("Error opening file!\n");        
-        return 1;
-    }
-    
-    while (fgets(buffer, sizeof(buffer), file_ptr) != NULL) {
-        char *token = strtok(buffer, " ");
-        Stock *newStock = (Stock *)malloc(sizeof(Stock));
-        int c = 0;    
-        while(token!=NULL){
-            
-            if(c==0){
-                strcpy(newStock->productId, token);                    
-                newStock->next = store->stock;
-                
-            }
-            if(c==1){
-                newStock->quantity = atoi(token);
-            }
-            c++;
-            token = strtok(NULL, " ");
+    Stock *stock = store->items;
+    for (int i = 0; i < MAX_STOCK; i++)
+    {
+        if (stock->isUsed)
+        {
+            fprintf(file_ptr, "%s %d\n", stock->productId, stock->quantity);
         }
-        store->stock = newStock;
+
+        stock++;
     }
-    
+
     fclose(file_ptr);
     return 0;
 }
 
-void freeStore(Store *store) {
-    if (store == NULL) return;
+int loadStore(Store *store, char *fileName)
+{
+    FILE *file_ptr = fopen(fileName, "r");
+    if (file_ptr == NULL)
+        return 1;
 
-    Stock *current = store->stock;
-    Stock *next_node;
+    char buffer[255];
+    int i = 0;
 
-    while (current != NULL) {
-        next_node = current->next; // Save reference to next
-        free(current);             // Delete current node
-        current = next_node;       // Move to next
+    while (fgets(buffer, sizeof(buffer), file_ptr) != NULL && i < MAX_STOCK)
+    {
+        // 1. Remove newline
+        buffer[strcspn(buffer, "\n")] = 0;
+
+        // 2. Correct Tokenizing
+        char *productId = strtok(buffer, " ");
+        char *quantityStr = strtok(NULL, " ");
+
+        // 3. Check if tokens exist before using them
+        if (productId != NULL && quantityStr != NULL)
+        {
+            strcpy(store->items[i].productId, productId);
+            store->items[i].quantity = atoi(quantityStr);
+            store->items[i].isUsed = 1;
+            i++;
+        }
     }
-    
-    store->stock = NULL; 
+
+    fclose(file_ptr);
+    return 0;
 }
 
-void getStore(Store *store, char *output, size_t outputSize) {
+void getStore(Store *store, char *output, size_t outputSize)
+{
     // 1. Initialize the buffer properly
-    output[0] = '\0'; 
+    output[0] = '\0';
     strncat(output, "--- OUR STORE ---\n", outputSize - 1);
 
-    Stock *stock = store->stock;
-    int c = 1;
     char lineBuffer[128]; // Temporary buffer for each line
 
-    while(stock != NULL) {
-        // 2. Format the line into a temporary buffer
-        snprintf(lineBuffer, sizeof(lineBuffer), "%d). %s - Qty: %d\n", 
-                 c, stock->productId, stock->quantity);
+    for (int i = 0; i < MAX_STOCK; i++)
+    {
+        if (store->items[i].isUsed)
+        {
+            // 2. Format the line into a temporary buffer
+            snprintf(lineBuffer, sizeof(lineBuffer), "%d). %s - Qty: %d\n",
+                     i + 1, store->items[i].productId, store->items[i].quantity);
 
-        // 3. Check if there is enough space left in 'output' to append
-        if (strlen(output) + strlen(lineBuffer) < outputSize - 1) {
-            strcat(output, lineBuffer);
-        } else {
-            break; // Buffer is full
+            // 3. Check if there is enough space left in 'output' to append
+            if (strlen(output) + strlen(lineBuffer) < outputSize - 1)
+            {
+                strcat(output, lineBuffer);
+            }
+            else
+            {
+                break; // Buffer is full
+            }
         }
-
-        stock = stock->next;
-        c++;
     }
 }

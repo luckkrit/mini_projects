@@ -42,24 +42,35 @@ CommandEntry commandTable[] = {
     {NULL, NULL} // Sentinel to mark the end
 };
 
+SOCKET socket_listen = -1;
+Store *store = NULL;
+User *user = NULL;
+
 void handleBuy(User *user,Store *store, SOCKET client, char *saveptr) {
   char *sessionId = strtok_r(NULL, " ", &saveptr);
   char *productId = strtok_r(NULL, " ", &saveptr);
   char *qtyStr = strtok_r(NULL, " ", &saveptr);
   char response[255];
-  sessionId = atol(sessionId);
-  User *luser = getUserBySession(user, sessionId);
+  char *endptr;
+  long unsigned sessionId2 = strtoul(sessionId,endptr, 10); // base 10
+  if (*endptr != '\0' && *endptr != '\n' && *endptr != '\r') {
+    // This catches if the string contained letters or symbols
+    printf("Warning: Partial conversion. Ended at: %s\n", endptr);
+  }
+  printf("SessionId: %s %lu\n",sessionId, sessionId2);
+  User *luser = getUserBySession(user, sessionId2);
   if(luser==NULL){
-        sprintf(response, "LOGIN 2\n");
+        sprintf(response, "BUY 2\n");
         // printf("%s %d\n",response, strlen(response));
         send(client, response, strlen(response), 0);
   }else{
     if (productId && qtyStr) {
-        sprintf(response, "BUY 1\n");
+        sprintf(response, "BUY 0\n");
         updateStore(store, productId, atoi(qtyStr));
+        saveStore(store, STORE_FILENAME);
         send(client, response, strlen(response), 0);
       } else {
-        sprintf(response, "BUY 0\n");
+        sprintf(response, "BUY 1\n");
         send(client, response, strlen(response), 0);
       }
   }
@@ -121,6 +132,16 @@ int handleClient(User *user,Store *store, SOCKET socket_client, char *read) {
   send(socket_client, "ERROR: Unknown Command", 22, 0);
   return -1;
 }
+
+void handle_shutdown(int sig){
+  printf("Closing listening socket...\n");
+  CLOSESOCKET(socket_listen);
+  socket_listen = -1;
+  munmap(store, sizeof(Store));
+  munmap(user, sizeof(User));
+
+}
+
 int setup(char *port) {
   printf("Configuring local address...\n");
   struct addrinfo hints;
@@ -128,22 +149,18 @@ int setup(char *port) {
   hints.ai_family = AF_INET;
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_flags = AI_PASSIVE;
-  // // Init shared memory
-  // GameState *shared_state = mmap(NULL, sizeof(GameState), 
-  //                                  PROT_READ | PROT_WRITE, 
-  //                                  MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-
-  // Init store and user
-  Store *store = (Store *)malloc(sizeof(Store));
-  loadStore(store, STORE_FILENAME);
-  User *user = (User *)calloc(1,sizeof(User));    
+  
+  // Init store and user using shared memory (mmap)
+  store = mmap(NULL, sizeof(Store), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1 ,0);
+  loadStore(store, STORE_FILENAME);  
+  user = mmap(NULL, sizeof(User), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1 ,0);
   loadUser(user, USER_FILENAME);
 
   struct addrinfo *bind_address;
   getaddrinfo(0, port, &hints, &bind_address);
 
   printf("Creating socket...\n");
-  SOCKET socket_listen;
+  
   socket_listen = socket(bind_address->ai_family, bind_address->ai_socktype,
                          bind_address->ai_protocol);
   if (!ISVALIDSOCKET(socket_listen)) {
@@ -179,6 +196,10 @@ int setup(char *port) {
     SOCKET socket_client =
         accept(socket_listen, (struct sockaddr *)&client_address, &client_len);
     if (!ISVALIDSOCKET(socket_client)) {
+      // If we are shutting down, don't print an error
+        if (socket_listen == -1) { 
+            return 0; 
+        }
       fprintf(stderr, "accept() failed. (%d)\n", GETSOCKETERRNO());
       return 1;
     }
@@ -214,28 +235,15 @@ int setup(char *port) {
     CLOSESOCKET(socket_client);
   } // while(1)
 
-  printf("Closing listening socket...\n");
-  CLOSESOCKET(socket_listen);
-
-  // 1. Free all Stock nodes in the linked list
-  freeStore(store);
-
-  // 2. Free the Store struct itself
-  free(store);
-
-  // 3. Free user
-  freeUser(user);
-
+  
   printf("Finished.\n");
   return 0;
 }
 
 int main() {
-  // Store *store = (Store *)malloc(sizeof(Store));
-  // loadStore(store, STORE_FILENAME);
-  // printStore(store);
-  // saveStore(store, "store.txt");
-  signal(SIGCHLD, SIG_IGN);
+   
+  signal(SIGINT, handle_shutdown);  // Catches CTRL+C
+  signal(SIGTERM, handle_shutdown); // Catches kill command
   setup("3030");
 
   return 0;

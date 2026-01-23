@@ -91,6 +91,10 @@ test-auth: $(BIN_DIR)/$(AUTH_TEST_TARGET)
 	@echo "Running Auth Tests..."
 	@./$(BIN_DIR)/$(AUTH_TEST_TARGET)
 
+test-store: $(BIN_DIR)/$(STORE_TEST_TARGET)
+	@echo "\nRunning Store Tests..."
+	@./$(BIN_DIR)/$(STORE_TEST_TARGET)
+	
 # Individual Run Commands
 run-server: $(BIN_DIR)/$(SERVER_TARGET)
 	./$(BIN_DIR)/$(SERVER_TARGET)
