@@ -113,12 +113,24 @@ int handleClient(User *user,Store *store, SOCKET socket_client, char *read) {
 }
 
 void handle_shutdown(int sig){
+  // To prevent an infinite loop of signals
+  signal(SIGINT, SIG_IGN);
+
+
   printf("Closing listening socket...\n");
   CLOSESOCKET(socket_listen);
   socket_listen = -1;
   munmap(store, sizeof(Store));
   munmap(user, sizeof(User));
+  printf("Cleaning up semaphore...\n");
+  sem_close(sem);
+  sem_unlink("/store_lock");
 
+  // 2. Kill all child processes in the group
+  // Passing 0 as the PID sends the signal to everyone in the process group
+  kill(0, SIGTERM); 
+
+  exit(0);
 }
 
 int setup(char *port) {
