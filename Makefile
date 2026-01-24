@@ -18,25 +18,28 @@ SERVER_TARGET    = server
 CLIENT_TARGET    = client
 AUTH_TEST_TARGET  = auth_test
 STORE_TEST_TARGET = store_test
+ORDER_TEST_TARGET = order_test
 
 # ==========================================
 # Object Files
 # ==========================================
 AUTH_OBJ  = $(OBJ_DIR)/auth.o
 STORE_OBJ = $(OBJ_DIR)/store.o
-COMMON_OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(wildcard $(SRC_DIR)/common*.c)) $(STORE_OBJ)
+ORDER_OBJ = $(OBJ_DIR)/order.o
+COMMON_OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(wildcard $(SRC_DIR)/common*.c)) $(STORE_OBJ) $(AUTH_OBJ) $(ORDER_OBJ)
 
 SERVER_OBJ = $(OBJ_DIR)/server.o
 CLIENT_OBJ = $(OBJ_DIR)/client.o
 
 AUTH_TEST_DRIVER_OBJ  = $(OBJ_DIR)/test_auth.o
 STORE_TEST_DRIVER_OBJ = $(OBJ_DIR)/test_store.o
+ORDER_TEST_DRIVER_OBJ = $(OBJ_DIR)/test_order.o
 
 # ==========================================
 # Build Rules
 # ==========================================
 
-all: $(BIN_DIR)/$(SERVER_TARGET) $(BIN_DIR)/$(CLIENT_TARGET) $(BIN_DIR)/$(AUTH_TEST_TARGET) $(BIN_DIR)/$(STORE_TEST_TARGET)
+all: $(BIN_DIR)/$(SERVER_TARGET) $(BIN_DIR)/$(CLIENT_TARGET) $(BIN_DIR)/$(AUTH_TEST_TARGET) $(BIN_DIR)/$(STORE_TEST_TARGET) $(BIN_DIR)/$(ORDER_TEST_TARGET)
 
 $(BIN_DIR)/$(SERVER_TARGET): $(SERVER_OBJ) $(AUTH_OBJ) $(COMMON_OBJS) | $(BIN_DIR)
 	$(CC) -o $@ $^ $(LDFLAGS)
@@ -48,6 +51,9 @@ $(BIN_DIR)/$(AUTH_TEST_TARGET): $(AUTH_TEST_DRIVER_OBJ) $(AUTH_OBJ) | $(BIN_DIR)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 $(BIN_DIR)/$(STORE_TEST_TARGET): $(STORE_TEST_DRIVER_OBJ) $(STORE_OBJ) | $(BIN_DIR)
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+$(BIN_DIR)/$(ORDER_TEST_TARGET): $(ORDER_TEST_DRIVER_OBJ) $(ORDER_OBJ) | $(BIN_DIR)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 # --- Compilation Rules ---
@@ -81,6 +87,10 @@ test-auth: $(BIN_DIR)/$(AUTH_TEST_TARGET)
 test-store: $(BIN_DIR)/$(STORE_TEST_TARGET)
 	@echo "\nRunning Store Tests..."
 	@./$(BIN_DIR)/$(STORE_TEST_TARGET)
+
+test-order: $(BIN_DIR)/$(ORDER_TEST_TARGET)
+	@echo "\nRunning Order Tests..."
+	@./$(BIN_DIR)/$(ORDER_TEST_TARGET)
     
 run-server: $(BIN_DIR)/$(SERVER_TARGET)
 	./$(BIN_DIR)/$(SERVER_TARGET)
@@ -94,7 +104,10 @@ run-auth: $(BIN_DIR)/$(AUTH_TEST_TARGET)
 run-store: $(BIN_DIR)/$(STORE_TEST_TARGET)
 	./$(BIN_DIR)/$(STORE_TEST_TARGET)
 
+run-order: $(BIN_DIR)/$(ORDER_TEST_TARGET)
+	./$(BIN_DIR)/$(ORDER_TEST_TARGET)
+
 sem-clean:
 	rm -f /dev/shm/sem.store_lock
 
-.PHONY: all clean test run-server run-client run-auth run-store sem-clean
+.PHONY: all clean test run-server run-client run-auth run-store run-order sem-clean

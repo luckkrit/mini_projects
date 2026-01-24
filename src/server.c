@@ -6,25 +6,115 @@
 #include <sys/stat.h> /* For mode constants like 0644 */
 
 
-CommandEntry commandTable[] = {
-    {"BUY", handleBuy},
-    {"VIEW", handleView},
-    {"LOGIN", handleLogin},
-    {NULL, NULL} // Sentinel to mark the end
-};
+
 
 SOCKET socket_listen = -1;
 Store *store = NULL;
 UserSessions *user = NULL;
+Cart *cart = NULL;
+Order *order = NULL;
 sem_t *sem = NULL;
+const char *adminUser = "admin";
+const char *adminPwd = "admin";
 
-void handleBuy(UserSessions *user,Store *store, SOCKET client, char *saveptr) {
-  char *sessionId = strtok_r(NULL, " ", &saveptr);
-  char *productId = strtok_r(NULL, " ", &saveptr);
-  char *qtyStr = strtok_r(NULL, " ", &saveptr);
-  char response[255];
+void handleRegisterMember(CommandContext *ctx){
+  
+  char *username = strtok_r(NULL, COMMAND_SEPARATOR, &ctx->rawInput);
+  char *password = strtok_r(NULL, COMMAND_SEPARATOR, &ctx->rawInput);
+  
+  char response[MESSAGE_SIZE];
+
+  
+
+    if (username && password) {
+        // 1. Wait for the lock (Block if another process is buying)
+        sem_wait(sem);
+        
+
+        // 2. CRITICAL SECTION: Only one process can be here at a time
+        int result = registerUser(ctx->sessions, username, password,0);
+        // 3. Release the lock
+        sem_post(sem);
+        if(result==0){
+          snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_REGISTER_MEMBER, COMMAND_SEPARATOR, STATUS_OK);
+          send(ctx->clientSocket, response, strlen(response), 0);
+        }
+        else if(result==2){
+          snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_REGISTER_MEMBER, COMMAND_SEPARATOR, STATUS_DUPLICATE_USER);
+          send(ctx->clientSocket, response, strlen(response), 0);
+        }
+        else{
+          snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_REGISTER_MEMBER, COMMAND_SEPARATOR,STATUS_FAIL);
+          send(ctx->clientSocket, response, strlen(response), 0);  
+        }
+        
+      } else {
+        snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_REGISTER_MEMBER, COMMAND_SEPARATOR,STATUS_INVALID_ARGUMENTS);
+        send(ctx->clientSocket, response, strlen(response), 0);
+      }
+  
+}
+
+void handleViewMember(CommandContext *ctx){
+  char response[MESSAGE_SIZE+GET_USER_SIZE];
+  sem_wait(sem);
+      
+  // 1. CRITICAL SECTION: Only one process can be here at a time
+  char userDetails[GET_USER_SIZE]; 
+  getUser(ctx->sessions, userDetails, GET_USER_SIZE);
+  
+
+  // 2. Release the lock
+  sem_post(sem);
+  snprintf(response, sizeof(response), "%s%s%d%s%s\n", COMMAND_VIEW_MEMBER, COMMAND_SEPARATOR, STATUS_OK, COMMAND_SEPARATOR, userDetails);
+  send(ctx->clientSocket, response, strlen(response), 0);
+}
+
+void handleSearchProduct(CommandContext *ctx){
+  char response[MESSAGE_SIZE+GET_STORE_SIZE];
+  char *productId = strtok_r(NULL, COMMAND_SEPARATOR, &ctx->rawInput);
+  if(productId==NULL){
+    snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_SEARCH_PRODUCT,COMMAND_SEPARATOR,STATUS_INVALID_ARGUMENTS);
+    send(ctx->clientSocket, response, strlen(response), 0);
+  }else{
+    
+    sem_wait(sem);
+        
+    // 1. CRITICAL SECTION: Only one process can be here at a time
+    char storeDetails[GET_STORE_SIZE]; 
+    getStore(ctx->store, storeDetails, GET_STORE_SIZE);
+    
+    // 2. Release the lock
+    sem_post(sem);
+    snprintf(response, sizeof(response), "%s%s%d%s%s\n", COMMAND_SEARCH_PRODUCT, COMMAND_SEPARATOR, STATUS_OK,COMMAND_SEPARATOR, storeDetails);
+    send(ctx->clientSocket, response, strlen(response), 0);
+  }
+  
+}
+
+void handleViewProduct(CommandContext *ctx){
+  char response[MESSAGE_SIZE+GET_STORE_SIZE];
+  sem_wait(sem);
+      
+  // 1. CRITICAL SECTION: Only one process can be here at a time
+  char storeDetails[GET_STORE_SIZE]; 
+  getStore(ctx->store, storeDetails, GET_STORE_SIZE);
+  
+  // 2. Release the lock
+  sem_post(sem);
+  snprintf(response, sizeof(response), "%s%s%d%s%s\n", COMMAND_VIEW_PRODUCT, COMMAND_SEPARATOR, STATUS_OK,COMMAND_SEPARATOR, storeDetails);
+  send(ctx->clientSocket, response, strlen(response), 0);
+}
+
+void handleUpdateProduct(CommandContext *ctx){
+  char *sessionId = strtok_r(NULL, COMMAND_SEPARATOR, &ctx->rawInput);
+  char *productId = strtok_r(NULL, COMMAND_SEPARATOR, &ctx->rawInput);
+  char *productTitle = strtok_r(NULL, COMMAND_SEPARATOR, &ctx->rawInput);
+  char *priceStr = strtok_r(NULL, COMMAND_SEPARATOR, &ctx->rawInput);
+  char *qtyStr = strtok_r(NULL, COMMAND_SEPARATOR, &ctx->rawInput);
+  char response[MESSAGE_SIZE];
   char *endptr;
-  long unsigned sessionId2 = strtoul(sessionId,endptr, 10); // base 10
+  long unsigned sessionId2 = strtoul(sessionId,&endptr, 10); // base 10
   if (*endptr != '\0' && *endptr != '\n' && *endptr != '\r') {
     // This catches if the string contained letters or symbols
     printf("Warning: Partial conversion. Ended at: %s\n", endptr);
@@ -32,44 +122,40 @@ void handleBuy(UserSessions *user,Store *store, SOCKET client, char *saveptr) {
   printf("SessionId: %s %lu\n",sessionId, sessionId2);
   User *luser = getUserBySession(user, sessionId2);
   if(luser==NULL){
-        sprintf(response, "BUY 2\n");
-        
-        send(client, response, strlen(response), 0);
+        snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_UPDATE_PRODUCT, COMMAND_SEPARATOR, STATUS_INVALID_SESSION);
+        send(ctx->clientSocket, response, strlen(response), 0);
   }else{
-    if (productId && qtyStr) {
+    if (productId && productTitle && qtyStr && priceStr) {
         // 1. Wait for the lock (Block if another process is buying)
         sem_wait(sem);
-        sprintf(response, "BUY 0\n");
+        snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_UPDATE_PRODUCT, COMMAND_SEPARATOR, STATUS_OK);
 
         // 2. CRITICAL SECTION: Only one process can be here at a time
-        int result = updateStore(store, productId, atoi(qtyStr));
+        int result = updateStore(store, productId, productTitle, atof(priceStr), atoi(qtyStr));
         saveStore(store, STORE_FILENAME);
         // 3. Release the lock
         sem_post(sem);
         if(result==0){
-          send(client, response, strlen(response), 0);
+          send(ctx->clientSocket, response, strlen(response), 0);
         }else{
-          sprintf(response, "BUY 2\n");
-          send(client, response, strlen(response), 0);  
+          snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_UPDATE_PRODUCT,COMMAND_SEPARATOR,STATUS_FAIL);
+          send(ctx->clientSocket, response, strlen(response), 0);  
         }
         
       } else {
-        sprintf(response, "BUY 1\n");
-        send(client, response, strlen(response), 0);
+        snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_UPDATE_PRODUCT,COMMAND_SEPARATOR,STATUS_INVALID_ARGUMENTS);
+        send(ctx->clientSocket, response, strlen(response), 0);
       }
   }
-
 }
 
-void handleView(UserSessions *user,Store *store, SOCKET client, char *saveptr) {
-  // Logic for viewing store...
-  send(client, "VIEW_SUCCESS", 12, 0);
-}
-void handleLogin(UserSessions *user, Store *store, SOCKET client, char *saveptr) {
+
+
+void handleLogin(CommandContext *ctx) {
   // printf("line: %s\n", saveptr);
-  char *username = strtok_r(NULL, " ", &saveptr);
-  char *password = strtok_r(NULL, " ", &saveptr);
-  char response[255];
+  char *username = strtok_r(NULL, COMMAND_SEPARATOR, &ctx->rawInput);
+  char *password = strtok_r(NULL, COMMAND_SEPARATOR, &ctx->rawInput);
+  char response[MESSAGE_SIZE];
 
  
   if (username && password) {
@@ -77,43 +163,94 @@ void handleLogin(UserSessions *user, Store *store, SOCKET client, char *saveptr)
     User *luser = loginUser(user, username, password);
 
     if(luser!=NULL){
-      sprintf(response,"LOGIN 0 %lu", luser->sessionID);
-      send(client, response, strlen(response), 0);
+      snprintf(response, sizeof(response), "%s%s%d%lu\n", COMMAND_LOGIN,COMMAND_SEPARATOR, STATUS_OK, luser->sessionID);
+      send(ctx->clientSocket, response, strlen(response), 0);
     }else{
-      sprintf(response,"LOGIN 1");
-      send(client, response, strlen(response), 0);
+      snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_LOGIN,COMMAND_SEPARATOR, STATUS_FAIL);
+      send(ctx->clientSocket, response, strlen(response), 0);
     }
     
     
   }else{
-    sprintf(response,"LOGIN 1");
-    send(client, response, strlen(response), 0);
-  }
-  
-  
+    snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_LOGIN,COMMAND_SEPARATOR, STATUS_INVALID_ARGUMENTS);
+    send(ctx->clientSocket, response, strlen(response), 0);
+  } 
 }
-int handleClient(UserSessions *user,Store *store, SOCKET socket_client, char *read) {
+
+void handleLogout(CommandContext *ctx){
+  // printf("line: %s\n", saveptr);
+  char *sessionId = strtok_r(NULL, COMMAND_SEPARATOR, &ctx->rawInput);
+  char response[MESSAGE_SIZE];
+  char *endptr;
+  long unsigned sessionId2 = strtoul(sessionId,&endptr, 10); // base 10
+  if (*endptr != '\0' && *endptr != '\n' && *endptr != '\r') {
+    // This catches if the string contained letters or symbols
+    printf("Warning: Partial conversion. Ended at: %s\n", endptr);
+  }
+  printf("SessionId: %s %lu\n",sessionId, sessionId2);
+  User *luser = getUserBySession(user, sessionId2);
+  if(luser==NULL){
+    snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_LOGOUT,COMMAND_SEPARATOR, STATUS_INVALID_SESSION);
+    send(ctx->clientSocket, response, strlen(response), 0);
+  }else{
+    int result = logoutUser(user, luser->username);
+    if(result==0){
+      snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_LOGOUT,COMMAND_SEPARATOR, STATUS_OK);
+      send(ctx->clientSocket, response, strlen(response), 0);
+    }else{
+      snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_LOGOUT,COMMAND_SEPARATOR, STATUS_FAIL);
+      send(ctx->clientSocket, response, strlen(response), 0);  
+    }
+  }
+}
+
+int handleClient(SOCKET socket_client, char *read) {
   // printf("line: %s\n", read);
+  char response[MESSAGE_SIZE];
   char *saveptr;
-  char *commandName = strtok_r(read, " \n\r", &saveptr);
+  char *commandName = strtok_r(read, ",\n\r", &saveptr);
   
   if (commandName == NULL)
     return -1;
+
+  CommandContext ctx = {
+        .store = store,
+        .clientSocket = socket_client,
+        .sessions = user,
+        // .order = order,
+        .rawInput = saveptr,
+  };
+
+  CommandEntry commandTable[] = {
+    {COMMAND_LOGIN, handleLogin},
+    {COMMAND_LOGOUT, handleLogout},
+    {COMMAND_UPDATE_PRODUCT, handleUpdateProduct},
+    {COMMAND_VIEW_PRODUCT, handleViewProduct},
+    {COMMAND_SEARCH_PRODUCT, handleSearchProduct},
+    {COMMAND_VIEW_MEMBER, handleViewMember},
+    {COMMAND_REGISTER_MEMBER, handleRegisterMember},
+    {NULL, NULL} // Sentinel to mark the end
+};
 
   for (int i = 0; commandTable[i].commandName != NULL; i++) {
     if (strcmp(commandName, commandTable[i].commandName) == 0) {
       // Found the command! Execute its function.
       printf("Found command: %s\n", commandName);
-      commandTable[i].handler(user, store, socket_client, saveptr);
+      commandTable[i].handler(&ctx);
       return 0;
     }
   }
-
-  send(socket_client, "ERROR: Unknown Command", 22, 0);
+  snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_UNKNOWN,COMMAND_SEPARATOR, STATUS_UNKNOWN);
+  send(socket_client, response, strlen(response), 0);  
   return -1;
 }
 
 void handle_shutdown(int sig){
+  if (sig == SIGINT) {
+        printf("\nCaught Ctrl+C! Cleaning up...\n");
+    } else if (sig == SIGTERM) {
+        printf("\nTermination request received...\n");
+    }
   // To prevent an infinite loop of signals
   signal(SIGINT, SIG_IGN);
 
@@ -130,6 +267,8 @@ void handle_shutdown(int sig){
   // 2. Kill all child processes in the group
   // Passing 0 as the PID sends the signal to everyone in the process group
   kill(0, SIGTERM); 
+
+  
 
   exit(0);
 }
@@ -149,7 +288,9 @@ int setup(char *port) {
   store = mmap(NULL, sizeof(Store), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1 ,0);
   loadStore(store, STORE_FILENAME);  
   user = mmap(NULL, sizeof(UserSessions), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1 ,0);
-  loadUser(user, USER_FILENAME);
+  if(loadUser(user, USER_FILENAME)==1){
+    registerUser(user, adminUser, adminPwd, 1);        
+  }
 
   struct addrinfo *bind_address;
   getaddrinfo(0, port, &hints, &bind_address);
@@ -223,7 +364,7 @@ int setup(char *port) {
         for (j = 0; j < bytes_received; ++j)
           read[j] = read[j];
 
-        handleClient(user,store, socket_client, read);
+        handleClient(socket_client, read);
         
       }
     }
@@ -239,7 +380,7 @@ int main() {
    
   signal(SIGINT, handle_shutdown);  // Catches CTRL+C
   signal(SIGTERM, handle_shutdown); // Catches kill command
-  setup("3030");
+  setup(SERVER_PORT);
 
   return 0;
 }

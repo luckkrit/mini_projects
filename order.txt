@@ -1,0 +1,2 @@
+Krit,PROD001,40,1
+Krit,PROD002,20,0

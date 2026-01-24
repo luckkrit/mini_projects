@@ -41,8 +41,8 @@ User* getUserBySession(UserSessions *head, unsigned long sid) {
     return NULL;
 }
 
-User* registerUser(UserSessions *head, const char *username, const char *password, bool isAdmin) {
-    if(strlen(password) == 0 || strlen(username) == 0) return NULL;
+int registerUser(UserSessions *head, const char *username, const char *password, bool isAdmin) {
+    if(strlen(password) == 0 || strlen(username) == 0) return 1;
 
     // 1. Check if user already exists
     for(int i=0;i<MAX_USERS;i++){
@@ -52,21 +52,21 @@ User* registerUser(UserSessions *head, const char *username, const char *passwor
             if(strcmp(head->users[i].username, username)==0){
                 
                 printf("Duplicate user\n");
-                return NULL;
+                return 2;
             }            
         }
     }
 
     // 2. Create the new user
     char *hashPwd = hash_password(password);
-    User *newUser = NULL;
+    
     for(int i=0;i<MAX_USERS;i++){
         if(head->users[i].username[0] == '\0'){
             strcpy(head->users[i].username, username);
             strcpy(head->users[i].passwordHash, hashPwd);
             head->users[i].isAdmin = isAdmin;
             head->users[i].isUsed = true;
-            newUser = &head->users[i];
+            
             break;
         }
     }
@@ -74,7 +74,7 @@ User* registerUser(UserSessions *head, const char *username, const char *passwor
     
     // 3. Save and return
     saveUser(head, USER_FILENAME);
-    return newUser;
+    return 0;
 }
 User* loginUser(UserSessions *head, const char *username, const char *password){    
     if(strlen(password) == 0 || strlen(username) == 0) return NULL;
@@ -87,6 +87,18 @@ User* loginUser(UserSessions *head, const char *username, const char *password){
         }
     }
     return NULL;
+}
+
+int logoutUser(UserSessions *head, const char *username){    
+    if(strlen(username) == 0) return 1;
+    
+    for(int i=0;i<MAX_USERS;i++){        
+        if(strcmp(head->users[i].username, username)==0){            
+            head->users[i].sessionID = 0;
+            return 0;
+        }
+    }
+    return 1;
 }
 
 int saveUser(UserSessions *head, char *fileName){
@@ -153,4 +165,34 @@ int loadUser(UserSessions *head, char *fileName){
     flock(fd, LOCK_UN);
     fclose(file_ptr);
     return 0;
+}
+char* getUser(UserSessions *head,char *output, size_t outputSize){
+
+    // 1. Initialize the buffer properly
+    output[0] = '\0';
+    strncat(output, "", outputSize - 1);
+
+    char lineBuffer[1000]; // Temporary buffer for each line
+
+    for (int i = 0; i < MAX_USERS; i++)
+    {
+        if (head->users[i].isUsed && !head->users[i].isAdmin)
+        {
+            // 2. Format the line into a temporary buffer
+            snprintf(lineBuffer, sizeof(lineBuffer), "%s|",
+                     head->users[i].username);
+
+            // 3. Check if there is enough space left in 'output' to append
+            if (strlen(output) + strlen(lineBuffer) < outputSize - 1)
+            {
+                
+                strcat(output, lineBuffer);
+            }
+            else
+            {
+                break; // Buffer is full
+            }
+        }
+    }
+    return output;
 }

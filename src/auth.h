@@ -10,6 +10,7 @@
 #define USER_FILENAME "user.txt"
 #define USERNAME_SIZE 50
 #define MAX_USERS 100
+#define GET_USER_SIZE 2048
 
 typedef struct User {
     char username[USERNAME_SIZE];
@@ -28,7 +29,9 @@ char* hash_password(const char *password);
 bool verify_password(const char *password, const char *hash);
 unsigned long generate_session_id(char *username);
 User* getUserBySession(UserSessions *head, unsigned long sid);
-User* registerUser(UserSessions *head,const char *username, const char *password, bool isAdmin);
+int registerUser(UserSessions *head,const char *username, const char *password, bool isAdmin);
 User* loginUser(UserSessions *head, const char *username, const char *password);
+int logoutUser(UserSessions *head, const char *username);
 int saveUser(UserSessions *head, char *fileName);
 int loadUser(UserSessions *user, char *fileName);
+char* getUser(UserSessions *head,char *output, size_t outputSize);
