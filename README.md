@@ -5,8 +5,22 @@ sudo apt update
 sudo apt install netcat-openbsd
 ```
 
-## Test Client
+## Run Server
 
 ```bash
-echo "BUY 1101 1" | nc 127.0.0.1 3030
+make run-server
+```
+
+## Run Client
+
+```bash
+make run-client
+```
+
+## Test API
+
+### View Products
+
+```bash
+echo "VIEW_PRODUCT" | nc 127.0.0.1 3030
 ```
