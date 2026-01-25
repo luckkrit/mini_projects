@@ -1186,7 +1186,7 @@ void showMenu(int userLevel)
         }
         if (!found)
         {
-            showMenu(userLevel);
+            return;
         }
     }
     else if (userLevel == 1)
@@ -1227,7 +1227,7 @@ void showMenu(int userLevel)
         }
         if (!found)
         {
-            showMenu(userLevel);
+            return;
         }
     }
     else
@@ -1265,7 +1265,7 @@ void showMenu(int userLevel)
         }
         if (!found)
         {
-            showMenu(userLevel);
+            return;
         }
     }
 }
