@@ -76,21 +76,31 @@ int registerUser(UserSessions *head, const char *username, const char *password,
     saveUser(head, USER_FILENAME);
     return 0;
 }
-User* loginUser(UserSessions *head, const char *username, const char *password){    
-    if(strlen(password) == 0 || strlen(username) == 0) return NULL;
-    printf("Pasword : %s\n",password);
-    for(int i=0;i<MAX_USERS;i++){
-        
-        if(strcmp(head->users[i].username, username)==0){
-            if(verify_password(password, head->users[i].passwordHash)==1){
+User* loginUser(UserSessions *head, const char *username, const char *password) {    
+    if (strlen(password) == 0 || strlen(username) == 0) return NULL;
+
+    for (int i = 0; i < MAX_USERS; i++) {
+        // --- เพิ่มการเช็คตรงนี้ ---
+        // ตรวจสอบว่าช่อง i นี้มีชื่อผู้ใช้อยู่จริง (ไม่ใช่สตริงว่าง)
+        if (head->users[i].username[0] == '\0') {
+            continue; // ข้ามไปดูช่องถัดไป
+        }
+
+        // เช็คชื่อผู้ใช้
+        if (strcmp(head->users[i].username, username) == 0) {
+            // ถ้าชื่อตรง -> เช็ครหัสผ่าน
+            if (verify_password(password, head->users[i].passwordHash) == 1) {
                 head->users[i].sessionID = generate_session_id(head->users[i].username);
-                return &head->users[i];
-            }else{
-                return NULL;
+                return &head->users[i]; // Login สำเร็จ!
+            } else {
+                // เจอชื่อแล้วแต่รหัสผิด หยุดหาทันทีเพื่อความปลอดภัย
+                return NULL; 
             }
         }
     }
-    return NULL;
+    
+    // วนจนครบ MAX_USERS แล้วไม่เจอชื่อที่ตรงกันเลย
+    return NULL; 
 }
 
 int logoutUser(UserSessions *head, const char *username){    

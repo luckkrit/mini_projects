@@ -162,13 +162,13 @@ void handleSearchProducts()
     // send message
     char sendMessage[SEND_MESSAGE_SIZE];
     char receiveMessage[RECEIVE_MESSAGE_SIZE];
-    sprintf(sendMessage, "%s%s%s\n", COMMAND_SEARCH_PRODUCT, COMMAND_SEPARATOR, productId);
+    snprintf(sendMessage,sizeof(sendMessage), "%s%s%s\n", COMMAND_SEARCH_PRODUCT, COMMAND_SEPARATOR, productId);
     int result = sendData(sendMessage, receiveMessage);
 
     if (result != 0)
     {
         pressEnterToContinue();
-        showMenu(userLevel);
+        
     }
     else
     {
@@ -177,6 +177,11 @@ void handleSearchProducts()
         
         strtok(receiveMessage, ",\n\r");
         char *status_str = strtok(NULL, ",\n\r");
+        if (status_str == NULL) {
+            printf("Error: Server sent an invalid response format.\n");
+            pressEnterToContinue();
+            return; // ออกจากฟังก์ชันทันที ไม่ทำ atoi ต่อ
+        }
         char *products_str = strtok(NULL, ",\n\r");
         int status = atoi(status_str);
         if(products_str==NULL){
@@ -224,7 +229,7 @@ void handleSearchProducts()
         }
         SHOW_MENU:
             pressEnterToContinue();
-            showMenu(userLevel);
+            
     }
 }
 
@@ -233,12 +238,12 @@ void handleViewProducts()
     // send message
     char sendMessage[SEND_MESSAGE_SIZE];
     char receiveMessage[RECEIVE_MESSAGE_SIZE];
-    sprintf(sendMessage, "%s\n", COMMAND_VIEW_PRODUCT);
+    snprintf(sendMessage,sizeof(sendMessage), "%s\n", COMMAND_VIEW_PRODUCT);
     int result = sendData(sendMessage, receiveMessage);
     if (result != 0)
     {
         pressEnterToContinue();
-        showMenu(userLevel);
+        
     }
     else
     {
@@ -247,6 +252,11 @@ void handleViewProducts()
         // receive message
         strtok(receiveMessage, ",\n\r");
         char *status_str = strtok(NULL, ",\n\r");
+        if (status_str == NULL) {
+            printf("Error: Server sent an invalid response format.\n");
+            pressEnterToContinue();
+            return; // ออกจากฟังก์ชันทันที ไม่ทำ atoi ต่อ
+        }
         char *products_str = strtok(NULL, ",\n\r");
         int status = atoi(status_str);
         if(products_str==NULL){
@@ -294,7 +304,7 @@ void handleViewProducts()
         }
         SHOW_MENU:
             pressEnterToContinue();
-            showMenu(userLevel);
+            
     }
 }
 void handleLogin(){
@@ -310,12 +320,12 @@ void handleLogin(){
     // send message
     char sendMessage[SEND_MESSAGE_SIZE];
     char receiveMessage[RECEIVE_MESSAGE_SIZE];
-    sprintf(sendMessage, "%s%s%s%s%s\n", COMMAND_LOGIN,COMMAND_SEPARATOR, username, COMMAND_SEPARATOR, password);
+    snprintf(sendMessage,sizeof(sendMessage), "%s%s%s%s%s\n", COMMAND_LOGIN,COMMAND_SEPARATOR, username, COMMAND_SEPARATOR, password);
     int result = sendData(sendMessage, receiveMessage);
     if (result != 0)
     {
         pressEnterToContinue();
-        showMenu(userLevel);
+        
     }
     else
     {
@@ -326,7 +336,11 @@ void handleLogin(){
         char *status_str = strtok(NULL, ",\n\r");
         sessionId = strtok(NULL, ",\n\r");
         char *isAdmin = strtok(NULL, ",\n\r");
-
+        if (status_str == NULL) {
+            printf("Error: Server sent an invalid response format.\n");
+            pressEnterToContinue();
+            return; // ออกจากฟังก์ชันทันที ไม่ทำ atoi ต่อ
+        }
         int status = atoi(status_str);
         switch (status)
         {
@@ -339,7 +353,7 @@ void handleLogin(){
         }
 
         pressEnterToContinue();
-        showMenu(userLevel);
+        
     }
 
 }
@@ -357,12 +371,12 @@ void handleRegister(){
     // send message
     char sendMessage[SEND_MESSAGE_SIZE];
     char receiveMessage[RECEIVE_MESSAGE_SIZE];
-    sprintf(sendMessage, "%s%s%s%s%s\n", COMMAND_REGISTER_MEMBER,COMMAND_SEPARATOR, username, COMMAND_SEPARATOR, password);
+    snprintf(sendMessage,sizeof(sendMessage), "%s%s%s%s%s\n", COMMAND_REGISTER_MEMBER,COMMAND_SEPARATOR, username, COMMAND_SEPARATOR, password);
     int result = sendData(sendMessage, receiveMessage);
     if (result != 0)
     {
         pressEnterToContinue();
-        showMenu(userLevel);
+        
     }
     else
     {
@@ -371,7 +385,11 @@ void handleRegister(){
         // receive message
         strtok(receiveMessage, ",\n\r");
         char *status_str = strtok(NULL, ",\n\r");
-        
+        if (status_str == NULL) {
+            printf("Error: Server sent an invalid response format.\n");
+            pressEnterToContinue();
+            return; // ออกจากฟังก์ชันทันที ไม่ทำ atoi ต่อ
+        }
         int status = atoi(status_str);
         switch (status)
         {
@@ -383,7 +401,7 @@ void handleRegister(){
         }
 
         pressEnterToContinue();
-        showMenu(userLevel);
+        
     }
 
 }
@@ -408,12 +426,12 @@ void handleAddToCart(){
     // send message
     char sendMessage[SEND_MESSAGE_SIZE];
     char receiveMessage[RECEIVE_MESSAGE_SIZE];
-    sprintf(sendMessage, "%s%s%s%s%s%s%s\n", COMMAND_UPDATE_CART,COMMAND_SEPARATOR, sessionId, COMMAND_SEPARATOR, productId, COMMAND_SEPARATOR, quantity);
+    snprintf(sendMessage,sizeof(sendMessage), "%s%s%s%s%s%s%s\n", COMMAND_UPDATE_CART,COMMAND_SEPARATOR, sessionId, COMMAND_SEPARATOR, productId, COMMAND_SEPARATOR, quantity);
     int result = sendData(sendMessage, receiveMessage);
     if (result != 0)
     {
         pressEnterToContinue();
-        showMenu(userLevel);
+        
     }
     else
     {
@@ -422,7 +440,11 @@ void handleAddToCart(){
         // receive message
         strtok(receiveMessage, ",\n\r");
         char *status_str = strtok(NULL, ",\n\r");
-        
+        if (status_str == NULL) {
+            printf("Error: Server sent an invalid response format.\n");
+            pressEnterToContinue();
+            return; // ออกจากฟังก์ชันทันที ไม่ทำ atoi ต่อ
+        }
         int status = atoi(status_str);
         switch (status)
         {
@@ -434,7 +456,7 @@ void handleAddToCart(){
         }
         SHOW_MENU:
             pressEnterToContinue();
-            showMenu(userLevel);
+        
     }
 }
 void handleViewCart(){
@@ -445,13 +467,13 @@ void handleViewCart(){
     // send message
     char sendMessage[SEND_MESSAGE_SIZE];
     char receiveMessage[RECEIVE_MESSAGE_SIZE];
-    sprintf(sendMessage, "%s%s%s\n", COMMAND_VIEW_CART, COMMAND_SEPARATOR, sessionId);
+    snprintf(sendMessage,sizeof(sendMessage), "%s%s%s\n", COMMAND_VIEW_CART, COMMAND_SEPARATOR, sessionId);
     int result = sendData(sendMessage, receiveMessage);
 
     if (result != 0)
     {
         pressEnterToContinue();
-        showMenu(userLevel);
+        
     }
     else
     {
@@ -461,6 +483,11 @@ void handleViewCart(){
         strtok(receiveMessage, ",\n\r");
         char *status_str = strtok(NULL, ",\n\r");
         char *carts_str = strtok(NULL, ",\n\r");
+        if (status_str == NULL) {
+            printf("Error: Server sent an invalid response format.\n");
+            pressEnterToContinue();
+            return; // ออกจากฟังก์ชันทันที ไม่ทำ atoi ต่อ
+        }
         int status = atoi(status_str);
         if(carts_str==NULL){
             printf("Empty cart!\n");
@@ -507,7 +534,7 @@ void handleViewCart(){
         }
         SHOW_MENU:
             pressEnterToContinue();
-            showMenu(userLevel);
+            
     }
 }
 void handleRemoveCart(){
@@ -530,18 +557,18 @@ void handleRemoveCart(){
     int qty = atoi(quantity);
     if(qty>0){
         quantity[0] = '\0';
-        sprintf(quantity, "%d", -qty);
+        snprintf(quantity,sizeof(quantity), "%d", -qty);
     }
 
     // send message
     char sendMessage[SEND_MESSAGE_SIZE];
     char receiveMessage[RECEIVE_MESSAGE_SIZE];
-    sprintf(sendMessage, "%s%s%s%s%s%s%s\n", COMMAND_UPDATE_CART,COMMAND_SEPARATOR, sessionId, COMMAND_SEPARATOR, productId, COMMAND_SEPARATOR, quantity);
+    snprintf(sendMessage,sizeof(sendMessage), "%s%s%s%s%s%s%s\n", COMMAND_UPDATE_CART,COMMAND_SEPARATOR, sessionId, COMMAND_SEPARATOR, productId, COMMAND_SEPARATOR, quantity);
     int result = sendData(sendMessage, receiveMessage);
     if (result != 0)
     {
         pressEnterToContinue();
-        showMenu(userLevel);
+        
     }
     else
     {
@@ -550,7 +577,11 @@ void handleRemoveCart(){
         // receive message
         strtok(receiveMessage, ",\n\r");
         char *status_str = strtok(NULL, ",\n\r");
-        
+        if (status_str == NULL) {
+            printf("Error: Server sent an invalid response format.\n");
+            pressEnterToContinue();
+            return; // ออกจากฟังก์ชันทันที ไม่ทำ atoi ต่อ
+        }
         int status = atoi(status_str);
         switch (status)
         {
@@ -562,7 +593,7 @@ void handleRemoveCart(){
         }
         SHOW_MENU:
             pressEnterToContinue();
-            showMenu(userLevel);
+            
     }
 }
 void handleCheckoutCart()
@@ -581,12 +612,12 @@ void handleCheckoutCart()
     // send message
     char sendMessage[SEND_MESSAGE_SIZE];
     char receiveMessage[RECEIVE_MESSAGE_SIZE];
-    sprintf(sendMessage, "%s%s%s%s%s\n", COMMAND_CHECKOUT_CART,COMMAND_SEPARATOR, sessionId, COMMAND_SEPARATOR, productId);
+    snprintf(sendMessage,sizeof(sendMessage), "%s%s%s%s%s\n", COMMAND_CHECKOUT_CART,COMMAND_SEPARATOR, sessionId, COMMAND_SEPARATOR, productId);
     int result = sendData(sendMessage, receiveMessage);
     if (result != 0)
     {
         pressEnterToContinue();
-        showMenu(userLevel);
+        
     }
     else
     {
@@ -595,7 +626,11 @@ void handleCheckoutCart()
         // receive message
         strtok(receiveMessage, ",\n\r");
         char *status_str = strtok(NULL, ",\n\r");
-        
+        if (status_str == NULL) {
+            printf("Error: Server sent an invalid response format.\n");
+            pressEnterToContinue();
+            return; // ออกจากฟังก์ชันทันที ไม่ทำ atoi ต่อ
+        }
         int status = atoi(status_str);
         switch (status)
         {
@@ -607,7 +642,7 @@ void handleCheckoutCart()
         }
         SHOW_MENU:
             pressEnterToContinue();
-            showMenu(userLevel);
+            
     }
 }
 void handleViewOrder(){
@@ -618,13 +653,13 @@ void handleViewOrder(){
     // send message
     char sendMessage[SEND_MESSAGE_SIZE];
     char receiveMessage[RECEIVE_MESSAGE_SIZE];
-    sprintf(sendMessage, "%s%s%s\n", COMMAND_VIEW_ORDER, COMMAND_SEPARATOR, sessionId);
+    snprintf(sendMessage,sizeof(sendMessage), "%s%s%s\n", COMMAND_VIEW_ORDER, COMMAND_SEPARATOR, sessionId);
     int result = sendData(sendMessage, receiveMessage);
 
     if (result != 0)
     {
         pressEnterToContinue();
-        showMenu(userLevel);
+        
     }
     else
     {
@@ -633,6 +668,11 @@ void handleViewOrder(){
         
         strtok(receiveMessage, ",\n\r");
         char *status_str = strtok(NULL, ",\n\r");
+        if (status_str == NULL) {
+            printf("Error: Server sent an invalid response format.\n");
+            pressEnterToContinue();
+            return; // ออกจากฟังก์ชันทันที ไม่ทำ atoi ต่อ
+        }
         char *orders_str = strtok(NULL, ",\n\r");
         int status = atoi(status_str);
         if(orders_str==NULL){
@@ -680,7 +720,7 @@ void handleViewOrder(){
         }
         SHOW_MENU:
             pressEnterToContinue();
-            showMenu(userLevel);
+        
     }
 }
 void handleMemberLogout(){
@@ -688,12 +728,12 @@ void handleMemberLogout(){
     // send message
     char sendMessage[SEND_MESSAGE_SIZE];
     char receiveMessage[RECEIVE_MESSAGE_SIZE];
-    sprintf(sendMessage, "%s%s%s\n", COMMAND_LOGOUT,COMMAND_SEPARATOR, sessionId);
+    snprintf(sendMessage,sizeof(sendMessage), "%s%s%s\n", COMMAND_LOGOUT,COMMAND_SEPARATOR, sessionId);
     int result = sendData(sendMessage, receiveMessage);
     if (result != 0)
     {
         pressEnterToContinue();
-        showMenu(userLevel);
+        
     }
     else
     {
@@ -702,7 +742,11 @@ void handleMemberLogout(){
         // receive message
         strtok(receiveMessage, ",\n\r");
         char *status_str = strtok(NULL, ",\n\r");
-
+        if (status_str == NULL) {
+            printf("Error: Server sent an invalid response format.\n");
+            pressEnterToContinue();
+            return; // ออกจากฟังก์ชันทันที ไม่ทำ atoi ต่อ
+        }
         int status = atoi(status_str);
         switch (status)
         {
@@ -717,7 +761,7 @@ void handleMemberLogout(){
         }
 
         pressEnterToContinue();
-        showMenu(userLevel);
+        
     }
 
 }
@@ -748,12 +792,12 @@ void handleAddProduct(){
     // send message
     char sendMessage[SEND_MESSAGE_SIZE];
     char receiveMessage[RECEIVE_MESSAGE_SIZE];
-    sprintf(sendMessage, "%s%s%s%s%s%s%s%s%s%s%s\n", COMMAND_ADD_PRODUCT,COMMAND_SEPARATOR, sessionId, COMMAND_SEPARATOR, productId,COMMAND_SEPARATOR,productTitle, COMMAND_SEPARATOR,price,COMMAND_SEPARATOR, quantity);
+    snprintf(sendMessage,sizeof(sendMessage), "%s%s%s%s%s%s%s%s%s%s%s\n", COMMAND_ADD_PRODUCT,COMMAND_SEPARATOR, sessionId, COMMAND_SEPARATOR, productId,COMMAND_SEPARATOR,productTitle, COMMAND_SEPARATOR,price,COMMAND_SEPARATOR, quantity);
     int result = sendData(sendMessage, receiveMessage);
     if (result != 0)
     {
         pressEnterToContinue();
-        showMenu(userLevel);
+        
     }
     else
     {
@@ -762,7 +806,11 @@ void handleAddProduct(){
         // receive message
         strtok(receiveMessage, ",\n\r");
         char *status_str = strtok(NULL, ",\n\r");
-        
+        if (status_str == NULL) {
+            printf("Error: Server sent an invalid response format.\n");
+            pressEnterToContinue();
+            return; // ออกจากฟังก์ชันทันที ไม่ทำ atoi ต่อ
+        }
         int status = atoi(status_str);
         switch (status)
         {
@@ -774,7 +822,7 @@ void handleAddProduct(){
         }
         SHOW_MENU:
             pressEnterToContinue();
-            showMenu(userLevel);
+        
     }
 }
 void handleUpdateProduct(){
@@ -816,12 +864,12 @@ void handleUpdateProduct(){
     // send message
     char sendMessage[SEND_MESSAGE_SIZE];
     char receiveMessage[RECEIVE_MESSAGE_SIZE];
-    sprintf(sendMessage, "%s%s%s%s%s%s%s%s%s%s%s\n", COMMAND_UPDATE_PRODUCT,COMMAND_SEPARATOR, sessionId, COMMAND_SEPARATOR, productId,COMMAND_SEPARATOR,productTitle, COMMAND_SEPARATOR,price,COMMAND_SEPARATOR, quantity);
+    snprintf(sendMessage,sizeof(sendMessage), "%s%s%s%s%s%s%s%s%s%s%s\n", COMMAND_UPDATE_PRODUCT,COMMAND_SEPARATOR, sessionId, COMMAND_SEPARATOR, productId,COMMAND_SEPARATOR,productTitle, COMMAND_SEPARATOR,price,COMMAND_SEPARATOR, quantity);
     int result = sendData(sendMessage, receiveMessage);
     if (result != 0)
     {
         pressEnterToContinue();
-        showMenu(userLevel);
+        
     }
     else
     {
@@ -830,7 +878,11 @@ void handleUpdateProduct(){
         // receive message
         strtok(receiveMessage, ",\n\r");
         char *status_str = strtok(NULL, ",\n\r");
-        
+        if (status_str == NULL) {
+            printf("Error: Server sent an invalid response format.\n");
+            pressEnterToContinue();
+            return; // ออกจากฟังก์ชันทันที ไม่ทำ atoi ต่อ
+        }
         int status = atoi(status_str);
         switch (status)
         {
@@ -842,7 +894,7 @@ void handleUpdateProduct(){
         }
         SHOW_MENU:
             pressEnterToContinue();
-            showMenu(userLevel);
+        
     }
 }
 void handleRemoveProducts(){
@@ -861,12 +913,12 @@ void handleRemoveProducts(){
     // send message
     char sendMessage[SEND_MESSAGE_SIZE];
     char receiveMessage[RECEIVE_MESSAGE_SIZE];
-    sprintf(sendMessage, "%s%s%s%s%s\n", COMMAND_REMOVE_PRODUCT,COMMAND_SEPARATOR, sessionId, COMMAND_SEPARATOR, productId);
+    snprintf(sendMessage,sizeof(sendMessage), "%s%s%s%s%s\n", COMMAND_REMOVE_PRODUCT,COMMAND_SEPARATOR, sessionId, COMMAND_SEPARATOR, productId);
     int result = sendData(sendMessage, receiveMessage);
     if (result != 0)
     {
         pressEnterToContinue();
-        showMenu(userLevel);
+        
     }
     else
     {
@@ -875,7 +927,11 @@ void handleRemoveProducts(){
         // receive message
         strtok(receiveMessage, ",\n\r");
         char *status_str = strtok(NULL, ",\n\r");
-        
+        if (status_str == NULL) {
+            printf("Error: Server sent an invalid response format.\n");
+            pressEnterToContinue();
+            return; // ออกจากฟังก์ชันทันที ไม่ทำ atoi ต่อ
+        }
         int status = atoi(status_str);
         switch (status)
         {
@@ -887,7 +943,7 @@ void handleRemoveProducts(){
         }
         SHOW_MENU:
             pressEnterToContinue();
-            showMenu(userLevel);
+        
     }
 }
 void handleAdminViewOrder(){
@@ -898,13 +954,13 @@ void handleAdminViewOrder(){
     // send message
     char sendMessage[SEND_MESSAGE_SIZE];
     char receiveMessage[RECEIVE_MESSAGE_SIZE];
-    sprintf(sendMessage, "%s%s%s\n", COMMAND_VIEW_ORDER,COMMAND_SEPARATOR,sessionId);
+    snprintf(sendMessage,sizeof(sendMessage), "%s%s%s\n", COMMAND_VIEW_ORDER,COMMAND_SEPARATOR,sessionId);
     int result = sendData(sendMessage, receiveMessage);
 
     if (result != 0)
     {
         pressEnterToContinue();
-        showMenu(userLevel);
+        
     }
     else
     {
@@ -913,6 +969,11 @@ void handleAdminViewOrder(){
         
         strtok(receiveMessage, ",\n\r");
         char *status_str = strtok(NULL, ",\n\r");
+        if (status_str == NULL) {
+            printf("Error: Server sent an invalid response format.\n");
+            pressEnterToContinue();
+            return; // ออกจากฟังก์ชันทันที ไม่ทำ atoi ต่อ
+        }
         char *orders_str = strtok(NULL, ",\n\r");
         int status = atoi(status_str);
         if(orders_str==NULL){
@@ -960,7 +1021,7 @@ void handleAdminViewOrder(){
         }
         SHOW_MENU:
             pressEnterToContinue();
-            showMenu(userLevel);
+        
     }
 }
 void handleAdminViewMember(){
@@ -971,13 +1032,13 @@ void handleAdminViewMember(){
     // send message
     char sendMessage[SEND_MESSAGE_SIZE];
     char receiveMessage[RECEIVE_MESSAGE_SIZE];
-    sprintf(sendMessage, "%s%s%s\n", COMMAND_VIEW_MEMBER, COMMAND_SEPARATOR, sessionId);
+    snprintf(sendMessage,sizeof(sendMessage), "%s%s%s\n", COMMAND_VIEW_MEMBER, COMMAND_SEPARATOR, sessionId);
     int result = sendData(sendMessage, receiveMessage);
 
     if (result != 0)
     {
         pressEnterToContinue();
-        showMenu(userLevel);
+        
     }
     else
     {
@@ -987,6 +1048,11 @@ void handleAdminViewMember(){
         strtok(receiveMessage, ",\n\r");
         char *status_str = strtok(NULL, ",\n\r");
         char *members_str = strtok(NULL, ",\n\r");
+        if (status_str == NULL) {
+            printf("Error: Server sent an invalid response format.\n");
+            pressEnterToContinue();
+            return; // ออกจากฟังก์ชันทันที ไม่ทำ atoi ต่อ
+        }
         int status = atoi(status_str);
         if(members_str==NULL){
             printf("Empty member!\n");
@@ -1028,7 +1094,7 @@ void handleAdminViewMember(){
         }
         SHOW_MENU:
             pressEnterToContinue();
-            showMenu(userLevel);
+        
     }
 }
 void handleAdminLogout(){
@@ -1036,12 +1102,12 @@ void handleAdminLogout(){
     // send message
     char sendMessage[SEND_MESSAGE_SIZE];
     char receiveMessage[RECEIVE_MESSAGE_SIZE];
-    sprintf(sendMessage, "%s%s%s\n", COMMAND_LOGOUT,COMMAND_SEPARATOR, sessionId);
+    snprintf(sendMessage,sizeof(sendMessage), "%s%s%s\n", COMMAND_LOGOUT,COMMAND_SEPARATOR, sessionId);
     int result = sendData(sendMessage, receiveMessage);
     if (result != 0)
     {
         pressEnterToContinue();
-        showMenu(userLevel);
+        
     }
     else
     {
@@ -1050,7 +1116,11 @@ void handleAdminLogout(){
         // receive message
         strtok(receiveMessage, ",\n\r");
         char *status_str = strtok(NULL, ",\n\r");
-
+        if (status_str == NULL) {
+            printf("Error: Server sent an invalid response format.\n");
+            pressEnterToContinue();
+            return; // ออกจากฟังก์ชันทันที ไม่ทำ atoi ต่อ
+        }
         int status = atoi(status_str);
         switch (status)
         {
@@ -1065,7 +1135,7 @@ void handleAdminLogout(){
         }
 
         pressEnterToContinue();
-        showMenu(userLevel);
+        
     }
 
 }
@@ -1202,6 +1272,9 @@ void showMenu(int userLevel)
 
 int main()
 {
-    showMenu(userLevel);
+    while(1){
+        showMenu(userLevel);
+    }
+    
     return 0;
 }
