@@ -31,12 +31,19 @@
 #define CLOSESOCKET(s) close(s)
 #define SOCKET int
 #define GETSOCKETERRNO() (errno)
-
+// ANONYMOUS
 #define MENU_EXIT "0"
 #define MENU_VIEW_PRODUCTS "1"
 #define MENU_SEARCH_PRODUCTS "2"
 #define MENU_LOGIN "3"
 #define MENU_REGISTER "4"
+// MEMBER
+#define MENU_ADD_TO_CART "2"
+#define MENU_VIEW_CART "3"
+#define MENU_REMOVE_CART "4"
+#define MENU_CHECKOUT_CART "5"
+#define MENU_VIEW_ORDER "6"
+#define MENU_MEMBER_LOGOUT "7"
 
 // typedef struct {
 //     char *rawInput;
@@ -57,8 +64,15 @@ void handleLogin();
 void handleRegister();
 
 // MEMBER
+void handleAddToCart();
+void handleViewCart();
+void handleRemoveCart();
+void handleCheckoutCart();
+void handleViewOrder();
+void handleMemberLogout();
 
 void exitApp();
+void getNumericInput(char *buffer, size_t size);
 void getInput(char *input, size_t size);
 void getPassword(char *password, size_t size);
 void showMenu(int userLevel);

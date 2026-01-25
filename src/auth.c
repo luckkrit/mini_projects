@@ -78,12 +78,16 @@ int registerUser(UserSessions *head, const char *username, const char *password,
 }
 User* loginUser(UserSessions *head, const char *username, const char *password){    
     if(strlen(password) == 0 || strlen(username) == 0) return NULL;
-    
+    printf("Pasword : %s\n",password);
     for(int i=0;i<MAX_USERS;i++){
-        char *hashPwd = hash_password(password);    
-        if(strcmp(head->users[i].username, username)==0&&verify_password(password, hashPwd)==1){            
-            head->users[i].sessionID = generate_session_id(head->users[i].username);
-            return &head->users[i];
+        
+        if(strcmp(head->users[i].username, username)==0){
+            if(verify_password(password, head->users[i].passwordHash)==1){
+                head->users[i].sessionID = generate_session_id(head->users[i].username);
+                return &head->users[i];
+            }else{
+                return NULL;
+            }
         }
     }
     return NULL;

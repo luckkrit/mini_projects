@@ -4,13 +4,13 @@ int updateCart(Order *head, char* username, char* productId, int quantity){
 // Search for existing
     for (int i = 0; i < MAX_STOCK; i++)
     {
-        if (head->carts[i].isUsed && strcmp(head->carts[i].productId, productId) == 0)
+        if (head->carts[i].isUsed && strcmp(head->carts[i].productId, productId) == 0 && strcmp(head->carts[i].username, username) == 0)
         {
             if(quantity==DELETE_QUANTITY){
                 return deleteCart(head, username, productId);
             }
             
-            if (head->carts[i].quantity + quantity < 0)
+            if (head->carts[i].quantity + quantity <= 0)
                 return deleteCart(head, username, productId);
 
             
@@ -191,8 +191,9 @@ int checkoutCart(Order *head, char* username, char* productId){
     }
     return 1;
 }
-void getOrder(Order *order, char *output, size_t outputSize, int checkout)
+void getOrder(Order *order,char *username, char *output, size_t outputSize, int checkout)
 {
+    printf("username = %s\n",username);
     // 1. Initialize the buffer properly
     output[0] = '\0';
     strncat(output, "", outputSize - 1);
@@ -201,8 +202,23 @@ void getOrder(Order *order, char *output, size_t outputSize, int checkout)
 
     for (int i = 0; i < MAX_STOCK; i++)
     {
-        if (order->carts[i].isUsed && order->carts[i].checkout == checkout)
+        if (order->carts[i].isUsed && order->carts[i].checkout == checkout && strcmp(order->carts[i].username,username)==0)
         {
+            // 2. Format the line into a temporary buffer
+            snprintf(lineBuffer, sizeof(lineBuffer), "%s-%s-%d-%d|",
+                     order->carts[i].username, order->carts[i].productId, order->carts[i].quantity, order->carts[i].checkout);
+
+            // 3. Check if there is enough space left in 'output' to append
+            if (strlen(output) + strlen(lineBuffer) < outputSize - 1)
+            {
+                
+                strcat(output, lineBuffer);
+            }
+            else
+            {
+                break; // Buffer is full
+            }
+        }else if(order->carts[i].isUsed && order->carts[i].checkout == checkout && strcmp(order->carts[i].username,ALL_USERS)==0){
             // 2. Format the line into a temporary buffer
             snprintf(lineBuffer, sizeof(lineBuffer), "%s-%s-%d-%d|",
                      order->carts[i].username, order->carts[i].productId, order->carts[i].quantity, order->carts[i].checkout);

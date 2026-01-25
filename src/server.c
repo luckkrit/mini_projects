@@ -16,32 +16,85 @@ const char *adminPwd = "admin";
 
 void handleViewOrder(CommandContext *ctx)
 {
+  char *sessionId = strtok_r(NULL, COMMAND_SEPARATOR, &ctx->rawInput);
   char response[MESSAGE_SIZE + GET_CART_ORDER_SIZE];
-  sem_wait(sem);
+  char *endptr;
+  long unsigned sessionId2 = strtoul(sessionId, &endptr, 10); // base 10
+  if (*endptr != '\0' && *endptr != '\n' && *endptr != '\r')
+  {
+    // This catches if the string contained letters or symbols
+    printf("Warning: Partial conversion. Ended at: %s\n", endptr);
+  }
+  printf("SessionId: %s %lu\n", sessionId, sessionId2);
+  User *luser = getUserBySession(ctx->sessions, sessionId2);
+  if (luser == NULL)
+  {
+    sem_wait(sem);
 
-  // 1. CRITICAL SECTION: Only one process can be here at a time
-  char orderDetails[GET_USER_SIZE];
-  getOrder(ctx->order, orderDetails, GET_CART_ORDER_SIZE, 1);
+    // 1. CRITICAL SECTION: Only one process can be here at a time
+    char orderDetails[GET_USER_SIZE];
+    getOrder(ctx->order,ALL_USERS, orderDetails, GET_CART_ORDER_SIZE, 1);
 
-  // 2. Release the lock
-  sem_post(sem);
-  snprintf(response, sizeof(response), "%s%s%d%s%s\n", COMMAND_VIEW_ORDER, COMMAND_SEPARATOR, STATUS_OK, COMMAND_SEPARATOR, orderDetails);
-  send(ctx->clientSocket, response, strlen(response), 0);
+    // 2. Release the lock
+    sem_post(sem);
+    snprintf(response, sizeof(response), "%s%s%d%s%s\n", COMMAND_VIEW_ORDER, COMMAND_SEPARATOR, STATUS_OK, COMMAND_SEPARATOR, orderDetails);
+    send(ctx->clientSocket, response, strlen(response), 0);
+  }
+  else
+  {
+    sem_wait(sem);
+
+    // 1. CRITICAL SECTION: Only one process can be here at a time
+    char orderDetails[GET_USER_SIZE];
+    getOrder(ctx->order,luser->username, orderDetails, GET_CART_ORDER_SIZE, 1);
+
+    // 2. Release the lock
+    sem_post(sem);
+    snprintf(response, sizeof(response), "%s%s%d%s%s\n", COMMAND_VIEW_ORDER, COMMAND_SEPARATOR, STATUS_OK, COMMAND_SEPARATOR, orderDetails);
+    send(ctx->clientSocket, response, strlen(response), 0);
+  }
 }
 
 void handleViewCart(CommandContext *ctx)
 {
+
+  char *sessionId = strtok_r(NULL, COMMAND_SEPARATOR, &ctx->rawInput);
   char response[MESSAGE_SIZE + GET_CART_ORDER_SIZE];
-  sem_wait(sem);
+  char *endptr;
+  long unsigned sessionId2 = strtoul(sessionId, &endptr, 10); // base 10
+  if (*endptr != '\0' && *endptr != '\n' && *endptr != '\r')
+  {
+    // This catches if the string contained letters or symbols
+    printf("Warning: Partial conversion. Ended at: %s\n", endptr);
+  }
+  printf("SessionId: %s %lu\n", sessionId, sessionId2);
+  User *luser = getUserBySession(ctx->sessions, sessionId2);
+  if (luser == NULL)
+  {
+    sem_wait(sem);
 
-  // 1. CRITICAL SECTION: Only one process can be here at a time
-  char cartDetails[GET_USER_SIZE];
-  getOrder(ctx->order, cartDetails, GET_CART_ORDER_SIZE, 0);
+    // 1. CRITICAL SECTION: Only one process can be here at a time
+    char cartDetails[GET_USER_SIZE];
+    getOrder(ctx->order, ALL_USERS, cartDetails, GET_CART_ORDER_SIZE, 0);
 
-  // 2. Release the lock
-  sem_post(sem);
-  snprintf(response, sizeof(response), "%s%s%d%s%s\n", COMMAND_VIEW_CART, COMMAND_SEPARATOR, STATUS_OK, COMMAND_SEPARATOR, cartDetails);
-  send(ctx->clientSocket, response, strlen(response), 0);
+    // 2. Release the lock
+    sem_post(sem);
+    snprintf(response, sizeof(response), "%s%s%d%s%s\n", COMMAND_VIEW_CART, COMMAND_SEPARATOR, STATUS_OK, COMMAND_SEPARATOR, cartDetails);
+    send(ctx->clientSocket, response, strlen(response), 0);
+  }
+  else
+  {
+    sem_wait(sem);
+
+    // 1. CRITICAL SECTION: Only one process can be here at a time
+    char cartDetails[GET_USER_SIZE];
+    getOrder(ctx->order, luser->username, cartDetails, GET_CART_ORDER_SIZE, 0);
+
+    // 2. Release the lock
+    sem_post(sem);
+    snprintf(response, sizeof(response), "%s%s%d%s%s\n", COMMAND_VIEW_CART, COMMAND_SEPARATOR, STATUS_OK, COMMAND_SEPARATOR, cartDetails);
+    send(ctx->clientSocket, response, strlen(response), 0);
+  }
 }
 
 void handleCheckoutCart(CommandContext *ctx)
@@ -67,12 +120,11 @@ void handleCheckoutCart(CommandContext *ctx)
   {
     if (productId)
     {
-      
+
       // 1. Wait for the lock (Block if another process is buying)
       sem_wait(sem);
 
-
-      printf("Product ID: %s\n",productId);
+      printf("Product ID: %s\n", productId);
       // 2. CRITICAL SECTION: Only one process can be here at a time
       int result = checkoutCart(ctx->order, luser->username, productId);
       int result2 = saveOrder(ctx->order, ORDER_FILENAME);
@@ -187,6 +239,29 @@ void handleUpdateCart(CommandContext *ctx)
         send(ctx->clientSocket, response, strlen(response), 0);
       }
     }
+    else if (productId && qtyStr && atoi(qtyStr) < 0)
+    {
+      // 1. Wait for the lock (Block if another process is buying)
+      sem_wait(sem);
+
+      // 2. CRITICAL SECTION: Only one process can be here at a time
+      int result = updateStore(ctx->store, productId, IGNORE_UPDATE_TITLE, IGNORE_UPDATE_PRICE,-1 *  atoi(qtyStr));
+      int result2 = updateCart(ctx->order, luser->username, productId, atoi(qtyStr));
+      int result3 = saveOrder(ctx->order, ORDER_FILENAME);
+      int result4 = saveStore(ctx->store, STORE_FILENAME);
+      // 3. Release the lock
+      sem_post(sem);
+      if (result2 == 0 && result == 0 && result3 == 0 && result4 == 0)
+      {
+        snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_UPDATE_CART, COMMAND_SEPARATOR, STATUS_OK);
+        send(ctx->clientSocket, response, strlen(response), 0);
+      }
+      else
+      {
+        snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_UPDATE_CART, COMMAND_SEPARATOR, STATUS_FAIL);
+        send(ctx->clientSocket, response, strlen(response), 0);
+      }
+    }
     else
     {
       snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_UPDATE_CART, COMMAND_SEPARATOR, STATUS_INVALID_ARGUMENTS);
@@ -266,7 +341,7 @@ void handleSearchProduct(CommandContext *ctx)
 
     // 1. CRITICAL SECTION: Only one process can be here at a time
     char storeDetails[GET_STORE_SIZE];
-    searchStore(ctx->store,productId, storeDetails, GET_STORE_SIZE);
+    searchStore(ctx->store, productId, storeDetails, GET_STORE_SIZE);
 
     // 2. Release the lock
     sem_post(sem);
@@ -354,10 +429,10 @@ void handleLogin(CommandContext *ctx)
   {
 
     User *luser = loginUser(ctx->sessions, username, password);
-
+    
     if (luser != NULL)
     {
-      snprintf(response, sizeof(response), "%s%s%d%s%lu%s%d\n", COMMAND_LOGIN, COMMAND_SEPARATOR, STATUS_OK,COMMAND_SEPARATOR, luser->sessionID,COMMAND_SEPARATOR,luser->isAdmin);
+      snprintf(response, sizeof(response), "%s%s%d%s%lu%s%d\n", COMMAND_LOGIN, COMMAND_SEPARATOR, STATUS_OK, COMMAND_SEPARATOR, luser->sessionID, COMMAND_SEPARATOR, luser->isAdmin);
       send(ctx->clientSocket, response, strlen(response), 0);
     }
     else
@@ -589,7 +664,7 @@ int setup(char *port)
         for (j = 0; j < bytes_received; ++j)
           read[j] = read[j];
 
-        replace_char(read,'\n','\0');
+        replace_char(read, '\n', '\0');
         handleClient(socket_client, read);
       }
     }
