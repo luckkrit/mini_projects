@@ -7,7 +7,7 @@
 #define COMMAND_UPDATE_CART "UPDATE_CART"            // MEMBER(2.2.2,2.2.4)
 #define COMMAND_CLEAR_CART "CLEAR_CART"              // MEMBER(2.2.4) - ล้างตะกร้า
 #define COMMAND_VIEW_CART "VIEW_CART"                // MEMBER(2.2.3)
-#define COMMAND_CHECKOUT_CART "CHECOUT_CART"          // MEMBER(2.2.5)
+#define COMMAND_CHECKOUT_CART "CHECKOUT_CART"          // MEMBER(2.2.5)
 #define COMMAND_VIEW_ORDER "VIEW_ORDER"              // MEMBER(2.2.6), ADMIN (2.3.2)
 #define COMMAND_VIEW_MEMBER "VIEW_MEMBER"            // ADMIN (2.3.3)
 #define COMMAND_REGISTER_MEMBER "REGISTER_MEMBER"           // ANONYMOUS (2.1.4)
@@ -17,12 +17,12 @@
 #define COMMAND_UNKNOWN "UNKNOWN"
 
 typedef enum {
-    STATUS_OK,
-    STATUS_FAIL,
-    STATUS_INVALID_SESSION,
-    STATUS_UNKNOWN,
-    STATUS_INVALID_ARGUMENTS,
-    STATUS_DUPLICATE_USER
+    STATUS_OK,                               // 0
+    STATUS_FAIL,                             // 1
+    STATUS_INVALID_SESSION,                  // 2
+    STATUS_UNKNOWN,                          // 3
+    STATUS_INVALID_ARGUMENTS,                // 4
+    STATUS_DUPLICATE_USER                    // 5
 } ResponseStatus;
 
 #endif

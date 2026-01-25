@@ -1,3 +1,6 @@
+#ifndef AUTH_H // Fix Auth is undefined in server.c
+#define AUTH_H
+
 #define _POSIX_C_SOURCE 200809L // Must be the first line
 #include <stdbool.h>
 #include <time.h>
@@ -35,3 +38,6 @@ int logoutUser(UserSessions *head, const char *username);
 int saveUser(UserSessions *head, char *fileName);
 int loadUser(UserSessions *user, char *fileName);
 char* getUser(UserSessions *head,char *output, size_t outputSize);
+
+
+#endif

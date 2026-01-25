@@ -135,19 +135,23 @@ int deleteCart(Order *head,char *username,char *productId){
     
     return 1; 
 }
-int clearCart(Order *head,char *username){
+int clearCart(Order *orderHead,Store *storeHead,char *username){
 
     // Search for existing
     for (int i = 0; i < MAX_STOCK; i++)
     {
-        if (head->carts[i].isUsed && strcmp(head->carts[i].username, username) == 0)
+        if (orderHead->carts[i].isUsed && strcmp(orderHead->carts[i].username, username) == 0)
         {
-
-            head->carts[i].isUsed = 0;
-            head->carts[i].quantity = 0;
-            head->carts[i].username[0] = '\0';
-            head->carts[i].productId[0] = '\0';
-            head->carts[i].checkout = 0;
+            int result = updateStore(storeHead, orderHead->carts[i].productId, IGNORE_UPDATE_TITLE, IGNORE_UPDATE_PRICE, orderHead->carts[i].quantity);
+            printf("store update result %d\n",result);
+            if(result!=0){
+                return result;
+            }
+            orderHead->carts[i].isUsed = 0;
+            orderHead->carts[i].quantity = 0;
+            orderHead->carts[i].username[0] = '\0';
+            orderHead->carts[i].productId[0] = '\0';
+            orderHead->carts[i].checkout = 0;
             return 0;
         }
     }
@@ -172,12 +176,20 @@ int checkoutCart(Order *head, char* username, char* productId){
     // Search for existing
     for (int i = 0; i < MAX_STOCK; i++)
     {
-        if (head->carts[i].isUsed && strcmp(head->carts[i].productId, productId) == 0 && strcmp(head->carts[i].username, username) == 0)
+        // printf("compare : %d\n",head->carts[i].isUsed && strcmp(head->carts[i].username, username) == 0);
+        if (head->carts[i].isUsed && strcmp(head->carts[i].username, username) == 0)
         {
-            head->carts[i].checkout = 1;
-            return 0;
+
+            if(strcmp(productId, ALL_PRODUCT_ID)==0){
+                head->carts[i].checkout = 1;
+                return 0;
+            }else if(strcmp(head->carts[i].productId, productId)==0){
+                head->carts[i].checkout = 1;
+                return 0;
+            }
         }
     }
+    return 1;
 }
 void getOrder(Order *order, char *output, size_t outputSize, int checkout)
 {

@@ -1,7 +1,11 @@
+#ifndef STORE_H // Fix Store is undefined in server.c
+#define STORE_H
+
 #include <sys/file.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "common.h"
 #define PRODUCTID_SIZE 10
 #define PRODUCT_TITLE_SIZE 500
 #define MAX_STOCK 100
@@ -35,4 +39,6 @@ int saveStore(Store *store, char *fileName);
 int loadStore(Store *store, char *fileName);
 void getStore(Store *store,char *output, size_t outputSize);
 void searchStore(Store *store,char *productId,char *output, size_t outputSize);
-char* replace_char(char* str, char find, char replace);
+
+
+#endif

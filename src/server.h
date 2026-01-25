@@ -16,10 +16,12 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <netdb.h>
+#include "common.h"
 #include "store.h"
 #include "auth.h"
-#include "protocol.h"
 #include "order.h"
+#include "protocol.h"
+
 
 #define ISVALIDSOCKET(s) ((s) >= 0)
 #define CLOSESOCKET(s) close(s)
@@ -31,7 +33,7 @@
 typedef struct {
     UserSessions *sessions;
     Store *store;
-    Order order;
+    Order *order;
     SOCKET clientSocket;
     char *rawInput;
 } CommandContext;
@@ -51,6 +53,12 @@ void handleLogout(CommandContext *ctx);
 void handleViewProduct(CommandContext *ctx);
 void handleSearchProduct(CommandContext *ctx);
 void handleRegisterMember(CommandContext *ctx);
+
+// Member
+void handleUpdateCart(CommandContext *ctx);
+void handleClearCart(CommandContext *ctx);
+void handleCheckoutCart(CommandContext *ctx);
+void handleViewCart(CommandContext *ctx);
 
 // Admin
 void handleUpdateProduct(CommandContext *ctx);

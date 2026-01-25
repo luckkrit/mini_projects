@@ -1,1 +1,2 @@
-COS1101,Unknown,0.000000,0
+COS1101,Introduction to Computer Science,30.500000,9
+COS1103,Flowchart,31.250000,9
