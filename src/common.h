@@ -3,6 +3,9 @@
 #include <string.h>
 #include <ctype.h>
 
+
 char* replace_char(char* str, char find, char replace);
 int isNumeric(const char *str);
+int isFloat(const char *str);
+int isEmptyOrSpace(const char *str);
 #endif

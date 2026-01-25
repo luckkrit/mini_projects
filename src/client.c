@@ -3,18 +3,46 @@
 int userLevel = -1;
 char *sessionId = NULL;
 
-void getNumericInput(char *buffer, size_t size) {
+void getFloatInput(char *buffer, size_t size) {
     while (1) {
-        printf("Enter number: ");
+        printf("Enter value (e.g., 10.50) [Press Enter to skip]: ");
         if (fgets(buffer, size, stdin)) {
-            // 1. ลบ \n ออก
+            // 1. ลบ \n ที่ติดมาจาก fgets
             buffer[strcspn(buffer, "\n")] = 0;
 
-            // 2. ตรวจสอบว่าเป็นตัวเลขล้วนหรือไม่
-            if (isNumeric(buffer)) {
-                break; // ถูกต้อง ออกจากลูป
+            // 2. ถ้าเป็นค่าว่างหรือมีแต่ช่องว่าง -> ให้ผ่านได้
+            if (isEmptyOrSpace(buffer)) {
+                buffer[0] = '\0'; // ทำให้แน่ใจว่าเป็นสตริงว่างจริงๆ ""
+                break; 
+            }
+
+            // 3. ถ้าไม่ว่าง ต้องเป็นรูปแบบทศนิยมที่ถูกต้อง
+            if (isFloat(buffer)) {
+                break; 
             } else {
-                printf("Invalid input! Please enter numbers only.\n");
+                printf("Invalid input! Please enter numbers or leave blank to skip.\n");
+            }
+        }
+    }
+}
+
+void getNumericInput(char *buffer, size_t size) {
+    while (1) {
+        printf("Enter number [Press Enter to skip]: ");
+        if (fgets(buffer, size, stdin)) {
+            buffer[strcspn(buffer, "\n")] = 0; // ลบ \n
+
+            // ถ้าเป็นค่าว่าง หรือมีแต่ช่องว่าง -> อนุญาตให้ผ่าน
+            if (isEmptyOrSpace(buffer)) {
+                buffer[0] = '\0'; // ล้างให้เป็นสตริงว่างจริงๆ
+                break;
+            }
+
+            // ถ้าไม่ว่าง ต้องเป็นตัวเลขเท่านั้น
+            if (isNumeric(buffer)) {
+                break;
+            } else {
+                printf("Invalid input! Numbers only.\n");
             }
         }
     }
@@ -693,6 +721,354 @@ void handleMemberLogout(){
     }
 
 }
+void handleAddProduct(){
+    if(sessionId==NULL){
+        printf("You are not login! Please login\n");
+        goto SHOW_MENU;
+    }
+
+    // wait for input
+    printf("\n--- Add product ---\n");
+    printf("Product ID: ");
+    char productId[100];
+    getInput(productId, 100);
+
+    printf("Product Title: ");
+    char productTitle[100];
+    getInput(productTitle, 100);
+
+    printf("Price: \n");
+    char price[100];
+    getFloatInput(price, 100);
+
+    printf("Quantity: ");
+    char quantity[100];
+    getNumericInput(quantity, 100);
+
+    // send message
+    char sendMessage[SEND_MESSAGE_SIZE];
+    char receiveMessage[RECEIVE_MESSAGE_SIZE];
+    sprintf(sendMessage, "%s%s%s%s%s%s%s%s%s%s%s\n", COMMAND_ADD_PRODUCT,COMMAND_SEPARATOR, sessionId, COMMAND_SEPARATOR, productId,COMMAND_SEPARATOR,productTitle, COMMAND_SEPARATOR,price,COMMAND_SEPARATOR, quantity);
+    int result = sendData(sendMessage, receiveMessage);
+    if (result != 0)
+    {
+        pressEnterToContinue();
+        showMenu(userLevel);
+    }
+    else
+    {
+        replace_char(receiveMessage, '\n', '\0');
+
+        // receive message
+        strtok(receiveMessage, ",\n\r");
+        char *status_str = strtok(NULL, ",\n\r");
+        
+        int status = atoi(status_str);
+        switch (status)
+        {
+        case STATUS_OK:
+            printf("Add product success!\n");
+            break;
+        default:
+            printf("An unknown error occurred (Code: %d)\n", status);
+        }
+        SHOW_MENU:
+            pressEnterToContinue();
+            showMenu(userLevel);
+    }
+}
+void handleUpdateProduct(){
+    if(sessionId==NULL){
+        printf("You are not login! Please login\n");
+        goto SHOW_MENU;
+    }
+
+    // wait for input
+    printf("\n--- Update product ---\n");
+    printf("Product ID: ");
+    char productId[100];
+    getInput(productId, 100);
+
+    printf("Product Title: ");
+    char productTitle[100];
+    getInput(productTitle, 100);
+
+    if(strlen(productTitle)==0){
+        strcpy(productTitle, IGNORE_UPDATE_TITLE);
+    }
+
+    printf("Price: \n");
+    char price[100];
+    getFloatInput(price, 100);
+
+    if(strlen(price)==0){
+        strcpy(price, IGNORE_UPDATE_PRICE_STR);
+    }
+
+    printf("Quantity: ");
+    char quantity[100];
+    getNumericInput(quantity, 100);
+
+    if(strlen(quantity)==0){
+        strcpy(quantity, IGNORE_UPDATE_QUANTITY_STR);
+    }
+
+    // send message
+    char sendMessage[SEND_MESSAGE_SIZE];
+    char receiveMessage[RECEIVE_MESSAGE_SIZE];
+    sprintf(sendMessage, "%s%s%s%s%s%s%s%s%s%s%s\n", COMMAND_UPDATE_PRODUCT,COMMAND_SEPARATOR, sessionId, COMMAND_SEPARATOR, productId,COMMAND_SEPARATOR,productTitle, COMMAND_SEPARATOR,price,COMMAND_SEPARATOR, quantity);
+    int result = sendData(sendMessage, receiveMessage);
+    if (result != 0)
+    {
+        pressEnterToContinue();
+        showMenu(userLevel);
+    }
+    else
+    {
+        replace_char(receiveMessage, '\n', '\0');
+
+        // receive message
+        strtok(receiveMessage, ",\n\r");
+        char *status_str = strtok(NULL, ",\n\r");
+        
+        int status = atoi(status_str);
+        switch (status)
+        {
+        case STATUS_OK:
+            printf("Update product success!\n");
+            break;
+        default:
+            printf("An unknown error occurred (Code: %d)\n", status);
+        }
+        SHOW_MENU:
+            pressEnterToContinue();
+            showMenu(userLevel);
+    }
+}
+void handleRemoveProducts(){
+
+    if(sessionId==NULL){
+        printf("You are not login! Please login\n");
+        goto SHOW_MENU;
+    }
+
+    // wait for input
+    printf("\n--- Remove products ---\n");
+    printf("Product ID: ");
+    char productId[100];
+    getInput(productId, 100);
+
+    // send message
+    char sendMessage[SEND_MESSAGE_SIZE];
+    char receiveMessage[RECEIVE_MESSAGE_SIZE];
+    sprintf(sendMessage, "%s%s%s%s%s\n", COMMAND_REMOVE_PRODUCT,COMMAND_SEPARATOR, sessionId, COMMAND_SEPARATOR, productId);
+    int result = sendData(sendMessage, receiveMessage);
+    if (result != 0)
+    {
+        pressEnterToContinue();
+        showMenu(userLevel);
+    }
+    else
+    {
+        replace_char(receiveMessage, '\n', '\0');
+
+        // receive message
+        strtok(receiveMessage, ",\n\r");
+        char *status_str = strtok(NULL, ",\n\r");
+        
+        int status = atoi(status_str);
+        switch (status)
+        {
+        case STATUS_OK:
+            printf("Remove product success!\n");
+            break;
+        default:
+            printf("An unknown error occurred (Code: %d)\n", status);
+        }
+        SHOW_MENU:
+            pressEnterToContinue();
+            showMenu(userLevel);
+    }
+}
+void handleAdminViewOrder(){
+    if(sessionId==NULL){
+        printf("You are not login! Please login\n");
+        goto SHOW_MENU;
+    }
+    // send message
+    char sendMessage[SEND_MESSAGE_SIZE];
+    char receiveMessage[RECEIVE_MESSAGE_SIZE];
+    sprintf(sendMessage, "%s%s%s\n", COMMAND_VIEW_ORDER,COMMAND_SEPARATOR,sessionId);
+    int result = sendData(sendMessage, receiveMessage);
+
+    if (result != 0)
+    {
+        pressEnterToContinue();
+        showMenu(userLevel);
+    }
+    else
+    {
+        // receive message
+        replace_char(receiveMessage, '\n', '\0');
+        
+        strtok(receiveMessage, ",\n\r");
+        char *status_str = strtok(NULL, ",\n\r");
+        char *orders_str = strtok(NULL, ",\n\r");
+        int status = atoi(status_str);
+        if(orders_str==NULL){
+            printf("Empty order!\n");
+            goto SHOW_MENU;
+        }
+        switch (status)
+        {
+        case STATUS_OK:
+            printf("View order success!\n");
+            char *saveptr1, *saveptr2;
+            // ลูปที่ 1: ตัดด้วยเครื่องหมาย '|' เพื่อแยกแต่ละรายวิชา
+            char *order_token = strtok_r(orders_str, "|", &saveptr1);
+
+            while (order_token != NULL)
+            {
+                printf("Processing Order: %s\n", order_token);
+
+                // ลูปที่ 2: ตัดด้วยเครื่องหมาย '-' เพื่อแยกรายละเอียดภายในวิชานั้น
+                // หมายเหตุ: ต้องใช้ copy ของ order_token หรือระวังเรื่องการเปลี่ยนแปลงค่า
+                char *detail = strtok_r(order_token, "-", &saveptr2);
+                int field_count = 0;
+
+                while (detail != NULL)
+                {
+                    if (field_count == 0)
+                        printf("  Username: %s\n", detail);
+                    if (field_count == 1)
+                        printf("  Product ID: %s\n", detail);
+                    if (field_count == 2)
+                        printf("  Quantity: %s\n", detail);
+                    if (field_count == 3)
+                        printf("  Checkout: %s\n", detail);
+
+                    detail = strtok_r(NULL, "-", &saveptr2);
+                    field_count++;
+                }
+
+                printf("-------------------\n");
+                order_token = strtok_r(NULL, "|", &saveptr1);
+            }
+            break;
+        default:
+            printf("An unknown error occurred (Code: %d)\n", status);
+        }
+        SHOW_MENU:
+            pressEnterToContinue();
+            showMenu(userLevel);
+    }
+}
+void handleAdminViewMember(){
+    if(sessionId==NULL){
+        printf("You are not login! Please login\n");
+        goto SHOW_MENU;
+    }
+    // send message
+    char sendMessage[SEND_MESSAGE_SIZE];
+    char receiveMessage[RECEIVE_MESSAGE_SIZE];
+    sprintf(sendMessage, "%s%s%s\n", COMMAND_VIEW_MEMBER, COMMAND_SEPARATOR, sessionId);
+    int result = sendData(sendMessage, receiveMessage);
+
+    if (result != 0)
+    {
+        pressEnterToContinue();
+        showMenu(userLevel);
+    }
+    else
+    {
+        // receive message
+        replace_char(receiveMessage, '\n', '\0');
+        
+        strtok(receiveMessage, ",\n\r");
+        char *status_str = strtok(NULL, ",\n\r");
+        char *members_str = strtok(NULL, ",\n\r");
+        int status = atoi(status_str);
+        if(members_str==NULL){
+            printf("Empty member!\n");
+            goto SHOW_MENU;
+        }
+        switch (status)
+        {
+        case STATUS_OK:
+            printf("View member success!\n");
+            char *saveptr1, *saveptr2;
+            // ลูปที่ 1: ตัดด้วยเครื่องหมาย '|' เพื่อแยกแต่ละรายวิชา
+            char *member_token = strtok_r(members_str, "|", &saveptr1);
+
+            while (member_token != NULL)
+            {
+                printf("Processing Member: %s\n", member_token);
+
+                // ลูปที่ 2: ตัดด้วยเครื่องหมาย '-' เพื่อแยกรายละเอียดภายในวิชานั้น
+                // หมายเหตุ: ต้องใช้ copy ของ order_token หรือระวังเรื่องการเปลี่ยนแปลงค่า
+                char *detail = strtok_r(member_token, "-", &saveptr2);
+                int field_count = 0;
+
+                while (detail != NULL)
+                {
+                    if (field_count == 0)
+                        printf("  Username: %s\n", detail);
+                
+
+                    detail = strtok_r(NULL, "-", &saveptr2);
+                    field_count++;
+                }
+
+                printf("-------------------\n");
+                member_token = strtok_r(NULL, "|", &saveptr1);
+            }
+            break;
+        default:
+            printf("An unknown error occurred (Code: %d)\n", status);
+        }
+        SHOW_MENU:
+            pressEnterToContinue();
+            showMenu(userLevel);
+    }
+}
+void handleAdminLogout(){
+
+    // send message
+    char sendMessage[SEND_MESSAGE_SIZE];
+    char receiveMessage[RECEIVE_MESSAGE_SIZE];
+    sprintf(sendMessage, "%s%s%s\n", COMMAND_LOGOUT,COMMAND_SEPARATOR, sessionId);
+    int result = sendData(sendMessage, receiveMessage);
+    if (result != 0)
+    {
+        pressEnterToContinue();
+        showMenu(userLevel);
+    }
+    else
+    {
+        replace_char(receiveMessage, '\n', '\0');
+
+        // receive message
+        strtok(receiveMessage, ",\n\r");
+        char *status_str = strtok(NULL, ",\n\r");
+
+        int status = atoi(status_str);
+        switch (status)
+        {
+        case STATUS_OK:
+            userLevel = -1;
+            printf("Logout success!\n");
+            break;
+        default:
+            userLevel = -1;
+            sessionId[0] = '\0';
+            printf("An unknown error occurred (Code: %d)\n", status);
+        }
+
+        pressEnterToContinue();
+        showMenu(userLevel);
+    }
+
+}
 void exitApp()
 {
     printf("\nBye!\n");
@@ -745,6 +1121,44 @@ void showMenu(int userLevel)
     }
     else if (userLevel == 1)
     { // Admin
+        MenuEntry adminMenuTable[] = {
+            {MENU_ADMIN_ADD_PRODUCTS, handleAddProduct},
+            {MENU_ADMIN_UPDATE_PRODUCTS, handleUpdateProduct},
+            {MENU_ADMIN_REMOVE_PRODUCTS, handleUpdateProduct},
+            {MENU_ADMIN_VIEW_ORDER, handleAdminViewOrder},
+            {MENU_ADMIN_VIEW_MEMBER, handleAdminViewMember},
+            {MENU_ADMIN_LOGOUT, handleAdminLogout},
+            {MENU_EXIT, exitApp},
+            {NULL, NULL} // Sentinel to mark the end
+        };
+
+        char *adminMenu = "\nWelcome to our Shop:\n"
+                              "\n--- Admin Menu ---\n"
+                              "[1] Add Products\n"
+                              "[2] Update Products\n"
+                              "[3] Remove Products\n"
+                              "[4] View Order\n"
+                              "[5] View Member\n"
+                              "[6] Logout\n"
+                              "[0] Exit\n"
+                              "Please select [0] - [6]: ";
+        char menuName[ANSWER_SIZE];
+        prompt(adminMenu, menuName);
+        int found = 0;
+        for (int i = 0; adminMenuTable[i].menuName != NULL; i++)
+        {
+            if (strcmp(menuName, adminMenuTable[i].menuName) == 0)
+            {
+                // Found the command! Execute its function.
+                printf("Found menu: %s\n", menuName);
+                found = 1;
+                adminMenuTable[i].handler();
+            }
+        }
+        if (!found)
+        {
+            showMenu(userLevel);
+        }
     }
     else
     { // Anonymous

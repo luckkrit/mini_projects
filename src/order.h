@@ -1,14 +1,13 @@
 #ifndef ORDER_H // Fix Order is undefined in server.c
 #define ORDER_H
 
+#include "constant.h"
 #include "auth.h"
 #include "store.h"
 
 #define MAX_CART 100
 #define ORDER_FILENAME "order.txt"
 #define GET_CART_ORDER_SIZE 2048
-#define ALL_PRODUCT_ID "-998"
-#define ALL_USERS "-998"
 
 typedef struct {
     char username[USERNAME_SIZE];

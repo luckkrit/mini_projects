@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <termios.h>
 #include "protocol.h"
+#include "constant.h"
 #include "common.h"
 
 #define SERVER_IP "127.0.0.1"
@@ -44,6 +45,13 @@
 #define MENU_CHECKOUT_CART "5"
 #define MENU_VIEW_ORDER "6"
 #define MENU_MEMBER_LOGOUT "7"
+// ADMIN
+#define MENU_ADMIN_ADD_PRODUCTS "1"
+#define MENU_ADMIN_UPDATE_PRODUCTS "2"
+#define MENU_ADMIN_REMOVE_PRODUCTS "3"
+#define MENU_ADMIN_VIEW_ORDER "4"
+#define MENU_ADMIN_VIEW_MEMBER "5"
+#define MENU_ADMIN_LOGOUT "6"
 
 // typedef struct {
 //     char *rawInput;
@@ -71,7 +79,16 @@ void handleCheckoutCart();
 void handleViewOrder();
 void handleMemberLogout();
 
+// ADMIN
+void handleAddProduct();
+void handleUpdateProduct();
+void handleRemoveProduct();
+void handleAdminViewOrder();
+void handleAdminViewMember();
+void handleAdminLogout();
+
 void exitApp();
+void getFloatInput(char *buffer, size_t size);
 void getNumericInput(char *buffer, size_t size);
 void getInput(char *input, size_t size);
 void getPassword(char *password, size_t size);

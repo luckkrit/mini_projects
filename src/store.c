@@ -1,6 +1,31 @@
 
 #include "store.h"
 
+int updateProduct(Store *store, char *productId,char *productTitle,float price, int quantity)
+{
+    // Search for existing
+    for (int i = 0; i < MAX_STOCK; i++)
+    {
+        if (store->items[i].isUsed && strcmp(store->items[i].productId, productId) == 0)
+        {
+            if(strcmp(productTitle, IGNORE_UPDATE_TITLE)!=0){
+                strcpy(store->items[i].productTitle, productTitle);
+            }
+            if(quantity != IGNORE_UPDATE_QUANTITY){
+                store->items[i].quantity = quantity;
+            }
+            
+            if(price != IGNORE_UPDATE_PRICE){
+                store->items[i].price = price;
+            }
+            
+            printf("Update product %s %s %f %d\n",store->items[i].productId,store->items[i].productTitle,store->items[i].price, store->items[i].quantity);
+            return 0;
+        }
+    }
+
+    return 1;
+}
 int updateStore(Store *store, char *productId,char *productTitle,float price, int quantity)
 {
     // Search for existing
@@ -9,7 +34,7 @@ int updateStore(Store *store, char *productId,char *productTitle,float price, in
         if (store->items[i].isUsed && strcmp(store->items[i].productId, productId) == 0)
         {
             if(quantity==DELETE_QUANTITY){
-                return deleteStore(store, productId);
+                return deleteProduct(store, productId);
             }
             
             if (store->items[i].quantity + quantity < 0)
@@ -32,7 +57,7 @@ int updateStore(Store *store, char *productId,char *productTitle,float price, in
         }
     }
 
-    return addStore(store, productId,productTitle, price, quantity);
+    return addProduct(store, productId,productTitle, price, quantity);
 }
 int printStore(Store *store)
 {
@@ -119,7 +144,7 @@ int loadStore(Store *store, char *fileName)
     fclose(file_ptr);
     return 0;
 }
-int addStore(Store *store,char *productId, char *productTitle,float price, int quantity){
+int addProduct(Store *store,char *productId, char *productTitle,float price, int quantity){
 
     // Add new
     for (int i = 0; i < MAX_STOCK; i++)
@@ -146,7 +171,7 @@ int addStore(Store *store,char *productId, char *productTitle,float price, int q
     
     return 1; 
 }
-int deleteStore(Store *store,char *productId){
+int deleteProduct(Store *store,char *productId){
 
     // Search for existing
     for (int i = 0; i < MAX_STOCK; i++)

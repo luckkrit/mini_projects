@@ -1,2 +1,3 @@
 COS1101,Introduction to Computer Science,30.500000,12
 COS1103,Flowchart,31.250000,9
+COS3105,Operating System,10.500000,10

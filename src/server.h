@@ -61,7 +61,9 @@ void handleCheckoutCart(CommandContext *ctx);
 void handleViewCart(CommandContext *ctx);
 
 // Admin
+void handleAddProduct(CommandContext *ctx);
 void handleUpdateProduct(CommandContext *ctx);
+void handleRemoveProduct(CommandContext *ctx);
 void handleViewMember(CommandContext *ctx);
 
 // Common
