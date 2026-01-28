@@ -126,15 +126,18 @@ void handleViewOrder(CommandContext *ctx)
     printf("Warning: Partial conversion. Ended at: %s\n", endptr);
   }
   printf("SessionId: %s %lu\n", sessionId, sessionId2);
+  sem_wait(sem);
   User *luser = getUserBySession(ctx->sessions, sessionId2);
   if (luser == NULL)
   {
+    // 2. Release the lock
+    sem_post(sem);
     snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_VIEW_ORDER, COMMAND_SEPARATOR, STATUS_INVALID_SESSION);
     send(ctx->clientSocket, response, strlen(response), 0);
   }
   else
   {
-    sem_wait(sem);
+    
 
     // 1. CRITICAL SECTION: Only one process can be here at a time
     char orderDetails[GET_USER_SIZE];
@@ -165,15 +168,17 @@ void handleViewCart(CommandContext *ctx)
     printf("Warning: Partial conversion. Ended at: %s\n", endptr);
   }
   printf("SessionId: %s %lu\n", sessionId, sessionId2);
+  sem_wait(sem);
   User *luser = getUserBySession(ctx->sessions, sessionId2);
   if (luser == NULL)
   {
+    sem_post(sem);
     snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_VIEW_CART, COMMAND_SEPARATOR, STATUS_INVALID_SESSION);
     send(ctx->clientSocket, response, strlen(response), 0);
   }
   else
   {
-    sem_wait(sem);
+    
 
     // 1. CRITICAL SECTION: Only one process can be here at a time
     char cartDetails[GET_USER_SIZE];
@@ -521,16 +526,21 @@ void handleLogin(CommandContext *ctx)
 
   if (username && password)
   {
-
+    // 1. Wait for the lock (Block if another process is buying)
+    sem_wait(sem);
     User *luser = loginUser(ctx->sessions, username, password);
     
     if (luser != NULL)
     {
       snprintf(response, sizeof(response), "%s%s%d%s%lu%s%d\n", COMMAND_LOGIN, COMMAND_SEPARATOR, STATUS_OK, COMMAND_SEPARATOR, luser->sessionID, COMMAND_SEPARATOR, luser->isAdmin);
+      // 3. Release the lock
+      sem_post(sem);
       send(ctx->clientSocket, response, strlen(response), 0);
     }
     else
     {
+      // 3. Release the lock
+      sem_post(sem);
       snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_LOGIN, COMMAND_SEPARATOR, STATUS_FAIL);
       send(ctx->clientSocket, response, strlen(response), 0);
     }
@@ -555,15 +565,22 @@ void handleLogout(CommandContext *ctx)
     printf("Warning: Partial conversion. Ended at: %s\n", endptr);
   }
   printf("SessionId: %s %lu\n", sessionId, sessionId2);
+  // 1. Wait for the lock (Block if another process is buying)
+  sem_wait(sem);
   User *luser = getUserBySession(ctx->sessions, sessionId2);
+  
   if (luser == NULL)
   {
+    // 3. Release the lock
+    sem_post(sem);
     snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_LOGOUT, COMMAND_SEPARATOR, STATUS_INVALID_SESSION);
     send(ctx->clientSocket, response, strlen(response), 0);
   }
   else
   {
     int result = logoutUser(ctx->sessions, luser->username);
+    // 3. Release the lock
+    sem_post(sem);
     if (result == 0)
     {
       snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_LOGOUT, COMMAND_SEPARATOR, STATUS_OK);
@@ -643,7 +660,7 @@ void handle_shutdown(int sig)
   CLOSESOCKET(socket_listen);
   socket_listen = -1;
   munmap(store, sizeof(Store));
-  munmap(user, sizeof(User));
+  munmap(user, sizeof(UserSessions));
   printf("Cleaning up semaphore...\n");
   sem_close(sem);
   sem_unlink("/store_lock");
