@@ -19,12 +19,26 @@
 #define COMMAND_UNKNOWN "UNKNOWN"
 
 typedef enum {
-    STATUS_OK,                               // 0
-    STATUS_FAIL,                             // 1
-    STATUS_INVALID_SESSION,                  // 2
-    STATUS_UNKNOWN,                          // 3
-    STATUS_INVALID_ARGUMENTS,                // 4
-    STATUS_DUPLICATE_USER                    // 5
+    // --- 0xXX: Success & Basic ---
+    STATUS_OK = 0,
+    STATUS_FAIL = 1,
+    STATUS_UNKNOWN = 3,
+
+    // --- 1xXX: Auth & Permissions (100+) ---
+    STATUS_INVALID_SESSION = 100,
+    STATUS_PERMISSION_DENIED = 101,
+    STATUS_DUPLICATE_USER = 102,
+
+    // --- 2xXX: Client/Request Errors (200+) ---
+    STATUS_INVALID_ARGUMENTS = 200,
+    STATUS_PRODUCT_NOT_FOUND = 201,
+    STATUS_DUPLICATE_PRODUCT = 202,
+
+    // --- 5xXX: Server/System Errors (500+) ---
+    STATUS_SAVE_STORE_FAIL = 500,
+    STATUS_ADD_PRODUCT_FAIL = 501,
+    STATUS_UPDATE_PRODUCT_FAIL = 502,
+    STATUS_DELETE_PRODUCT_FAIL = 503,
 } ResponseStatus;
 
 #endif
