@@ -209,5 +209,44 @@ int ctrl_ViewMenber(UserSessions *u, char *output, size_t outputSize){
 }
 
 int ctrl_RegisterMember(UserSessions *u, char *username, char *password){
+    if (username == NULL || password == NULL) {
+        return STATUS_INVALID_ARGUMENTS;
+    }
+    int result = registerUser(u, username, password, 0);
+    if(result==0){
+        return STATUS_OK;
+    }
+    else if(result==2){
+        return STATUS_DUPLICATE_USER;
+    }
+    return STATUS_FAIL;
+}
+
+int ctrl_Logout(UserSessions *sessions, char *sidStr){
+    unsigned long sid = parse_sid(sidStr);
+    if (sid == 0) {
+        return STATUS_INVALID_SESSION;
+    }
+
+    User *u = getUserBySession(sessions, sid);
+    if(u==NULL){
+        return STATUS_INVALID_SESSION;
+    }
+    int result = logoutUser(sessions, u->username);
+    if(result == 0){
+        return STATUS_OK;
+    }
+    return STATUS_FAIL;
+}
+
+int ctrl_Login(UserSessions *sessions, char *username, char *password){
+    if(username == NULL || password == NULL){
+        return STATUS_INVALID_ARGUMENTS;
+    }
+    User *u = loginUser(sessions, username, password);
+    if(u==NULL){
+        return STATUS_FAIL;
+    }
     
+    return STATUS_OK;
 }
