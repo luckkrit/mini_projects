@@ -44,10 +44,8 @@ int ctrl_AddProduct(Store *s, char *id, char *title, float price, int qty) {
         int res2 = saveStore(s, STORE_FILENAME);
         if(res2 == 0){
             return STATUS_OK;
-        }else{
-            return STATUS_SAVE_STORE_FAIL;
         }
-
+        return STATUS_SAVE_STORE_FAIL;
     }
     return STATUS_ADD_PRODUCT_FAIL;
 }
@@ -62,9 +60,9 @@ int ctrl_UpdateProduct(Store *s, char *id, char *title, float price, int qty) {
         int res2 = saveStore(s, STORE_FILENAME);
         if(res2==0){
             return STATUS_OK;
-        }else{
-            return STATUS_SAVE_STORE_FAIL;
         }
+        return STATUS_SAVE_STORE_FAIL;
+        
     } 
     return STATUS_UPDATE_PRODUCT_FAIL;
 }
@@ -77,30 +75,119 @@ int ctrl_DeleteProduct(Store *s, char *id){
         int res2 = saveStore(s, STORE_FILENAME);
         if(res2==0){
             return STATUS_OK;
-        }else{
-            return STATUS_SAVE_STORE_FAIL;
         }
+        return STATUS_SAVE_STORE_FAIL;
+        
     } 
     return STATUS_DELETE_PRODUCT_FAIL;
 }
 
 
+int ctrl_SearchProduct(Store *s, char *id, char *output, size_t outputSize){
+    if (id == NULL) return STATUS_INVALID_ARGUMENTS;
+    if (findProductById(s, id) == NULL) return STATUS_PRODUCT_NOT_FOUND;     
+    searchStore(s, id, output, outputSize);
+    if(strlen(output)!=0){
+        return STATUS_OK;
+    } 
+    return STATUS_EMPTY_PRODUCT;
+}
+
+int ctrl_ViewProduct(Store *s, char *output, size_t outputSize){    
+    getStore(s, output, outputSize);
+    if(strlen(output)!=0){
+        return STATUS_OK;
+    } 
+    return STATUS_EMPTY_PRODUCT;
+}
+
+int ctrl_ViewCart(Order *o, char *username, char *output, size_t outputSize, int checkout){    
+    if(username == NULL){
+        return STATUS_INVALID_ARGUMENTS;
+    }
+    getOrder(o, username, output, outputSize, checkout);
+    if(strlen(output)!=0){
+        return STATUS_OK;
+    } 
+    return STATUS_EMPTY_CART;
+}
+
+int ctrl_UpdateCart(Store *s,Order *o, char *username, char *productId,int quantity){
+    if (productId == NULL || username == NULL) {
+        return STATUS_INVALID_ARGUMENTS;
+    }
+    int result = updateCart(o, username, productId, quantity);
+    if(result == 0){
+        int result2 = saveOrder(o, ORDER_FILENAME);
+        if(result2==0){
+            return STATUS_OK;
+        }
+        return STATUS_SAVE_ORDER_FAIL;
+    }
+    return STATUS_UPDATE_CART_FAIL;
+}
+
+int ctrl_CheckoutCart(Order *o, char *username, char *productId){
+    if (productId == NULL || username == NULL) {
+        return STATUS_INVALID_ARGUMENTS;
+    }
+    int result = checkoutCart(o, username, productId);
+    if(result == 0){
+        int result2 = saveOrder(o, ORDER_FILENAME);
+        if(result2==0){
+            return STATUS_OK;
+        }
+        return STATUS_SAVE_ORDER_FAIL;
+    }
+    return STATUS_ITEM_NOT_IN_CART;
+}
+
+int ctrl_ClearCart(Store *s, Order *o, char *username){
+    if (username == NULL) {
+        return STATUS_INVALID_ARGUMENTS;
+    }
+    int result = clearCart(o, s, username);
+    if(result == 0){
+        int result2 = saveOrder(o, ORDER_FILENAME);
+        int result3 = saveStore(s, STORE_FILENAME);
+        if(result2!=0){
+            return STATUS_SAVE_ORDER_FAIL;
+        }
+        if(result3!=0){
+            return STATUS_SAVE_STORE_FAIL;
+        }
+        return STATUS_OK;
+    }
+    return STATUS_CLEAR_CART_FAIL;
+}
 
 // 3. สำหรับ Member: เพิ่มของลงตะกร้า (หักสต็อก)
 int ctrl_ReserveStock(Store *s, char *id, int qty) {
     // ใช้ updateStore โดยส่งค่า qty ติดลบ เพื่อให้บรรทัด store->items[i].quantity += quantity ทำงาน
     // และฟังก์ชันคุณมีเช็ค if (quantity + quantity < 0) return 1; อยู่แล้ว... ปลอดภัยมาก!
-    int res = updateStore(s, id, IGNORE_UPDATE_TITLE, IGNORE_UPDATE_PRICE, -qty);
-    if (res == 0) saveStore(s, STORE_FILENAME);
-    return res;
+    int result = updateStore(s, id, IGNORE_UPDATE_TITLE, IGNORE_UPDATE_PRICE, -qty);
+    if (result == 0) {
+        int result2 = saveStore(s, STORE_FILENAME);
+        if(result2==0){
+            return STATUS_OK;
+        }
+        return STATUS_SAVE_STORE_FAIL;
+    }
+    return STATUS_UPDATE_STORE_FAIL;
 }
 
 // 4. สำหรับ Member: คืนของเข้า Store (บวกสต็อกกลับ)
 int ctrl_ReturnStock(Store *s, char *id, int qty) {
     // ส่งค่าบวกปกติเข้าไปที่ updateStore
-    int res = updateStore(s, id, IGNORE_UPDATE_TITLE, IGNORE_UPDATE_PRICE, qty);
-    if (res == 0) saveStore(s, STORE_FILENAME);
-    return res;
+    int result = updateStore(s, id, IGNORE_UPDATE_TITLE, IGNORE_UPDATE_PRICE, qty);
+    if (result == 0) {
+        int result2 = saveStore(s, STORE_FILENAME);
+        if(result2==0){
+            return STATUS_OK;
+        }
+        return STATUS_SAVE_STORE_FAIL;
+    }
+    return STATUS_UPDATE_STORE_FAIL;
 }
 
 // ตัวอย่างแบบง่าย ถ้าไม่อยากแก้ store.c
@@ -111,4 +198,16 @@ static Stock* findProductById(Store *s, char *id) {
         }
     }
     return NULL;
+}
+
+int ctrl_ViewMenber(UserSessions *u, char *output, size_t outputSize){        
+    getUser(u, output, outputSize);
+    if(strlen(output)!=0){
+        return STATUS_OK;
+    } 
+    return STATUS_EMPTY_USER;
+}
+
+int ctrl_RegisterMember(UserSessions *u, char *username, char *password){
+    
 }

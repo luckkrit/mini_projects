@@ -334,7 +334,12 @@ void handleLogin(){
         // receive message
         strtok(receiveMessage, ",\n\r");
         char *status_str = strtok(NULL, ",\n\r");
-        sessionId = strtok(NULL, ",\n\r");
+        // sessionId = strtok(NULL, ",\n\r");
+        char *tempSession = strtok(NULL, ",\n\r");
+        if (tempSession != NULL) {
+            if (sessionId != NULL) free(sessionId); // Clean up old session if it exists
+            sessionId = strdup(tempSession);        // Allocate permanent memory for the ID
+        }
         char *isAdmin = strtok(NULL, ",\n\r");
         if (status_str == NULL) {
             printf("Error: Server sent an invalid response format.\n");
@@ -1102,6 +1107,7 @@ void handleAdminLogout(){
     // send message
     char sendMessage[SEND_MESSAGE_SIZE];
     char receiveMessage[RECEIVE_MESSAGE_SIZE];
+    printf("sessionid = %s\n", sessionId);
     snprintf(sendMessage,sizeof(sendMessage), "%s%s%s\n", COMMAND_LOGOUT,COMMAND_SEPARATOR, sessionId);
     int result = sendData(sendMessage, receiveMessage);
     if (result != 0)

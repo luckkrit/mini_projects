@@ -81,7 +81,7 @@ void handleAddProduct(CommandContext *ctx){
   User *luser = getUserBySession(ctx->sessions, sessionId2);
   if (luser == NULL)
   {
-    snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_UPDATE_PRODUCT, COMMAND_SEPARATOR, STATUS_INVALID_SESSION);
+    snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_ADD_PRODUCT, COMMAND_SEPARATOR, STATUS_INVALID_SESSION);
     send(ctx->clientSocket, response, strlen(response), 0);
   }
   else
@@ -92,7 +92,7 @@ void handleAddProduct(CommandContext *ctx){
       sem_wait(sem);
 
       // 2. CRITICAL SECTION: Only one process can be here at a time
-      int result = updateProduct(ctx->store, productId, productTitle, atof(priceStr), atoi(qtyStr));
+      int result = addProduct(ctx->store, productId, productTitle, atof(priceStr), atoi(qtyStr));
       saveStore(ctx->store, STORE_FILENAME);
       // 3. Release the lock
       sem_post(sem);
@@ -615,6 +615,7 @@ int handleClient(SOCKET socket_client, char *read)
   CommandEntry commandTable[] = {
       {COMMAND_LOGIN, handleLogin},
       {COMMAND_LOGOUT, handleLogout},
+      {COMMAND_ADD_PRODUCT, handleAddProduct},
       {COMMAND_UPDATE_PRODUCT, handleUpdateProduct},
       {COMMAND_VIEW_PRODUCT, handleViewProduct},
       {COMMAND_SEARCH_PRODUCT, handleSearchProduct},
@@ -775,6 +776,7 @@ int setup(char *port)
         for (j = 0; j < bytes_received; ++j)
           read[j] = read[j];
 
+        printf("%s\n", read);
         replace_char(read, '\n', '\0');
         handleClient(socket_client, read);
       }
