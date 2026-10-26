@@ -60,6 +60,6 @@ ADD_BOARD,0
 - If success return 0
 
 ```bash
-echo "ADD_TASK,Task 1\n" | nc 127.0.0.1 3030
+echo "ADD_TASK,1,Task 1\n" | nc 127.0.0.1 3030
 ADD_TASK,0
 ```
