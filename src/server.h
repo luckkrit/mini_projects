@@ -30,7 +30,7 @@
 #define MESSAGE_SIZE 2000
 
 typedef struct {
-    Project *project;
+    League *league;
     SOCKET clientSocket;
     char *rawInput;
 } CommandContext;

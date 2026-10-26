@@ -3,50 +3,57 @@
 
 #include "common.h"
 
-#define BOARDID_SIZE 16
-#define BOARD_TITLE_SIZE 500
-#define TASKID_SIZE 16
-#define TASK_TITLE_SIZE 500
-#define MAX_TASK 100
-#define MAX_BOARD 100
+#define TEAM_ID_SIZE 16
+#define TEAM_TITLE_SIZE 100
+#define PLAYER_ID_SIZE 16
+#define PLAYER_TITLE_SIZE 100
+#define LEAGUE_TITLE_SIZE 100
+#define MAX_PLAYER 23
+#define MAX_TEAM 10
+#define MAX_SQUAD_SIZE 99
 
-#define BOARD_FILENAME "board.txt"
-#define TASK_FILENAME "task.txt"
+#define LEAGUE_FILENAME "league.txt"
+#define TEAM_FILENAME "team.txt"
+#define PLAYER_FILENAME "player.txt"
 
 
 
 
-typedef struct task Task;
+typedef struct player Player;
 
-struct task {
-    char taskId[TASKID_SIZE];
-    char taskTitle[TASK_TITLE_SIZE];
+struct player {
+    char taskId[PLAYER_ID_SIZE];
+    char taskTitle[PLAYER_TITLE_SIZE];
+    char squadNumber[MAX_SQUAD_SIZE];
+    double player_price; // In million
     int isFinish;
 };
 
-typedef struct board Board;
+typedef struct team Team;
 
-struct board {
-    char boardId[BOARDID_SIZE];
-    char boardTitle[BOARD_TITLE_SIZE];
-    struct task tasks[MAX_TASK]; 
-    int totalTasks;
+struct team {
+    char teamId[TEAM_ID_SIZE];
+    char teamTitle[TEAM_TITLE_SIZE];
+    struct player players[MAX_PLAYER]; 
+    int totalPlayers;
 };
 
-typedef struct project Project;
+typedef struct league League;
 
-struct project {
-    struct board boards[MAX_BOARD]; 
-    int totalBoards;
+struct league {
+    char legueTitle[LEAGUE_TITLE_SIZE];
+    struct team teams[MAX_TEAM]; 
+    int totalTeams;
+    int scores[MAX_TEAM];
 };
 
-int loadProject(Project *project, char *boardFileName, char *taskFileName);
-int readBoard(Project *project, char *fileName);
-int saveBoard(Project *project, char *fileName);
-int readAllTasks(Project *project, char *fileName);
-int saveAllTasks(Project *project, char *fileName);
-int addBoard(Project *project, char *boardTitle);
-int addTask(Board *board, char *taskTitle);
-Board *hasBoard(Project *project, char *boardId);
-Task *hasTask(Project *project, char *boardId, char *taskId);
+int loadLeague(League *league, char *leagueFileName, char *boardFileName, char *playerFileName);
+int readTeam(League *league, char *teamFileName);
+int saveTeam(League *league, char *teamFileName);
+int readAllPlayers(League *league, char *teamFileName);
+int saveAllPlayers(League *league, char *teamFileName);
+int addTeam(League *league, char *teamTitle);
+int addPlayer(Team *team, char *taskTitle);
+Team *hasTeam(League *league, char *teamId);
+Player *hasPlayer(League *league, char *teamId, char *taskId);
 #endif

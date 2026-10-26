@@ -1,15 +1,15 @@
 #include "models.h"
 
-int loadProject(Project *project, char *boardFileName, char *taskFileName){
-    if(readBoard(project, boardFileName) == 1){
+int loadLeague(League *league, char *teamFileName, char *playerFileName){
+    if(readTeam(league, teamFileName) == 1){
         return 1;
     }
-    if(readAllTasks(project, taskFileName) == 1){
+    if(readAllPlayers(league, playerFileName) == 1){
         return 1;
     }
     return 0;
 }
-int readBoard(Project *project, char *fileName){
+int readTeam(League *league, char *fileName){
     FILE *file_ptr = fopen(fileName, "r");
 
     if (file_ptr == NULL) {
@@ -25,29 +25,29 @@ int readBoard(Project *project, char *fileName){
     int i = 0;
     int fd = fileno(file_ptr);
     flock(fd, LOCK_EX);
-    while (fgets(buffer, sizeof(buffer), file_ptr) != NULL && i < MAX_BOARD)
+    while (fgets(buffer, sizeof(buffer), file_ptr) != NULL && i < MAX_TEAM)
     {
         // 1. Remove newline
         buffer[strcspn(buffer, "\n")] = 0;
 
         // 2. Correct Tokenizing
-        char *boardId = strtok(buffer, ",");
-        char *boardTitle = strtok(NULL, ",");
+        char *teamId = strtok(buffer, ",");
+        char *teamTitle = strtok(NULL, ",");
 
         // 3. Check if tokens exist before using them
-        if (boardId != NULL && boardTitle != NULL)
+        if (teamId != NULL && teamTitle != NULL)
         {
-            strcpy(project->boards[i].boardId, boardId);
-            strcpy(project->boards[i].boardTitle, boardTitle);
+            strcpy(league->teams[i].teamId, teamId);
+            strcpy(league->teams[i].teamTitle, teamTitle);
             i++;
         }
     }
-    project->totalBoards = i;
+    league->totalTeams = i;
     flock(fd, LOCK_UN);
     fclose(file_ptr);
     return 0;
 }
-int saveBoard(Project *project,  char *fileName){
+int saveTeam(League *league,  char *fileName){
     FILE *file_ptr;
 
     file_ptr = fopen(fileName, "w");
@@ -59,16 +59,16 @@ int saveBoard(Project *project,  char *fileName){
     }
     int fd = fileno(file_ptr);
     flock(fd, LOCK_EX);
-    Board *boards = project->boards;
-    for (int i = 0; i < MAX_BOARD; i++)
+    Team *teams = league->teams;
+    for (int i = 0; i < MAX_TEAM; i++)
     {
-        fprintf(file_ptr, "%s,%s\n", boards[i].boardId, boards[i].boardTitle);
+        fprintf(file_ptr, "%s,%s\n", teams[i].teamId, teams[i].teamTitle);
     }
     flock(fd, LOCK_UN);
     fclose(file_ptr);
     return 0;
 }
-int readAllTasks(Project *project, char *fileName){
+int readAllPlayers(League *league, char *fileName){
     FILE *file_ptr = fopen(fileName, "r");
 
     if (file_ptr == NULL) {
@@ -89,36 +89,36 @@ int readAllTasks(Project *project, char *fileName){
         buffer[strcspn(buffer, "\n")] = 0;
 
         // 2. Tokenize
-        char *boardId = strtok(buffer, ",");
+        char *teamId = strtok(buffer, ",");
         char *taskId = strtok(NULL, ",");
         char *taskTitle = strtok(NULL, ",");
         char *isFinishStr = strtok(NULL, ",");
 
-        if (boardId == NULL || taskId == NULL || taskTitle == NULL || isFinishStr == NULL)
+        if (teamId == NULL || taskId == NULL || taskTitle == NULL || isFinishStr == NULL)
             continue; // skip malformed line
 
-        // 3. Find the board with this boardId
-        Board *targetBoard = NULL;
-        for (int b = 0; b < project->totalBoards; b++)
+        // 3. Find the team with this teamId
+        Team *targetBoard = NULL;
+        for (int b = 0; b < league->totalTeams; b++)
         {
-            if (strcmp(project->boards[b].boardId, boardId) == 0)
+            if (strcmp(league->teams[b].teamId, teamId) == 0)
             {
-                targetBoard = &project->boards[b];
+                targetBoard = &league->teams[b];
                 break;
             }
         }
 
         if (targetBoard == NULL)
-            continue; // task belongs to a board we don't have (shouldn't normally happen)
+            continue; // player belongs to a team we don't have (shouldn't normally happen)
 
-        // 4. Add task to that board (bounds-checked)
-        if (targetBoard->totalTasks < MAX_TASK)
+        // 4. Add player to that team (bounds-checked)
+        if (targetBoard->totalPlayers < MAX_PLAYER)
         {
-            int i = targetBoard->totalTasks;
-            strcpy(targetBoard->tasks[i].taskId, taskId);
-            strcpy(targetBoard->tasks[i].taskTitle, taskTitle);
-            targetBoard->tasks[i].isFinish = atoi(isFinishStr);
-            targetBoard->totalTasks++;
+            int i = targetBoard->totalPlayers;
+            strcpy(targetBoard->players[i].taskId, taskId);
+            strcpy(targetBoard->players[i].taskTitle, taskTitle);
+            targetBoard->players[i].isFinish = atoi(isFinishStr);
+            targetBoard->totalPlayers++;
         }
     }
 
@@ -126,7 +126,7 @@ int readAllTasks(Project *project, char *fileName){
     fclose(file_ptr);
     return 0;
 }
-int saveAllTasks(Project *project, char *fileName){
+int saveAllPlayers(League *league, char *fileName){
     FILE *file_ptr = fopen(fileName, "w");
     if (file_ptr == NULL) {
         printf("Error opening file!\n");
@@ -135,14 +135,14 @@ int saveAllTasks(Project *project, char *fileName){
     int fd = fileno(file_ptr);
     flock(fd, LOCK_EX);
 
-    for (int b = 0; b < project->totalBoards; b++) {
-        Board *board = &project->boards[b];
-        for (int i = 0; i < board->totalTasks; i++) {
+    for (int b = 0; b < league->totalTeams; b++) {
+        Team *team = &league->teams[b];
+        for (int i = 0; i < team->totalPlayers; i++) {
             fprintf(file_ptr, "%s,%s,%s,%d\n",
-                    board->boardId,
-                    board->tasks[i].taskId,
-                    board->tasks[i].taskTitle,
-                    board->tasks[i].isFinish);
+                    team->teamId,
+                    team->players[i].taskId,
+                    team->players[i].taskTitle,
+                    team->players[i].isFinish);
         }
     }
 
@@ -150,43 +150,43 @@ int saveAllTasks(Project *project, char *fileName){
     fclose(file_ptr);
     return 0;
 }
-int addBoard(Project *project, char *boardTitle){
+int addTeam(League *league, char *teamTitle){
     
-    snprintf(project->boards[project->totalBoards].boardId, 
-            sizeof(project->boards[project->totalBoards].boardId), 
-            "%d", project->totalBoards+1);
-    strcpy(project->boards[project->totalBoards].boardTitle, boardTitle);
-    project->totalBoards++;
+    snprintf(league->teams[league->totalTeams].teamId, 
+            sizeof(league->teams[league->totalTeams].teamId), 
+            "%d", league->totalTeams+1);
+    strcpy(league->teams[league->totalTeams].teamTitle, teamTitle);
+    league->totalTeams++;
     return 0;
 }
-int addTask(Board *board, char *taskTitle){
-    snprintf(board->tasks[board->totalTasks].taskId, sizeof(board->tasks[board->totalTasks].taskId), "%d", board->totalTasks + 1);
-    strcpy(board->tasks[board->totalTasks].taskTitle, taskTitle);
-    board->totalTasks++;
+int addPlayer(Team *team, char *taskTitle){
+    snprintf(team->players[team->totalPlayers].taskId, sizeof(team->players[team->totalPlayers].taskId), "%d", team->totalPlayers + 1);
+    strcpy(team->players[team->totalPlayers].taskTitle, taskTitle);
+    team->totalPlayers++;
     return 0;
 }
-Board *hasBoard(Project *project,char *boardId){
-    Board *board = NULL;
-    if(boardId==NULL) return NULL;
-    for (int i = 0; i < project->totalBoards; i++)
+Team *hasTeam(League *league,char *teamId){
+    Team *team = NULL;
+    if(teamId==NULL) return NULL;
+    for (int i = 0; i < league->totalTeams; i++)
     {
-        if (strcmp(project->boards[i].boardId, boardId) == 0)
+        if (strcmp(league->teams[i].teamId, teamId) == 0)
         {
-            board = &project->boards[i];
+            team = &league->teams[i];
             break;
         }
     }
-    return board;
+    return team;
 }
-Task *hasTask(Project *project, char *boardId, char *taskId){
-    Board *board = hasBoard(project, boardId);
-    if(board==NULL || taskId == NULL) return NULL;
-    Task *task = NULL;
-    for (int i=0;i < board->totalTasks; i++){
-        if (strcmp(board->tasks[i].taskId, taskId) == 0){
-            task = & board->tasks[i];
+Player *hasPlayer(League *league, char *teamId, char *taskId){
+    Team *team = hasTeam(league, teamId);
+    if(team==NULL || taskId == NULL) return NULL;
+    Player *player = NULL;
+    for (int i=0;i < team->totalPlayers; i++){
+        if (strcmp(team->players[i].taskId, taskId) == 0){
+            player = & team->players[i];
             break;
         }
     }
-    return task;
+    return player;
 }

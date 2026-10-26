@@ -8,16 +8,16 @@
 #include <sys/stat.h> /* For mode constants like 0644 */
 
 SOCKET socket_listen = -1;
-Project *project = NULL;
+League *league = NULL;
 sem_t *sem = NULL;
 
 void handleAddBoard(CommandContext *ctx)
 {
-  char *boardTitle = strtok_r(NULL, COMMAND_SEPARATOR, &ctx->rawInput);
+  char *teamTitle = strtok_r(NULL, COMMAND_SEPARATOR, &ctx->rawInput);
 
   char response[MESSAGE_SIZE];
 
-  if (isEmptyOrSpace(boardTitle))
+  if (isEmptyOrSpace(teamTitle))
   {
     snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_ADD_BOARD, COMMAND_SEPARATOR, STATUS_INVALID_ARGUMENTS);
     send(ctx->clientSocket, response, strlen(response), 0);
@@ -28,8 +28,8 @@ void handleAddBoard(CommandContext *ctx)
     sem_wait(sem);
 
     // 2. CRITICAL SECTION: Only one process can be here at a time
-    int result = addBoard(ctx->project, boardTitle);
-    saveBoard(ctx->project, BOARD_FILENAME);
+    int result = addTeam(ctx->league, teamTitle);
+    saveTeam(ctx->league, TEAM_FILENAME);
     // 3. Release the lock
     sem_post(sem);
     if (result == 0)
@@ -47,22 +47,22 @@ void handleAddBoard(CommandContext *ctx)
 
 void handleAddTask(CommandContext *ctx)
 {
-    char *boardId = strtok_r(NULL, COMMAND_SEPARATOR, &ctx->rawInput);
+    char *teamId = strtok_r(NULL, COMMAND_SEPARATOR, &ctx->rawInput);
     char *taskTitle = strtok_r(NULL, COMMAND_SEPARATOR, &ctx->rawInput);
 
     char response[MESSAGE_SIZE];
 
-    if (boardId == NULL || taskTitle == NULL ||
-        isEmptyOrSpace(boardId) || isEmptyOrSpace(taskTitle))
+    if (teamId == NULL || taskTitle == NULL ||
+        isEmptyOrSpace(teamId) || isEmptyOrSpace(taskTitle))
     {
         snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_ADD_TASK, COMMAND_SEPARATOR, STATUS_INVALID_ARGUMENTS);
         send(ctx->clientSocket, response, strlen(response), 0);
         return;
     }
 
-    Board *board = hasBoard(ctx->project, boardId);
+    Team *team = hasTeam(ctx->league, teamId);
 
-    if (board == NULL)
+    if (team == NULL)
     {
         snprintf(response, sizeof(response), "%s%s%d\n", COMMAND_ADD_TASK, COMMAND_SEPARATOR, STATUS_BOARD_NOT_FOUND);
         send(ctx->clientSocket, response, strlen(response), 0);
@@ -73,8 +73,8 @@ void handleAddTask(CommandContext *ctx)
     sem_wait(sem);
 
     // 2. CRITICAL SECTION
-    int result = addTask(board, taskTitle);
-    saveAllTasks(ctx->project, TASK_FILENAME);
+    int result = addPlayer(team, taskTitle);
+    saveAllPlayers(ctx->league, PLAYER_FILENAME);
 
     // 3. Release the lock
     sem_post(sem);
@@ -101,7 +101,7 @@ int handleClient(SOCKET socket_client, char *read)
     return -1;
 
   CommandContext ctx = {
-      .project = project,
+      .league = league,
       .clientSocket = socket_client,
       .rawInput = saveptr,
   };
@@ -167,9 +167,9 @@ int setup(char *port)
   // init semaphore
   sem = sem_open("/store_lock", O_CREAT, 0644, 1);
 
-  // Init project using shared memory (mmap)
-  project = mmap(NULL, sizeof(Project), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-  loadProject(project, BOARD_FILENAME, TASK_FILENAME);
+  // Init league using shared memory (mmap)
+  league = mmap(NULL, sizeof(League), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+  loadLeague(league, TEAM_FILENAME, PLAYER_FILENAME);
 
   struct addrinfo *bind_address;
   getaddrinfo(0, port, &hints, &bind_address);
