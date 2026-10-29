@@ -29,7 +29,7 @@ void handleAddBoard(CommandContext *ctx)
 
     // 2. CRITICAL SECTION: Only one process can be here at a time
     int result = addTeam(ctx->league, teamTitle);
-    saveTeam(ctx->league, TEAM_FILENAME);
+    saveAllTeams(ctx->league, TEAM_FILENAME);
     // 3. Release the lock
     sem_post(sem);
     if (result == 0)
@@ -169,7 +169,7 @@ int setup(char *port)
 
   // Init league using shared memory (mmap)
   league = mmap(NULL, sizeof(League), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-  loadLeague(league, TEAM_FILENAME, PLAYER_FILENAME);
+  loadModel(league, LEAGUE_FILENAME, TEAM_FILENAME, PLAYER_FILENAME);
 
   struct addrinfo *bind_address;
   getaddrinfo(0, port, &hints, &bind_address);
