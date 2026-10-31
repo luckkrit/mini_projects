@@ -1,3 +1,4709 @@
 {
-    "players":[{"playerId":1,"name":"Krit","squadNumber":"01","price":50}]
+    "players":[
+  {
+    "playerId": "P001",
+    "playerName": "Raya",
+    "teamId": "ARS",
+    "squadNumber": 1,
+    "price": 6.2
+  },
+  {
+    "playerId": "P002",
+    "playerName": "Arrizabalaga",
+    "teamId": "ARS",
+    "squadNumber": 2,
+    "price": 4.9
+  },
+  {
+    "playerId": "P003",
+    "playerName": "Meslier",
+    "teamId": "ARS",
+    "squadNumber": 3,
+    "price": 4.9
+  },
+  {
+    "playerId": "P004",
+    "playerName": "Gabriel",
+    "teamId": "ARS",
+    "squadNumber": 4,
+    "price": 8.0
+  },
+  {
+    "playerId": "P005",
+    "playerName": "J.Timber",
+    "teamId": "ARS",
+    "squadNumber": 5,
+    "price": 6.5
+  },
+  {
+    "playerId": "P006",
+    "playerName": "Calafiori",
+    "teamId": "ARS",
+    "squadNumber": 6,
+    "price": 5.9
+  },
+  {
+    "playerId": "P007",
+    "playerName": "Saliba",
+    "teamId": "ARS",
+    "squadNumber": 7,
+    "price": 5.9
+  },
+  {
+    "playerId": "P008",
+    "playerName": "White",
+    "teamId": "ARS",
+    "squadNumber": 8,
+    "price": 5.4
+  },
+  {
+    "playerId": "P009",
+    "playerName": "Hincapie",
+    "teamId": "ARS",
+    "squadNumber": 9,
+    "price": 5.2
+  },
+  {
+    "playerId": "P010",
+    "playerName": "Mosquera",
+    "teamId": "ARS",
+    "squadNumber": 10,
+    "price": 5.2
+  },
+  {
+    "playerId": "P011",
+    "playerName": "Konsa",
+    "teamId": "ARS",
+    "squadNumber": 11,
+    "price": 4.7
+  },
+  {
+    "playerId": "P012",
+    "playerName": "Saka",
+    "teamId": "ARS",
+    "squadNumber": 12,
+    "price": 9.5
+  },
+  {
+    "playerId": "P013",
+    "playerName": "Rice",
+    "teamId": "ARS",
+    "squadNumber": 13,
+    "price": 7.4
+  },
+  {
+    "playerId": "P014",
+    "playerName": "Bruno G.",
+    "teamId": "ARS",
+    "squadNumber": 14,
+    "price": 6.7
+  },
+  {
+    "playerId": "P015",
+    "playerName": "Ødegaard",
+    "teamId": "ARS",
+    "squadNumber": 15,
+    "price": 6.7
+  },
+  {
+    "playerId": "P016",
+    "playerName": "Martinelli",
+    "teamId": "ARS",
+    "squadNumber": 16,
+    "price": 6.3
+  },
+  {
+    "playerId": "P017",
+    "playerName": "Eze",
+    "teamId": "ARS",
+    "squadNumber": 17,
+    "price": 6.2
+  },
+  {
+    "playerId": "P018",
+    "playerName": "Madueke",
+    "teamId": "ARS",
+    "squadNumber": 18,
+    "price": 6.2
+  },
+  {
+    "playerId": "P019",
+    "playerName": "Tzolis",
+    "teamId": "ARS",
+    "squadNumber": 19,
+    "price": 6.1
+  },
+  {
+    "playerId": "P020",
+    "playerName": "Merino",
+    "teamId": "ARS",
+    "squadNumber": 20,
+    "price": 5.7
+  },
+  {
+    "playerId": "P021",
+    "playerName": "Fábio Vieira",
+    "teamId": "ARS",
+    "squadNumber": 21,
+    "price": 5.5
+  },
+  {
+    "playerId": "P022",
+    "playerName": "Nelson",
+    "teamId": "ARS",
+    "squadNumber": 22,
+    "price": 5.5
+  },
+  {
+    "playerId": "P023",
+    "playerName": "Lewis-Skelly",
+    "teamId": "ARS",
+    "squadNumber": 23,
+    "price": 5.4
+  },
+  {
+    "playerId": "P024",
+    "playerName": "Nwaneri",
+    "teamId": "ARS",
+    "squadNumber": 24,
+    "price": 5.4
+  },
+  {
+    "playerId": "P025",
+    "playerName": "Dowman",
+    "teamId": "ARS",
+    "squadNumber": 25,
+    "price": 5.3
+  },
+  {
+    "playerId": "P026",
+    "playerName": "Zubimendi",
+    "teamId": "ARS",
+    "squadNumber": 26,
+    "price": 5.2
+  },
+  {
+    "playerId": "P027",
+    "playerName": "Havertz",
+    "teamId": "ARS",
+    "squadNumber": 27,
+    "price": 7.4
+  },
+  {
+    "playerId": "P028",
+    "playerName": "Gyökeres",
+    "teamId": "ARS",
+    "squadNumber": 28,
+    "price": 7.0
+  },
+  {
+    "playerId": "P029",
+    "playerName": "G.Jesus",
+    "teamId": "ARS",
+    "squadNumber": 29,
+    "price": 5.9
+  },
+  {
+    "playerId": "P030",
+    "playerName": "Suzuki",
+    "teamId": "AVL",
+    "squadNumber": 1,
+    "price": 5.0
+  },
+  {
+    "playerId": "P031",
+    "playerName": "M.Bizot",
+    "teamId": "AVL",
+    "squadNumber": 2,
+    "price": 4.5
+  },
+  {
+    "playerId": "P032",
+    "playerName": "Wright",
+    "teamId": "AVL",
+    "squadNumber": 3,
+    "price": 4.0
+  },
+  {
+    "playerId": "P033",
+    "playerName": "Digne",
+    "teamId": "AVL",
+    "squadNumber": 4,
+    "price": 4.5
+  },
+  {
+    "playerId": "P034",
+    "playerName": "Harwood-Bellis",
+    "teamId": "AVL",
+    "squadNumber": 5,
+    "price": 4.5
+  },
+  {
+    "playerId": "P035",
+    "playerName": "Lindelöf",
+    "teamId": "AVL",
+    "squadNumber": 6,
+    "price": 4.5
+  },
+  {
+    "playerId": "P036",
+    "playerName": "Mings",
+    "teamId": "AVL",
+    "squadNumber": 7,
+    "price": 4.5
+  },
+  {
+    "playerId": "P037",
+    "playerName": "Wan-Bissaka",
+    "teamId": "AVL",
+    "squadNumber": 8,
+    "price": 4.5
+  },
+  {
+    "playerId": "P038",
+    "playerName": "Maatsen",
+    "teamId": "AVL",
+    "squadNumber": 9,
+    "price": 4.4
+  },
+  {
+    "playerId": "P039",
+    "playerName": "Pau",
+    "teamId": "AVL",
+    "squadNumber": 10,
+    "price": 4.4
+  },
+  {
+    "playerId": "P040",
+    "playerName": "Ruggeri",
+    "teamId": "AVL",
+    "squadNumber": 11,
+    "price": 4.4
+  },
+  {
+    "playerId": "P041",
+    "playerName": "Cash",
+    "teamId": "AVL",
+    "squadNumber": 12,
+    "price": 4.3
+  },
+  {
+    "playerId": "P042",
+    "playerName": "A.García",
+    "teamId": "AVL",
+    "squadNumber": 13,
+    "price": 4.0
+  },
+  {
+    "playerId": "P043",
+    "playerName": "Nedeljkovic",
+    "teamId": "AVL",
+    "squadNumber": 14,
+    "price": 4.0
+  },
+  {
+    "playerId": "P044",
+    "playerName": "Rowe",
+    "teamId": "AVL",
+    "squadNumber": 15,
+    "price": 4.0
+  },
+  {
+    "playerId": "P045",
+    "playerName": "Manzambi",
+    "teamId": "AVL",
+    "squadNumber": 16,
+    "price": 6.1
+  },
+  {
+    "playerId": "P046",
+    "playerName": "Mbaye",
+    "teamId": "AVL",
+    "squadNumber": 17,
+    "price": 6.0
+  },
+  {
+    "playerId": "P047",
+    "playerName": "Buendía",
+    "teamId": "AVL",
+    "squadNumber": 18,
+    "price": 5.9
+  },
+  {
+    "playerId": "P048",
+    "playerName": "Goretzka",
+    "teamId": "AVL",
+    "squadNumber": 19,
+    "price": 5.9
+  },
+  {
+    "playerId": "P049",
+    "playerName": "Garnacho",
+    "teamId": "AVL",
+    "squadNumber": 20,
+    "price": 5.7
+  },
+  {
+    "playerId": "P050",
+    "playerName": "Gomes",
+    "teamId": "AVL",
+    "squadNumber": 21,
+    "price": 5.5
+  },
+  {
+    "playerId": "P051",
+    "playerName": "Bailey",
+    "teamId": "AVL",
+    "squadNumber": 22,
+    "price": 5.4
+  },
+  {
+    "playerId": "P052",
+    "playerName": "McGinn",
+    "teamId": "AVL",
+    "squadNumber": 23,
+    "price": 5.4
+  },
+  {
+    "playerId": "P053",
+    "playerName": "Barkley",
+    "teamId": "AVL",
+    "squadNumber": 24,
+    "price": 5.0
+  },
+  {
+    "playerId": "P054",
+    "playerName": "Iling Jr",
+    "teamId": "AVL",
+    "squadNumber": 25,
+    "price": 5.0
+  },
+  {
+    "playerId": "P055",
+    "playerName": "Kamara",
+    "teamId": "AVL",
+    "squadNumber": 26,
+    "price": 5.0
+  },
+  {
+    "playerId": "P056",
+    "playerName": "Alysson",
+    "teamId": "AVL",
+    "squadNumber": 27,
+    "price": 4.9
+  },
+  {
+    "playerId": "P057",
+    "playerName": "Bogarde",
+    "teamId": "AVL",
+    "squadNumber": 28,
+    "price": 4.9
+  },
+  {
+    "playerId": "P058",
+    "playerName": "Onana",
+    "teamId": "AVL",
+    "squadNumber": 29,
+    "price": 4.9
+  },
+  {
+    "playerId": "P059",
+    "playerName": "Lynch",
+    "teamId": "AVL",
+    "squadNumber": 30,
+    "price": 4.5
+  },
+  {
+    "playerId": "P060",
+    "playerName": "Burrowes",
+    "teamId": "AVL",
+    "squadNumber": 31,
+    "price": 4.4
+  },
+  {
+    "playerId": "P061",
+    "playerName": "George Hemmings",
+    "teamId": "AVL",
+    "squadNumber": 32,
+    "price": 4.4
+  },
+  {
+    "playerId": "P062",
+    "playerName": "Watkins",
+    "teamId": "AVL",
+    "squadNumber": 33,
+    "price": 7.8
+  },
+  {
+    "playerId": "P063",
+    "playerName": "N.Jackson",
+    "teamId": "AVL",
+    "squadNumber": 34,
+    "price": 6.9
+  },
+  {
+    "playerId": "P064",
+    "playerName": "Abraham",
+    "teamId": "AVL",
+    "squadNumber": 35,
+    "price": 5.5
+  },
+  {
+    "playerId": "P065",
+    "playerName": "Madjo",
+    "teamId": "AVL",
+    "squadNumber": 36,
+    "price": 5.4
+  },
+  {
+    "playerId": "P066",
+    "playerName": "Verbruggen",
+    "teamId": "BHA",
+    "squadNumber": 1,
+    "price": 4.6
+  },
+  {
+    "playerId": "P067",
+    "playerName": "Steele",
+    "teamId": "BHA",
+    "squadNumber": 2,
+    "price": 4.0
+  },
+  {
+    "playerId": "P068",
+    "playerName": "De Cuyper",
+    "teamId": "BHA",
+    "squadNumber": 3,
+    "price": 5.3
+  },
+  {
+    "playerId": "P069",
+    "playerName": "Vuskovic",
+    "teamId": "BHA",
+    "squadNumber": 4,
+    "price": 5.2
+  },
+  {
+    "playerId": "P070",
+    "playerName": "Svoboda",
+    "teamId": "BHA",
+    "squadNumber": 5,
+    "price": 5.0
+  },
+  {
+    "playerId": "P071",
+    "playerName": "Struijk",
+    "teamId": "BHA",
+    "squadNumber": 6,
+    "price": 4.9
+  },
+  {
+    "playerId": "P072",
+    "playerName": "Wieffer",
+    "teamId": "BHA",
+    "squadNumber": 7,
+    "price": 4.8
+  },
+  {
+    "playerId": "P073",
+    "playerName": "Boscagli",
+    "teamId": "BHA",
+    "squadNumber": 8,
+    "price": 4.5
+  },
+  {
+    "playerId": "P074",
+    "playerName": "Coppola",
+    "teamId": "BHA",
+    "squadNumber": 9,
+    "price": 4.5
+  },
+  {
+    "playerId": "P075",
+    "playerName": "Costinha",
+    "teamId": "BHA",
+    "squadNumber": 10,
+    "price": 4.5
+  },
+  {
+    "playerId": "P076",
+    "playerName": "Dunk",
+    "teamId": "BHA",
+    "squadNumber": 11,
+    "price": 4.5
+  },
+  {
+    "playerId": "P077",
+    "playerName": "Hadjam",
+    "teamId": "BHA",
+    "squadNumber": 12,
+    "price": 4.5
+  },
+  {
+    "playerId": "P078",
+    "playerName": "Igor",
+    "teamId": "BHA",
+    "squadNumber": 13,
+    "price": 4.5
+  },
+  {
+    "playerId": "P079",
+    "playerName": "F.Kadıoğlu",
+    "teamId": "BHA",
+    "squadNumber": 14,
+    "price": 4.4
+  },
+  {
+    "playerId": "P080",
+    "playerName": "Groß",
+    "teamId": "BHA",
+    "squadNumber": 15,
+    "price": 6.2
+  },
+  {
+    "playerId": "P081",
+    "playerName": "Hinshelwood",
+    "teamId": "BHA",
+    "squadNumber": 16,
+    "price": 5.9
+  },
+  {
+    "playerId": "P082",
+    "playerName": "Mitoma",
+    "teamId": "BHA",
+    "squadNumber": 17,
+    "price": 5.9
+  },
+  {
+    "playerId": "P083",
+    "playerName": "Minteh",
+    "teamId": "BHA",
+    "squadNumber": 18,
+    "price": 5.8
+  },
+  {
+    "playerId": "P084",
+    "playerName": "Andrés",
+    "teamId": "BHA",
+    "squadNumber": 19,
+    "price": 5.5
+  },
+  {
+    "playerId": "P085",
+    "playerName": "Azeez",
+    "teamId": "BHA",
+    "squadNumber": 20,
+    "price": 5.5
+  },
+  {
+    "playerId": "P086",
+    "playerName": "Ayari",
+    "teamId": "BHA",
+    "squadNumber": 21,
+    "price": 5.4
+  },
+  {
+    "playerId": "P087",
+    "playerName": "O'Riley",
+    "teamId": "BHA",
+    "squadNumber": 22,
+    "price": 5.4
+  },
+  {
+    "playerId": "P088",
+    "playerName": "Buonanotte",
+    "teamId": "BHA",
+    "squadNumber": 23,
+    "price": 5.0
+  },
+  {
+    "playerId": "P089",
+    "playerName": "Cozier-Duberry",
+    "teamId": "BHA",
+    "squadNumber": 24,
+    "price": 5.0
+  },
+  {
+    "playerId": "P090",
+    "playerName": "Gomez",
+    "teamId": "BHA",
+    "squadNumber": 25,
+    "price": 5.0
+  },
+  {
+    "playerId": "P091",
+    "playerName": "Watson",
+    "teamId": "BHA",
+    "squadNumber": 26,
+    "price": 5.0
+  },
+  {
+    "playerId": "P092",
+    "playerName": "Osman",
+    "teamId": "BHA",
+    "squadNumber": 27,
+    "price": 4.9
+  },
+  {
+    "playerId": "P093",
+    "playerName": "Yohanna",
+    "teamId": "BHA",
+    "squadNumber": 28,
+    "price": 4.8
+  },
+  {
+    "playerId": "P094",
+    "playerName": "Howell",
+    "teamId": "BHA",
+    "squadNumber": 29,
+    "price": 4.5
+  },
+  {
+    "playerId": "P095",
+    "playerName": "Ibrahim",
+    "teamId": "BHA",
+    "squadNumber": 30,
+    "price": 4.5
+  },
+  {
+    "playerId": "P096",
+    "playerName": "Yalcouyé",
+    "teamId": "BHA",
+    "squadNumber": 31,
+    "price": 4.5
+  },
+  {
+    "playerId": "P097",
+    "playerName": "Oriola",
+    "teamId": "BHA",
+    "squadNumber": 32,
+    "price": 4.4
+  },
+  {
+    "playerId": "P098",
+    "playerName": "David",
+    "teamId": "BHA",
+    "squadNumber": 33,
+    "price": 5.9
+  },
+  {
+    "playerId": "P099",
+    "playerName": "Kostoulas",
+    "teamId": "BHA",
+    "squadNumber": 34,
+    "price": 5.8
+  },
+  {
+    "playerId": "P100",
+    "playerName": "Tzimas",
+    "teamId": "BHA",
+    "squadNumber": 35,
+    "price": 5.4
+  },
+  {
+    "playerId": "P101",
+    "playerName": "Georginio",
+    "teamId": "BHA",
+    "squadNumber": 36,
+    "price": 5.3
+  },
+  {
+    "playerId": "P102",
+    "playerName": "Ferguson",
+    "teamId": "BHA",
+    "squadNumber": 37,
+    "price": 4.9
+  },
+  {
+    "playerId": "P103",
+    "playerName": "Di Gregorio",
+    "teamId": "BOU",
+    "squadNumber": 1,
+    "price": 4.5
+  },
+  {
+    "playerId": "P104",
+    "playerName": "Petrović",
+    "teamId": "BOU",
+    "squadNumber": 2,
+    "price": 4.5
+  },
+  {
+    "playerId": "P105",
+    "playerName": "Dennis",
+    "teamId": "BOU",
+    "squadNumber": 3,
+    "price": 4.0
+  },
+  {
+    "playerId": "P106",
+    "playerName": "Forster",
+    "teamId": "BOU",
+    "squadNumber": 4,
+    "price": 4.0
+  },
+  {
+    "playerId": "P107",
+    "playerName": "Hill",
+    "teamId": "BOU",
+    "squadNumber": 5,
+    "price": 5.5
+  },
+  {
+    "playerId": "P108",
+    "playerName": "Truffert",
+    "teamId": "BOU",
+    "squadNumber": 6,
+    "price": 5.4
+  },
+  {
+    "playerId": "P109",
+    "playerName": "Silva",
+    "teamId": "BOU",
+    "squadNumber": 7,
+    "price": 5.0
+  },
+  {
+    "playerId": "P110",
+    "playerName": "Diakité",
+    "teamId": "BOU",
+    "squadNumber": 8,
+    "price": 4.9
+  },
+  {
+    "playerId": "P111",
+    "playerName": "Milosavljević",
+    "teamId": "BOU",
+    "squadNumber": 9,
+    "price": 4.9
+  },
+  {
+    "playerId": "P112",
+    "playerName": "Smith",
+    "teamId": "BOU",
+    "squadNumber": 10,
+    "price": 4.5
+  },
+  {
+    "playerId": "P113",
+    "playerName": "J.Araujo",
+    "teamId": "BOU",
+    "squadNumber": 11,
+    "price": 4.4
+  },
+  {
+    "playerId": "P114",
+    "playerName": "Sanchez",
+    "teamId": "BOU",
+    "squadNumber": 12,
+    "price": 4.4
+  },
+  {
+    "playerId": "P115",
+    "playerName": "Soler",
+    "teamId": "BOU",
+    "squadNumber": 13,
+    "price": 4.0
+  },
+  {
+    "playerId": "P116",
+    "playerName": "Kroupi.Jr",
+    "teamId": "BOU",
+    "squadNumber": 14,
+    "price": 7.3
+  },
+  {
+    "playerId": "P117",
+    "playerName": "Tavernier",
+    "teamId": "BOU",
+    "squadNumber": 15,
+    "price": 6.5
+  },
+  {
+    "playerId": "P118",
+    "playerName": "Rayan",
+    "teamId": "BOU",
+    "squadNumber": 16,
+    "price": 6.3
+  },
+  {
+    "playerId": "P119",
+    "playerName": "Kluivert",
+    "teamId": "BOU",
+    "squadNumber": 17,
+    "price": 5.9
+  },
+  {
+    "playerId": "P120",
+    "playerName": "Scott",
+    "teamId": "BOU",
+    "squadNumber": 18,
+    "price": 5.9
+  },
+  {
+    "playerId": "P121",
+    "playerName": "Adams",
+    "teamId": "BOU",
+    "squadNumber": 19,
+    "price": 5.0
+  },
+  {
+    "playerId": "P122",
+    "playerName": "Brooks",
+    "teamId": "BOU",
+    "squadNumber": 20,
+    "price": 5.0
+  },
+  {
+    "playerId": "P123",
+    "playerName": "Christie",
+    "teamId": "BOU",
+    "squadNumber": 21,
+    "price": 5.0
+  },
+  {
+    "playerId": "P124",
+    "playerName": "Cook",
+    "teamId": "BOU",
+    "squadNumber": 22,
+    "price": 5.0
+  },
+  {
+    "playerId": "P125",
+    "playerName": "Tóth.A",
+    "teamId": "BOU",
+    "squadNumber": 23,
+    "price": 4.9
+  },
+  {
+    "playerId": "P126",
+    "playerName": "Adli",
+    "teamId": "BOU",
+    "squadNumber": 24,
+    "price": 4.8
+  },
+  {
+    "playerId": "P127",
+    "playerName": "Gannon-Doak",
+    "teamId": "BOU",
+    "squadNumber": 25,
+    "price": 4.8
+  },
+  {
+    "playerId": "P128",
+    "playerName": "Evanilson",
+    "teamId": "BOU",
+    "squadNumber": 26,
+    "price": 6.3
+  },
+  {
+    "playerId": "P129",
+    "playerName": "Rodríguez",
+    "teamId": "BOU",
+    "squadNumber": 27,
+    "price": 6.0
+  },
+  {
+    "playerId": "P130",
+    "playerName": "Enes Ünal",
+    "teamId": "BOU",
+    "squadNumber": 28,
+    "price": 5.5
+  },
+  {
+    "playerId": "P131",
+    "playerName": "Jebbison",
+    "teamId": "BOU",
+    "squadNumber": 29,
+    "price": 5.0
+  },
+  {
+    "playerId": "P132",
+    "playerName": "Kelleher",
+    "teamId": "BRE",
+    "squadNumber": 1,
+    "price": 5.0
+  },
+  {
+    "playerId": "P133",
+    "playerName": "Valdimarsson",
+    "teamId": "BRE",
+    "squadNumber": 2,
+    "price": 4.4
+  },
+  {
+    "playerId": "P134",
+    "playerName": "Balcombe",
+    "teamId": "BRE",
+    "squadNumber": 3,
+    "price": 4.0
+  },
+  {
+    "playerId": "P135",
+    "playerName": "Collins",
+    "teamId": "BRE",
+    "squadNumber": 4,
+    "price": 5.4
+  },
+  {
+    "playerId": "P136",
+    "playerName": "Van den Berg",
+    "teamId": "BRE",
+    "squadNumber": 5,
+    "price": 4.9
+  },
+  {
+    "playerId": "P137",
+    "playerName": "Kayode",
+    "teamId": "BRE",
+    "squadNumber": 6,
+    "price": 4.6
+  },
+  {
+    "playerId": "P138",
+    "playerName": "Ajer",
+    "teamId": "BRE",
+    "squadNumber": 7,
+    "price": 4.5
+  },
+  {
+    "playerId": "P139",
+    "playerName": "Diouf",
+    "teamId": "BRE",
+    "squadNumber": 8,
+    "price": 4.5
+  },
+  {
+    "playerId": "P140",
+    "playerName": "Hickey",
+    "teamId": "BRE",
+    "squadNumber": 9,
+    "price": 4.5
+  },
+  {
+    "playerId": "P141",
+    "playerName": "Schuster",
+    "teamId": "BRE",
+    "squadNumber": 10,
+    "price": 4.5
+  },
+  {
+    "playerId": "P142",
+    "playerName": "Henry",
+    "teamId": "BRE",
+    "squadNumber": 11,
+    "price": 4.4
+  },
+  {
+    "playerId": "P143",
+    "playerName": "Ji-soo",
+    "teamId": "BRE",
+    "squadNumber": 12,
+    "price": 4.4
+  },
+  {
+    "playerId": "P144",
+    "playerName": "Fredrick",
+    "teamId": "BRE",
+    "squadNumber": 13,
+    "price": 4.0
+  },
+  {
+    "playerId": "P145",
+    "playerName": "O.Dango",
+    "teamId": "BRE",
+    "squadNumber": 14,
+    "price": 6.2
+  },
+  {
+    "playerId": "P146",
+    "playerName": "Schade",
+    "teamId": "BRE",
+    "squadNumber": 15,
+    "price": 6.2
+  },
+  {
+    "playerId": "P147",
+    "playerName": "Anthony",
+    "teamId": "BRE",
+    "squadNumber": 16,
+    "price": 5.9
+  },
+  {
+    "playerId": "P148",
+    "playerName": "Lewis-Potter",
+    "teamId": "BRE",
+    "squadNumber": 17,
+    "price": 5.5
+  },
+  {
+    "playerId": "P149",
+    "playerName": "Jensen",
+    "teamId": "BRE",
+    "squadNumber": 18,
+    "price": 5.4
+  },
+  {
+    "playerId": "P150",
+    "playerName": "M.Sangaré",
+    "teamId": "BRE",
+    "squadNumber": 19,
+    "price": 5.4
+  },
+  {
+    "playerId": "P151",
+    "playerName": "Damsgaard",
+    "teamId": "BRE",
+    "squadNumber": 20,
+    "price": 5.3
+  },
+  {
+    "playerId": "P152",
+    "playerName": "Carvalho",
+    "teamId": "BRE",
+    "squadNumber": 21,
+    "price": 5.0
+  },
+  {
+    "playerId": "P153",
+    "playerName": "Janelt",
+    "teamId": "BRE",
+    "squadNumber": 22,
+    "price": 5.0
+  },
+  {
+    "playerId": "P154",
+    "playerName": "Milambo",
+    "teamId": "BRE",
+    "squadNumber": 23,
+    "price": 5.0
+  },
+  {
+    "playerId": "P155",
+    "playerName": "Dasilva",
+    "teamId": "BRE",
+    "squadNumber": 24,
+    "price": 4.8
+  },
+  {
+    "playerId": "P156",
+    "playerName": "Yarmoliuk",
+    "teamId": "BRE",
+    "squadNumber": 25,
+    "price": 4.7
+  },
+  {
+    "playerId": "P157",
+    "playerName": "Nunes",
+    "teamId": "BRE",
+    "squadNumber": 26,
+    "price": 4.5
+  },
+  {
+    "playerId": "P158",
+    "playerName": "Thiago",
+    "teamId": "BRE",
+    "squadNumber": 27,
+    "price": 7.8
+  },
+  {
+    "playerId": "P159",
+    "playerName": "Wilson",
+    "teamId": "BRE",
+    "squadNumber": 28,
+    "price": 5.4
+  },
+  {
+    "playerId": "P160",
+    "playerName": "Furo",
+    "teamId": "BRE",
+    "squadNumber": 29,
+    "price": 4.5
+  },
+  {
+    "playerId": "P161",
+    "playerName": "Jörgensen",
+    "teamId": "CHE",
+    "squadNumber": 1,
+    "price": 5.0
+  },
+  {
+    "playerId": "P162",
+    "playerName": "Martinez",
+    "teamId": "CHE",
+    "squadNumber": 2,
+    "price": 4.9
+  },
+  {
+    "playerId": "P163",
+    "playerName": "Sánchez",
+    "teamId": "CHE",
+    "squadNumber": 3,
+    "price": 4.9
+  },
+  {
+    "playerId": "P164",
+    "playerName": "Penders",
+    "teamId": "CHE",
+    "squadNumber": 4,
+    "price": 4.4
+  },
+  {
+    "playerId": "P165",
+    "playerName": "Sharman-Lowe",
+    "teamId": "CHE",
+    "squadNumber": 5,
+    "price": 4.0
+  },
+  {
+    "playerId": "P166",
+    "playerName": "Lacroix",
+    "teamId": "CHE",
+    "squadNumber": 6,
+    "price": 5.9
+  },
+  {
+    "playerId": "P167",
+    "playerName": "Chalobah",
+    "teamId": "CHE",
+    "squadNumber": 7,
+    "price": 5.5
+  },
+  {
+    "playerId": "P168",
+    "playerName": "Palestra",
+    "teamId": "CHE",
+    "squadNumber": 8,
+    "price": 5.3
+  },
+  {
+    "playerId": "P169",
+    "playerName": "James",
+    "teamId": "CHE",
+    "squadNumber": 9,
+    "price": 5.2
+  },
+  {
+    "playerId": "P170",
+    "playerName": "Fofana",
+    "teamId": "CHE",
+    "squadNumber": 10,
+    "price": 5.0
+  },
+  {
+    "playerId": "P171",
+    "playerName": "Chavarria",
+    "teamId": "CHE",
+    "squadNumber": 11,
+    "price": 4.9
+  },
+  {
+    "playerId": "P172",
+    "playerName": "Colwill",
+    "teamId": "CHE",
+    "squadNumber": 12,
+    "price": 4.8
+  },
+  {
+    "playerId": "P173",
+    "playerName": "Gusto",
+    "teamId": "CHE",
+    "squadNumber": 13,
+    "price": 4.8
+  },
+  {
+    "playerId": "P174",
+    "playerName": "Acheampong",
+    "teamId": "CHE",
+    "squadNumber": 14,
+    "price": 4.5
+  },
+  {
+    "playerId": "P175",
+    "playerName": "Anselmino",
+    "teamId": "CHE",
+    "squadNumber": 15,
+    "price": 4.5
+  },
+  {
+    "playerId": "P176",
+    "playerName": "B.Badiashile",
+    "teamId": "CHE",
+    "squadNumber": 16,
+    "price": 4.5
+  },
+  {
+    "playerId": "P177",
+    "playerName": "Hato",
+    "teamId": "CHE",
+    "squadNumber": 17,
+    "price": 4.5
+  },
+  {
+    "playerId": "P178",
+    "playerName": "M.Sarr",
+    "teamId": "CHE",
+    "squadNumber": 18,
+    "price": 4.5
+  },
+  {
+    "playerId": "P179",
+    "playerName": "Palmer",
+    "teamId": "CHE",
+    "squadNumber": 19,
+    "price": 9.8
+  },
+  {
+    "playerId": "P180",
+    "playerName": "Rogers",
+    "teamId": "CHE",
+    "squadNumber": 20,
+    "price": 8.1
+  },
+  {
+    "playerId": "P181",
+    "playerName": "Neto",
+    "teamId": "CHE",
+    "squadNumber": 21,
+    "price": 6.6
+  },
+  {
+    "playerId": "P182",
+    "playerName": "Estêvão",
+    "teamId": "CHE",
+    "squadNumber": 22,
+    "price": 6.3
+  },
+  {
+    "playerId": "P183",
+    "playerName": "Gittens",
+    "teamId": "CHE",
+    "squadNumber": 23,
+    "price": 5.8
+  },
+  {
+    "playerId": "P184",
+    "playerName": "Barco",
+    "teamId": "CHE",
+    "squadNumber": 24,
+    "price": 5.4
+  },
+  {
+    "playerId": "P185",
+    "playerName": "Caicedo",
+    "teamId": "CHE",
+    "squadNumber": 25,
+    "price": 5.3
+  },
+  {
+    "playerId": "P186",
+    "playerName": "Quenda",
+    "teamId": "CHE",
+    "squadNumber": 26,
+    "price": 5.2
+  },
+  {
+    "playerId": "P187",
+    "playerName": "Lavia",
+    "teamId": "CHE",
+    "squadNumber": 27,
+    "price": 5.0
+  },
+  {
+    "playerId": "P188",
+    "playerName": "Henderson",
+    "teamId": "CHE",
+    "squadNumber": 28,
+    "price": 4.9
+  },
+  {
+    "playerId": "P189",
+    "playerName": "D.Essugo",
+    "teamId": "CHE",
+    "squadNumber": 29,
+    "price": 4.5
+  },
+  {
+    "playerId": "P190",
+    "playerName": "Nicoll-Jazuli",
+    "teamId": "CHE",
+    "squadNumber": 30,
+    "price": 4.5
+  },
+  {
+    "playerId": "P191",
+    "playerName": "João Pedro",
+    "teamId": "CHE",
+    "squadNumber": 31,
+    "price": 7.8
+  },
+  {
+    "playerId": "P192",
+    "playerName": "Welbeck",
+    "teamId": "CHE",
+    "squadNumber": 32,
+    "price": 5.8
+  },
+  {
+    "playerId": "P193",
+    "playerName": "Marc Guiu",
+    "teamId": "CHE",
+    "squadNumber": 33,
+    "price": 5.0
+  },
+  {
+    "playerId": "P194",
+    "playerName": "Emegha",
+    "teamId": "CHE",
+    "squadNumber": 34,
+    "price": 4.9
+  },
+  {
+    "playerId": "P195",
+    "playerName": "Mheuka",
+    "teamId": "CHE",
+    "squadNumber": 35,
+    "price": 4.5
+  },
+  {
+    "playerId": "P196",
+    "playerName": "Rushworth",
+    "teamId": "COV",
+    "squadNumber": 1,
+    "price": 4.5
+  },
+  {
+    "playerId": "P197",
+    "playerName": "Wilson",
+    "teamId": "COV",
+    "squadNumber": 2,
+    "price": 4.4
+  },
+  {
+    "playerId": "P198",
+    "playerName": "Bentley",
+    "teamId": "COV",
+    "squadNumber": 3,
+    "price": 4.0
+  },
+  {
+    "playerId": "P199",
+    "playerName": "Dovin",
+    "teamId": "COV",
+    "squadNumber": 4,
+    "price": 4.0
+  },
+  {
+    "playerId": "P200",
+    "playerName": "Pinnock",
+    "teamId": "COV",
+    "squadNumber": 5,
+    "price": 4.5
+  },
+  {
+    "playerId": "P201",
+    "playerName": "Bidwell",
+    "teamId": "COV",
+    "squadNumber": 6,
+    "price": 4.0
+  },
+  {
+    "playerId": "P202",
+    "playerName": "Brau",
+    "teamId": "COV",
+    "squadNumber": 7,
+    "price": 4.0
+  },
+  {
+    "playerId": "P203",
+    "playerName": "Dasilva",
+    "teamId": "COV",
+    "squadNumber": 8,
+    "price": 4.0
+  },
+  {
+    "playerId": "P204",
+    "playerName": "Kitching",
+    "teamId": "COV",
+    "squadNumber": 9,
+    "price": 4.0
+  },
+  {
+    "playerId": "P205",
+    "playerName": "Mfuni",
+    "teamId": "COV",
+    "squadNumber": 10,
+    "price": 4.0
+  },
+  {
+    "playerId": "P206",
+    "playerName": "Thomas",
+    "teamId": "COV",
+    "squadNumber": 11,
+    "price": 4.0
+  },
+  {
+    "playerId": "P207",
+    "playerName": "Amenda",
+    "teamId": "COV",
+    "squadNumber": 12,
+    "price": 3.9
+  },
+  {
+    "playerId": "P208",
+    "playerName": "Kesler-Hayden",
+    "teamId": "COV",
+    "squadNumber": 13,
+    "price": 3.9
+  },
+  {
+    "playerId": "P209",
+    "playerName": "Latibeaudiere",
+    "teamId": "COV",
+    "squadNumber": 14,
+    "price": 3.9
+  },
+  {
+    "playerId": "P210",
+    "playerName": "Woolfenden",
+    "teamId": "COV",
+    "squadNumber": 15,
+    "price": 3.9
+  },
+  {
+    "playerId": "P211",
+    "playerName": "van Ewijk",
+    "teamId": "COV",
+    "squadNumber": 16,
+    "price": 3.9
+  },
+  {
+    "playerId": "P212",
+    "playerName": "Gboho",
+    "teamId": "COV",
+    "squadNumber": 17,
+    "price": 5.5
+  },
+  {
+    "playerId": "P213",
+    "playerName": "Hamer",
+    "teamId": "COV",
+    "squadNumber": 18,
+    "price": 5.3
+  },
+  {
+    "playerId": "P214",
+    "playerName": "Mason-Clark",
+    "teamId": "COV",
+    "squadNumber": 19,
+    "price": 5.3
+  },
+  {
+    "playerId": "P215",
+    "playerName": "Tchaouna",
+    "teamId": "COV",
+    "squadNumber": 20,
+    "price": 5.3
+  },
+  {
+    "playerId": "P216",
+    "playerName": "Torp",
+    "teamId": "COV",
+    "squadNumber": 21,
+    "price": 5.3
+  },
+  {
+    "playerId": "P217",
+    "playerName": "Rudoni",
+    "teamId": "COV",
+    "squadNumber": 22,
+    "price": 4.9
+  },
+  {
+    "playerId": "P218",
+    "playerName": "Eccles",
+    "teamId": "COV",
+    "squadNumber": 23,
+    "price": 4.8
+  },
+  {
+    "playerId": "P219",
+    "playerName": "Grimes",
+    "teamId": "COV",
+    "squadNumber": 24,
+    "price": 4.8
+  },
+  {
+    "playerId": "P220",
+    "playerName": "Onyeka",
+    "teamId": "COV",
+    "squadNumber": 25,
+    "price": 4.8
+  },
+  {
+    "playerId": "P221",
+    "playerName": "Sakamoto",
+    "teamId": "COV",
+    "squadNumber": 26,
+    "price": 4.8
+  },
+  {
+    "playerId": "P222",
+    "playerName": "Yirenkyi",
+    "teamId": "COV",
+    "squadNumber": 27,
+    "price": 4.8
+  },
+  {
+    "playerId": "P223",
+    "playerName": "Andrews",
+    "teamId": "COV",
+    "squadNumber": 28,
+    "price": 4.5
+  },
+  {
+    "playerId": "P224",
+    "playerName": "Borges Rodrigues",
+    "teamId": "COV",
+    "squadNumber": 29,
+    "price": 4.5
+  },
+  {
+    "playerId": "P225",
+    "playerName": "Shepherd",
+    "teamId": "COV",
+    "squadNumber": 30,
+    "price": 4.4
+  },
+  {
+    "playerId": "P226",
+    "playerName": "Awoniyi",
+    "teamId": "COV",
+    "squadNumber": 31,
+    "price": 5.4
+  },
+  {
+    "playerId": "P227",
+    "playerName": "Wright",
+    "teamId": "COV",
+    "squadNumber": 32,
+    "price": 5.3
+  },
+  {
+    "playerId": "P228",
+    "playerName": "Cherif",
+    "teamId": "COV",
+    "squadNumber": 33,
+    "price": 5.0
+  },
+  {
+    "playerId": "P229",
+    "playerName": "Markelo",
+    "teamId": "COV",
+    "squadNumber": 34,
+    "price": 5.0
+  },
+  {
+    "playerId": "P230",
+    "playerName": "Thomas-Asante",
+    "teamId": "COV",
+    "squadNumber": 35,
+    "price": 5.0
+  },
+  {
+    "playerId": "P231",
+    "playerName": "Simms",
+    "teamId": "COV",
+    "squadNumber": 36,
+    "price": 4.9
+  },
+  {
+    "playerId": "P232",
+    "playerName": "Bassette",
+    "teamId": "COV",
+    "squadNumber": 37,
+    "price": 4.5
+  },
+  {
+    "playerId": "P233",
+    "playerName": "Henderson",
+    "teamId": "CRY",
+    "squadNumber": 1,
+    "price": 4.9
+  },
+  {
+    "playerId": "P234",
+    "playerName": "Benitez",
+    "teamId": "CRY",
+    "squadNumber": 2,
+    "price": 4.5
+  },
+  {
+    "playerId": "P235",
+    "playerName": "Matthews",
+    "teamId": "CRY",
+    "squadNumber": 3,
+    "price": 4.0
+  },
+  {
+    "playerId": "P236",
+    "playerName": "Khalaili",
+    "teamId": "CRY",
+    "squadNumber": 4,
+    "price": 5.0
+  },
+  {
+    "playerId": "P237",
+    "playerName": "Richards",
+    "teamId": "CRY",
+    "squadNumber": 5,
+    "price": 4.9
+  },
+  {
+    "playerId": "P238",
+    "playerName": "Canvot",
+    "teamId": "CRY",
+    "squadNumber": 6,
+    "price": 4.8
+  },
+  {
+    "playerId": "P239",
+    "playerName": "Ahanor",
+    "teamId": "CRY",
+    "squadNumber": 7,
+    "price": 4.5
+  },
+  {
+    "playerId": "P240",
+    "playerName": "Cardines",
+    "teamId": "CRY",
+    "squadNumber": 8,
+    "price": 4.5
+  },
+  {
+    "playerId": "P241",
+    "playerName": "Mitchell",
+    "teamId": "CRY",
+    "squadNumber": 9,
+    "price": 4.5
+  },
+  {
+    "playerId": "P242",
+    "playerName": "Sosa",
+    "teamId": "CRY",
+    "squadNumber": 10,
+    "price": 4.5
+  },
+  {
+    "playerId": "P243",
+    "playerName": "Chilwell",
+    "teamId": "CRY",
+    "squadNumber": 11,
+    "price": 4.4
+  },
+  {
+    "playerId": "P244",
+    "playerName": "Disasi",
+    "teamId": "CRY",
+    "squadNumber": 12,
+    "price": 4.4
+  },
+  {
+    "playerId": "P245",
+    "playerName": "Chadi Riad",
+    "teamId": "CRY",
+    "squadNumber": 13,
+    "price": 4.3
+  },
+  {
+    "playerId": "P246",
+    "playerName": "Mingueza",
+    "teamId": "CRY",
+    "squadNumber": 14,
+    "price": 4.3
+  },
+  {
+    "playerId": "P247",
+    "playerName": "Tomiyasu",
+    "teamId": "CRY",
+    "squadNumber": 15,
+    "price": 4.3
+  },
+  {
+    "playerId": "P248",
+    "playerName": "Sarr",
+    "teamId": "CRY",
+    "squadNumber": 16,
+    "price": 6.2
+  },
+  {
+    "playerId": "P249",
+    "playerName": "Yeremy",
+    "teamId": "CRY",
+    "squadNumber": 17,
+    "price": 5.5
+  },
+  {
+    "playerId": "P250",
+    "playerName": "Guessand",
+    "teamId": "CRY",
+    "squadNumber": 18,
+    "price": 5.4
+  },
+  {
+    "playerId": "P251",
+    "playerName": "Osorio",
+    "teamId": "CRY",
+    "squadNumber": 19,
+    "price": 5.4
+  },
+  {
+    "playerId": "P252",
+    "playerName": "Wharton",
+    "teamId": "CRY",
+    "squadNumber": 20,
+    "price": 5.4
+  },
+  {
+    "playerId": "P253",
+    "playerName": "McNeil",
+    "teamId": "CRY",
+    "squadNumber": 21,
+    "price": 5.3
+  },
+  {
+    "playerId": "P254",
+    "playerName": "Devenny",
+    "teamId": "CRY",
+    "squadNumber": 22,
+    "price": 5.0
+  },
+  {
+    "playerId": "P255",
+    "playerName": "Esse",
+    "teamId": "CRY",
+    "squadNumber": 23,
+    "price": 5.0
+  },
+  {
+    "playerId": "P256",
+    "playerName": "Kamada",
+    "teamId": "CRY",
+    "squadNumber": 24,
+    "price": 5.0
+  },
+  {
+    "playerId": "P257",
+    "playerName": "Timber",
+    "teamId": "CRY",
+    "squadNumber": 25,
+    "price": 5.0
+  },
+  {
+    "playerId": "P258",
+    "playerName": "Gozo",
+    "teamId": "CRY",
+    "squadNumber": 26,
+    "price": 4.9
+  },
+  {
+    "playerId": "P259",
+    "playerName": "J.Rak-Sakyi",
+    "teamId": "CRY",
+    "squadNumber": 27,
+    "price": 4.9
+  },
+  {
+    "playerId": "P260",
+    "playerName": "M.França",
+    "teamId": "CRY",
+    "squadNumber": 28,
+    "price": 4.9
+  },
+  {
+    "playerId": "P261",
+    "playerName": "Doucouré",
+    "teamId": "CRY",
+    "squadNumber": 29,
+    "price": 4.8
+  },
+  {
+    "playerId": "P262",
+    "playerName": "Lerma",
+    "teamId": "CRY",
+    "squadNumber": 30,
+    "price": 4.8
+  },
+  {
+    "playerId": "P263",
+    "playerName": "Drakes-Thomas",
+    "teamId": "CRY",
+    "squadNumber": 31,
+    "price": 4.4
+  },
+  {
+    "playerId": "P264",
+    "playerName": "Hughes",
+    "teamId": "CRY",
+    "squadNumber": 32,
+    "price": 4.3
+  },
+  {
+    "playerId": "P265",
+    "playerName": "Mateta",
+    "teamId": "CRY",
+    "squadNumber": 33,
+    "price": 6.3
+  },
+  {
+    "playerId": "P266",
+    "playerName": "Strand Larsen",
+    "teamId": "CRY",
+    "squadNumber": 34,
+    "price": 6.0
+  },
+  {
+    "playerId": "P267",
+    "playerName": "Nketiah",
+    "teamId": "CRY",
+    "squadNumber": 35,
+    "price": 5.4
+  },
+  {
+    "playerId": "P268",
+    "playerName": "Uche",
+    "teamId": "CRY",
+    "squadNumber": 36,
+    "price": 5.0
+  },
+  {
+    "playerId": "P269",
+    "playerName": "Pickford",
+    "teamId": "EVE",
+    "squadNumber": 1,
+    "price": 5.5
+  },
+  {
+    "playerId": "P270",
+    "playerName": "Travers",
+    "teamId": "EVE",
+    "squadNumber": 2,
+    "price": 5.0
+  },
+  {
+    "playerId": "P271",
+    "playerName": "King",
+    "teamId": "EVE",
+    "squadNumber": 3,
+    "price": 4.5
+  },
+  {
+    "playerId": "P272",
+    "playerName": "Tarkowski",
+    "teamId": "EVE",
+    "squadNumber": 4,
+    "price": 6.2
+  },
+  {
+    "playerId": "P273",
+    "playerName": "Branthwaite",
+    "teamId": "EVE",
+    "squadNumber": 5,
+    "price": 5.5
+  },
+  {
+    "playerId": "P274",
+    "playerName": "O'Brien",
+    "teamId": "EVE",
+    "squadNumber": 6,
+    "price": 4.8
+  },
+  {
+    "playerId": "P275",
+    "playerName": "Keane",
+    "teamId": "EVE",
+    "squadNumber": 7,
+    "price": 4.7
+  },
+  {
+    "playerId": "P276",
+    "playerName": "Mykolenko",
+    "teamId": "EVE",
+    "squadNumber": 8,
+    "price": 4.6
+  },
+  {
+    "playerId": "P277",
+    "playerName": "Maitland-Niles",
+    "teamId": "EVE",
+    "squadNumber": 9,
+    "price": 4.5
+  },
+  {
+    "playerId": "P278",
+    "playerName": "Patterson",
+    "teamId": "EVE",
+    "squadNumber": 10,
+    "price": 4.5
+  },
+  {
+    "playerId": "P279",
+    "playerName": "Aznou",
+    "teamId": "EVE",
+    "squadNumber": 11,
+    "price": 4.0
+  },
+  {
+    "playerId": "P280",
+    "playerName": "Dewsbury-Hall",
+    "teamId": "EVE",
+    "squadNumber": 12,
+    "price": 6.6
+  },
+  {
+    "playerId": "P281",
+    "playerName": "Grealish",
+    "teamId": "EVE",
+    "squadNumber": 13,
+    "price": 6.5
+  },
+  {
+    "playerId": "P282",
+    "playerName": "Garner",
+    "teamId": "EVE",
+    "squadNumber": 14,
+    "price": 6.0
+  },
+  {
+    "playerId": "P283",
+    "playerName": "Johnson",
+    "teamId": "EVE",
+    "squadNumber": 15,
+    "price": 5.8
+  },
+  {
+    "playerId": "P284",
+    "playerName": "George",
+    "teamId": "EVE",
+    "squadNumber": 16,
+    "price": 5.5
+  },
+  {
+    "playerId": "P285",
+    "playerName": "Dibling",
+    "teamId": "EVE",
+    "squadNumber": 17,
+    "price": 5.3
+  },
+  {
+    "playerId": "P286",
+    "playerName": "Hackney",
+    "teamId": "EVE",
+    "squadNumber": 18,
+    "price": 5.3
+  },
+  {
+    "playerId": "P287",
+    "playerName": "Armstrong",
+    "teamId": "EVE",
+    "squadNumber": 19,
+    "price": 5.0
+  },
+  {
+    "playerId": "P288",
+    "playerName": "Röhl",
+    "teamId": "EVE",
+    "squadNumber": 20,
+    "price": 4.9
+  },
+  {
+    "playerId": "P289",
+    "playerName": "Alcaraz",
+    "teamId": "EVE",
+    "squadNumber": 21,
+    "price": 4.8
+  },
+  {
+    "playerId": "P290",
+    "playerName": "Nørgaard",
+    "teamId": "EVE",
+    "squadNumber": 22,
+    "price": 4.8
+  },
+  {
+    "playerId": "P291",
+    "playerName": "Graham",
+    "teamId": "EVE",
+    "squadNumber": 23,
+    "price": 4.4
+  },
+  {
+    "playerId": "P292",
+    "playerName": "Barry",
+    "teamId": "EVE",
+    "squadNumber": 24,
+    "price": 5.6
+  },
+  {
+    "playerId": "P293",
+    "playerName": "Beto",
+    "teamId": "EVE",
+    "squadNumber": 25,
+    "price": 5.4
+  },
+  {
+    "playerId": "P294",
+    "playerName": "Leno",
+    "teamId": "FUL",
+    "squadNumber": 1,
+    "price": 4.5
+  },
+  {
+    "playerId": "P295",
+    "playerName": "Lecomte",
+    "teamId": "FUL",
+    "squadNumber": 2,
+    "price": 4.0
+  },
+  {
+    "playerId": "P296",
+    "playerName": "McNally",
+    "teamId": "FUL",
+    "squadNumber": 3,
+    "price": 4.0
+  },
+  {
+    "playerId": "P297",
+    "playerName": "Andersen",
+    "teamId": "FUL",
+    "squadNumber": 4,
+    "price": 5.0
+  },
+  {
+    "playerId": "P298",
+    "playerName": "Affengruber",
+    "teamId": "FUL",
+    "squadNumber": 5,
+    "price": 4.5
+  },
+  {
+    "playerId": "P299",
+    "playerName": "Bassey",
+    "teamId": "FUL",
+    "squadNumber": 6,
+    "price": 4.5
+  },
+  {
+    "playerId": "P300",
+    "playerName": "Castagne",
+    "teamId": "FUL",
+    "squadNumber": 7,
+    "price": 4.5
+  },
+  {
+    "playerId": "P301",
+    "playerName": "J.Cuenca",
+    "teamId": "FUL",
+    "squadNumber": 8,
+    "price": 4.4
+  },
+  {
+    "playerId": "P302",
+    "playerName": "Robinson",
+    "teamId": "FUL",
+    "squadNumber": 9,
+    "price": 4.4
+  },
+  {
+    "playerId": "P303",
+    "playerName": "Tete",
+    "teamId": "FUL",
+    "squadNumber": 10,
+    "price": 4.4
+  },
+  {
+    "playerId": "P304",
+    "playerName": "Sessegnon",
+    "teamId": "FUL",
+    "squadNumber": 11,
+    "price": 4.3
+  },
+  {
+    "playerId": "P305",
+    "playerName": "De Fougerolles",
+    "teamId": "FUL",
+    "squadNumber": 12,
+    "price": 4.0
+  },
+  {
+    "playerId": "P306",
+    "playerName": "King",
+    "teamId": "FUL",
+    "squadNumber": 13,
+    "price": 5.6
+  },
+  {
+    "playerId": "P307",
+    "playerName": "Bobb",
+    "teamId": "FUL",
+    "squadNumber": 14,
+    "price": 5.5
+  },
+  {
+    "playerId": "P308",
+    "playerName": "Iwobi",
+    "teamId": "FUL",
+    "squadNumber": 15,
+    "price": 5.4
+  },
+  {
+    "playerId": "P309",
+    "playerName": "Palacios",
+    "teamId": "FUL",
+    "squadNumber": 16,
+    "price": 5.3
+  },
+  {
+    "playerId": "P310",
+    "playerName": "Kevin",
+    "teamId": "FUL",
+    "squadNumber": 17,
+    "price": 5.2
+  },
+  {
+    "playerId": "P311",
+    "playerName": "Smith Rowe",
+    "teamId": "FUL",
+    "squadNumber": 18,
+    "price": 5.2
+  },
+  {
+    "playerId": "P312",
+    "playerName": "Charles",
+    "teamId": "FUL",
+    "squadNumber": 19,
+    "price": 5.0
+  },
+  {
+    "playerId": "P313",
+    "playerName": "Larsson",
+    "teamId": "FUL",
+    "squadNumber": 20,
+    "price": 5.0
+  },
+  {
+    "playerId": "P314",
+    "playerName": "Ángel",
+    "teamId": "FUL",
+    "squadNumber": 21,
+    "price": 5.0
+  },
+  {
+    "playerId": "P315",
+    "playerName": "Berge",
+    "teamId": "FUL",
+    "squadNumber": 22,
+    "price": 4.9
+  },
+  {
+    "playerId": "P316",
+    "playerName": "Cairney",
+    "teamId": "FUL",
+    "squadNumber": 23,
+    "price": 4.9
+  },
+  {
+    "playerId": "P317",
+    "playerName": "Zepa",
+    "teamId": "FUL",
+    "squadNumber": 24,
+    "price": 4.4
+  },
+  {
+    "playerId": "P318",
+    "playerName": "Reed",
+    "teamId": "FUL",
+    "squadNumber": 25,
+    "price": 4.3
+  },
+  {
+    "playerId": "P319",
+    "playerName": "Gonzalo",
+    "teamId": "FUL",
+    "squadNumber": 26,
+    "price": 6.0
+  },
+  {
+    "playerId": "P320",
+    "playerName": "Muniz",
+    "teamId": "FUL",
+    "squadNumber": 27,
+    "price": 5.3
+  },
+  {
+    "playerId": "P321",
+    "playerName": "Kusi-Asare",
+    "teamId": "FUL",
+    "squadNumber": 28,
+    "price": 4.4
+  },
+  {
+    "playerId": "P322",
+    "playerName": "Tzolakis",
+    "teamId": "HUL",
+    "squadNumber": 1,
+    "price": 4.7
+  },
+  {
+    "playerId": "P323",
+    "playerName": "Butland",
+    "teamId": "HUL",
+    "squadNumber": 2,
+    "price": 4.4
+  },
+  {
+    "playerId": "P324",
+    "playerName": "Cartwright",
+    "teamId": "HUL",
+    "squadNumber": 3,
+    "price": 4.0
+  },
+  {
+    "playerId": "P325",
+    "playerName": "Lo-Tutala",
+    "teamId": "HUL",
+    "squadNumber": 4,
+    "price": 4.0
+  },
+  {
+    "playerId": "P326",
+    "playerName": "Phillips",
+    "teamId": "HUL",
+    "squadNumber": 5,
+    "price": 4.0
+  },
+  {
+    "playerId": "P327",
+    "playerName": "Ajayi",
+    "teamId": "HUL",
+    "squadNumber": 6,
+    "price": 4.2
+  },
+  {
+    "playerId": "P328",
+    "playerName": "Egan",
+    "teamId": "HUL",
+    "squadNumber": 7,
+    "price": 4.1
+  },
+  {
+    "playerId": "P329",
+    "playerName": "Mendy",
+    "teamId": "HUL",
+    "squadNumber": 8,
+    "price": 4.1
+  },
+  {
+    "playerId": "P330",
+    "playerName": "Coyle",
+    "teamId": "HUL",
+    "squadNumber": 9,
+    "price": 4.0
+  },
+  {
+    "playerId": "P331",
+    "playerName": "Drameh",
+    "teamId": "HUL",
+    "squadNumber": 10,
+    "price": 4.0
+  },
+  {
+    "playerId": "P332",
+    "playerName": "Giles",
+    "teamId": "HUL",
+    "squadNumber": 11,
+    "price": 4.0
+  },
+  {
+    "playerId": "P333",
+    "playerName": "Herrington",
+    "teamId": "HUL",
+    "squadNumber": 12,
+    "price": 4.0
+  },
+  {
+    "playerId": "P334",
+    "playerName": "Jacob",
+    "teamId": "HUL",
+    "squadNumber": 13,
+    "price": 4.0
+  },
+  {
+    "playerId": "P335",
+    "playerName": "McCarthy",
+    "teamId": "HUL",
+    "squadNumber": 14,
+    "price": 4.0
+  },
+  {
+    "playerId": "P336",
+    "playerName": "McNair",
+    "teamId": "HUL",
+    "squadNumber": 15,
+    "price": 4.0
+  },
+  {
+    "playerId": "P337",
+    "playerName": "Hughes",
+    "teamId": "HUL",
+    "squadNumber": 16,
+    "price": 3.9
+  },
+  {
+    "playerId": "P338",
+    "playerName": "Norton-Cuffy",
+    "teamId": "HUL",
+    "squadNumber": 17,
+    "price": 3.9
+  },
+  {
+    "playerId": "P339",
+    "playerName": "Targett",
+    "teamId": "HUL",
+    "squadNumber": 18,
+    "price": 3.9
+  },
+  {
+    "playerId": "P340",
+    "playerName": "Thomas",
+    "teamId": "HUL",
+    "squadNumber": 19,
+    "price": 5.5
+  },
+  {
+    "playerId": "P341",
+    "playerName": "Belloumi",
+    "teamId": "HUL",
+    "squadNumber": 20,
+    "price": 5.2
+  },
+  {
+    "playerId": "P342",
+    "playerName": "Akintola",
+    "teamId": "HUL",
+    "squadNumber": 21,
+    "price": 5.0
+  },
+  {
+    "playerId": "P343",
+    "playerName": "Cho",
+    "teamId": "HUL",
+    "squadNumber": 22,
+    "price": 5.0
+  },
+  {
+    "playerId": "P344",
+    "playerName": "Gelhardt",
+    "teamId": "HUL",
+    "squadNumber": 23,
+    "price": 5.0
+  },
+  {
+    "playerId": "P345",
+    "playerName": "Iroegbunam",
+    "teamId": "HUL",
+    "squadNumber": 24,
+    "price": 5.0
+  },
+  {
+    "playerId": "P346",
+    "playerName": "Kamara",
+    "teamId": "HUL",
+    "squadNumber": 25,
+    "price": 5.0
+  },
+  {
+    "playerId": "P347",
+    "playerName": "Millar",
+    "teamId": "HUL",
+    "squadNumber": 26,
+    "price": 5.0
+  },
+  {
+    "playerId": "P348",
+    "playerName": "Mouzakitis",
+    "teamId": "HUL",
+    "squadNumber": 27,
+    "price": 5.0
+  },
+  {
+    "playerId": "P349",
+    "playerName": "Gourna-Douath",
+    "teamId": "HUL",
+    "squadNumber": 28,
+    "price": 4.9
+  },
+  {
+    "playerId": "P350",
+    "playerName": "Morita",
+    "teamId": "HUL",
+    "squadNumber": 29,
+    "price": 4.9
+  },
+  {
+    "playerId": "P351",
+    "playerName": "Stroud",
+    "teamId": "HUL",
+    "squadNumber": 30,
+    "price": 4.9
+  },
+  {
+    "playerId": "P352",
+    "playerName": "Ömür",
+    "teamId": "HUL",
+    "squadNumber": 31,
+    "price": 4.9
+  },
+  {
+    "playerId": "P353",
+    "playerName": "Hjertø-Dahl",
+    "teamId": "HUL",
+    "squadNumber": 32,
+    "price": 4.8
+  },
+  {
+    "playerId": "P354",
+    "playerName": "Matazo",
+    "teamId": "HUL",
+    "squadNumber": 33,
+    "price": 4.5
+  },
+  {
+    "playerId": "P355",
+    "playerName": "Slater",
+    "teamId": "HUL",
+    "squadNumber": 34,
+    "price": 4.5
+  },
+  {
+    "playerId": "P356",
+    "playerName": "Zambrano",
+    "teamId": "HUL",
+    "squadNumber": 35,
+    "price": 4.5
+  },
+  {
+    "playerId": "P357",
+    "playerName": "Crooks",
+    "teamId": "HUL",
+    "squadNumber": 36,
+    "price": 4.4
+  },
+  {
+    "playerId": "P358",
+    "playerName": "Dowell",
+    "teamId": "HUL",
+    "squadNumber": 37,
+    "price": 4.4
+  },
+  {
+    "playerId": "P359",
+    "playerName": "Gyabi",
+    "teamId": "HUL",
+    "squadNumber": 38,
+    "price": 4.4
+  },
+  {
+    "playerId": "P360",
+    "playerName": "McBurnie",
+    "teamId": "HUL",
+    "squadNumber": 39,
+    "price": 5.5
+  },
+  {
+    "playerId": "P361",
+    "playerName": "Vaz",
+    "teamId": "HUL",
+    "squadNumber": 40,
+    "price": 5.0
+  },
+  {
+    "playerId": "P362",
+    "playerName": "Ansah",
+    "teamId": "HUL",
+    "squadNumber": 41,
+    "price": 4.9
+  },
+  {
+    "playerId": "P363",
+    "playerName": "Burstow",
+    "teamId": "HUL",
+    "squadNumber": 42,
+    "price": 4.5
+  },
+  {
+    "playerId": "P364",
+    "playerName": "Destan",
+    "teamId": "HUL",
+    "squadNumber": 43,
+    "price": 4.5
+  },
+  {
+    "playerId": "P365",
+    "playerName": "Van Oevelen",
+    "teamId": "IPS",
+    "squadNumber": 1,
+    "price": 4.5
+  },
+  {
+    "playerId": "P366",
+    "playerName": "Scherpen",
+    "teamId": "IPS",
+    "squadNumber": 2,
+    "price": 4.4
+  },
+  {
+    "playerId": "P367",
+    "playerName": "Walton",
+    "teamId": "IPS",
+    "squadNumber": 3,
+    "price": 4.4
+  },
+  {
+    "playerId": "P368",
+    "playerName": "Button",
+    "teamId": "IPS",
+    "squadNumber": 4,
+    "price": 4.0
+  },
+  {
+    "playerId": "P369",
+    "playerName": "Palmer",
+    "teamId": "IPS",
+    "squadNumber": 5,
+    "price": 4.0
+  },
+  {
+    "playerId": "P370",
+    "playerName": "Davis",
+    "teamId": "IPS",
+    "squadNumber": 6,
+    "price": 4.0
+  },
+  {
+    "playerId": "P371",
+    "playerName": "Johnson",
+    "teamId": "IPS",
+    "squadNumber": 7,
+    "price": 4.0
+  },
+  {
+    "playerId": "P372",
+    "playerName": "O'Shea",
+    "teamId": "IPS",
+    "squadNumber": 8,
+    "price": 4.0
+  },
+  {
+    "playerId": "P373",
+    "playerName": "Ouattara",
+    "teamId": "IPS",
+    "squadNumber": 9,
+    "price": 4.0
+  },
+  {
+    "playerId": "P374",
+    "playerName": "Diop",
+    "teamId": "IPS",
+    "squadNumber": 10,
+    "price": 3.9
+  },
+  {
+    "playerId": "P375",
+    "playerName": "Furlong",
+    "teamId": "IPS",
+    "squadNumber": 11,
+    "price": 3.9
+  },
+  {
+    "playerId": "P376",
+    "playerName": "Greaves",
+    "teamId": "IPS",
+    "squadNumber": 12,
+    "price": 3.9
+  },
+  {
+    "playerId": "P377",
+    "playerName": "Kipré",
+    "teamId": "IPS",
+    "squadNumber": 13,
+    "price": 3.9
+  },
+  {
+    "playerId": "P378",
+    "playerName": "Enciso",
+    "teamId": "IPS",
+    "squadNumber": 14,
+    "price": 5.5
+  },
+  {
+    "playerId": "P379",
+    "playerName": "Fatawu",
+    "teamId": "IPS",
+    "squadNumber": 15,
+    "price": 5.4
+  },
+  {
+    "playerId": "P380",
+    "playerName": "Philogene",
+    "teamId": "IPS",
+    "squadNumber": 16,
+    "price": 5.4
+  },
+  {
+    "playerId": "P381",
+    "playerName": "Clarke",
+    "teamId": "IPS",
+    "squadNumber": 17,
+    "price": 5.3
+  },
+  {
+    "playerId": "P382",
+    "playerName": "Maeda",
+    "teamId": "IPS",
+    "squadNumber": 18,
+    "price": 5.3
+  },
+  {
+    "playerId": "P383",
+    "playerName": "Burns",
+    "teamId": "IPS",
+    "squadNumber": 19,
+    "price": 5.0
+  },
+  {
+    "playerId": "P384",
+    "playerName": "Palacios",
+    "teamId": "IPS",
+    "squadNumber": 20,
+    "price": 5.0
+  },
+  {
+    "playerId": "P385",
+    "playerName": "Szmodics",
+    "teamId": "IPS",
+    "squadNumber": 21,
+    "price": 5.0
+  },
+  {
+    "playerId": "P386",
+    "playerName": "Lukić",
+    "teamId": "IPS",
+    "squadNumber": 22,
+    "price": 4.9
+  },
+  {
+    "playerId": "P387",
+    "playerName": "Matusiwa",
+    "teamId": "IPS",
+    "squadNumber": 23,
+    "price": 4.9
+  },
+  {
+    "playerId": "P388",
+    "playerName": "Ogbene",
+    "teamId": "IPS",
+    "squadNumber": 24,
+    "price": 4.9
+  },
+  {
+    "playerId": "P389",
+    "playerName": "Florentino",
+    "teamId": "IPS",
+    "squadNumber": 25,
+    "price": 4.8
+  },
+  {
+    "playerId": "P390",
+    "playerName": "Mehmeti",
+    "teamId": "IPS",
+    "squadNumber": 26,
+    "price": 4.8
+  },
+  {
+    "playerId": "P391",
+    "playerName": "Núñez",
+    "teamId": "IPS",
+    "squadNumber": 27,
+    "price": 4.8
+  },
+  {
+    "playerId": "P392",
+    "playerName": "Humphreys",
+    "teamId": "IPS",
+    "squadNumber": 28,
+    "price": 4.5
+  },
+  {
+    "playerId": "P393",
+    "playerName": "McAteer",
+    "teamId": "IPS",
+    "squadNumber": 29,
+    "price": 4.4
+  },
+  {
+    "playerId": "P394",
+    "playerName": "Taylor",
+    "teamId": "IPS",
+    "squadNumber": 30,
+    "price": 4.4
+  },
+  {
+    "playerId": "P395",
+    "playerName": "Emersonn",
+    "teamId": "IPS",
+    "squadNumber": 31,
+    "price": 5.5
+  },
+  {
+    "playerId": "P396",
+    "playerName": "Flemming",
+    "teamId": "IPS",
+    "squadNumber": 32,
+    "price": 5.5
+  },
+  {
+    "playerId": "P397",
+    "playerName": "Akpom",
+    "teamId": "IPS",
+    "squadNumber": 33,
+    "price": 5.0
+  },
+  {
+    "playerId": "P398",
+    "playerName": "Al-Hamadi",
+    "teamId": "IPS",
+    "squadNumber": 34,
+    "price": 5.0
+  },
+  {
+    "playerId": "P399",
+    "playerName": "Hirst",
+    "teamId": "IPS",
+    "squadNumber": 35,
+    "price": 5.0
+  },
+  {
+    "playerId": "P400",
+    "playerName": "Walle Egeli",
+    "teamId": "IPS",
+    "squadNumber": 36,
+    "price": 4.5
+  },
+  {
+    "playerId": "P401",
+    "playerName": "Trafford",
+    "teamId": "LEE",
+    "squadNumber": 1,
+    "price": 5.0
+  },
+  {
+    "playerId": "P402",
+    "playerName": "Perri",
+    "teamId": "LEE",
+    "squadNumber": 2,
+    "price": 4.5
+  },
+  {
+    "playerId": "P403",
+    "playerName": "Cairns",
+    "teamId": "LEE",
+    "squadNumber": 3,
+    "price": 4.0
+  },
+  {
+    "playerId": "P404",
+    "playerName": "Zetterer",
+    "teamId": "LEE",
+    "squadNumber": 4,
+    "price": 4.0
+  },
+  {
+    "playerId": "P405",
+    "playerName": "Muharemović",
+    "teamId": "LEE",
+    "squadNumber": 5,
+    "price": 5.1
+  },
+  {
+    "playerId": "P406",
+    "playerName": "Bijol",
+    "teamId": "LEE",
+    "squadNumber": 6,
+    "price": 5.0
+  },
+  {
+    "playerId": "P407",
+    "playerName": "Bogle",
+    "teamId": "LEE",
+    "squadNumber": 7,
+    "price": 4.8
+  },
+  {
+    "playerId": "P408",
+    "playerName": "Bard",
+    "teamId": "LEE",
+    "squadNumber": 8,
+    "price": 4.5
+  },
+  {
+    "playerId": "P409",
+    "playerName": "Bornauw",
+    "teamId": "LEE",
+    "squadNumber": 9,
+    "price": 4.5
+  },
+  {
+    "playerId": "P410",
+    "playerName": "Elvedi",
+    "teamId": "LEE",
+    "squadNumber": 10,
+    "price": 4.5
+  },
+  {
+    "playerId": "P411",
+    "playerName": "Gudmundsson",
+    "teamId": "LEE",
+    "squadNumber": 11,
+    "price": 4.5
+  },
+  {
+    "playerId": "P412",
+    "playerName": "Justin",
+    "teamId": "LEE",
+    "squadNumber": 12,
+    "price": 4.5
+  },
+  {
+    "playerId": "P413",
+    "playerName": "Rodon",
+    "teamId": "LEE",
+    "squadNumber": 13,
+    "price": 4.3
+  },
+  {
+    "playerId": "P414",
+    "playerName": "Lienou",
+    "teamId": "LEE",
+    "squadNumber": 14,
+    "price": 4.0
+  },
+  {
+    "playerId": "P415",
+    "playerName": "Wilson",
+    "teamId": "LEE",
+    "squadNumber": 15,
+    "price": 6.2
+  },
+  {
+    "playerId": "P416",
+    "playerName": "Stach",
+    "teamId": "LEE",
+    "squadNumber": 16,
+    "price": 6.0
+  },
+  {
+    "playerId": "P417",
+    "playerName": "Okafor",
+    "teamId": "LEE",
+    "squadNumber": 17,
+    "price": 5.8
+  },
+  {
+    "playerId": "P418",
+    "playerName": "Ampadu",
+    "teamId": "LEE",
+    "squadNumber": 18,
+    "price": 5.3
+  },
+  {
+    "playerId": "P419",
+    "playerName": "Aaronson",
+    "teamId": "LEE",
+    "squadNumber": 19,
+    "price": 5.2
+  },
+  {
+    "playerId": "P420",
+    "playerName": "Gnonto",
+    "teamId": "LEE",
+    "squadNumber": 20,
+    "price": 5.0
+  },
+  {
+    "playerId": "P421",
+    "playerName": "Gruev",
+    "teamId": "LEE",
+    "squadNumber": 21,
+    "price": 5.0
+  },
+  {
+    "playerId": "P422",
+    "playerName": "Harrison",
+    "teamId": "LEE",
+    "squadNumber": 22,
+    "price": 5.0
+  },
+  {
+    "playerId": "P423",
+    "playerName": "Bahoya",
+    "teamId": "LEE",
+    "squadNumber": 23,
+    "price": 4.9
+  },
+  {
+    "playerId": "P424",
+    "playerName": "James",
+    "teamId": "LEE",
+    "squadNumber": 24,
+    "price": 4.9
+  },
+  {
+    "playerId": "P425",
+    "playerName": "Tanaka",
+    "teamId": "LEE",
+    "squadNumber": 25,
+    "price": 4.9
+  },
+  {
+    "playerId": "P426",
+    "playerName": "Longstaff",
+    "teamId": "LEE",
+    "squadNumber": 26,
+    "price": 4.8
+  },
+  {
+    "playerId": "P427",
+    "playerName": "Cresswell",
+    "teamId": "LEE",
+    "squadNumber": 27,
+    "price": 4.5
+  },
+  {
+    "playerId": "P428",
+    "playerName": "Calvert-Lewin",
+    "teamId": "LEE",
+    "squadNumber": 28,
+    "price": 6.1
+  },
+  {
+    "playerId": "P429",
+    "playerName": "Nmecha",
+    "teamId": "LEE",
+    "squadNumber": 29,
+    "price": 5.3
+  },
+  {
+    "playerId": "P430",
+    "playerName": "Piroe",
+    "teamId": "LEE",
+    "squadNumber": 30,
+    "price": 5.0
+  },
+  {
+    "playerId": "P431",
+    "playerName": "Mateo Joseph",
+    "teamId": "LEE",
+    "squadNumber": 31,
+    "price": 4.5
+  },
+  {
+    "playerId": "P432",
+    "playerName": "A.Becker",
+    "teamId": "LIV",
+    "squadNumber": 1,
+    "price": 5.5
+  },
+  {
+    "playerId": "P433",
+    "playerName": "Mamardashvili",
+    "teamId": "LIV",
+    "squadNumber": 2,
+    "price": 4.8
+  },
+  {
+    "playerId": "P434",
+    "playerName": "Davies",
+    "teamId": "LIV",
+    "squadNumber": 3,
+    "price": 4.0
+  },
+  {
+    "playerId": "P435",
+    "playerName": "Jaros",
+    "teamId": "LIV",
+    "squadNumber": 4,
+    "price": 4.0
+  },
+  {
+    "playerId": "P436",
+    "playerName": "Pecsi",
+    "teamId": "LIV",
+    "squadNumber": 5,
+    "price": 4.0
+  },
+  {
+    "playerId": "P437",
+    "playerName": "Woodman",
+    "teamId": "LIV",
+    "squadNumber": 6,
+    "price": 4.0
+  },
+  {
+    "playerId": "P438",
+    "playerName": "Virgil",
+    "teamId": "LIV",
+    "squadNumber": 7,
+    "price": 6.4
+  },
+  {
+    "playerId": "P439",
+    "playerName": "Araujo",
+    "teamId": "LIV",
+    "squadNumber": 8,
+    "price": 5.4
+  },
+  {
+    "playerId": "P440",
+    "playerName": "Kerkez",
+    "teamId": "LIV",
+    "squadNumber": 9,
+    "price": 5.3
+  },
+  {
+    "playerId": "P441",
+    "playerName": "Frimpong",
+    "teamId": "LIV",
+    "squadNumber": 10,
+    "price": 5.2
+  },
+  {
+    "playerId": "P442",
+    "playerName": "Jacquet",
+    "teamId": "LIV",
+    "squadNumber": 11,
+    "price": 5.1
+  },
+  {
+    "playerId": "P443",
+    "playerName": "Bradley",
+    "teamId": "LIV",
+    "squadNumber": 12,
+    "price": 4.9
+  },
+  {
+    "playerId": "P444",
+    "playerName": "Gomez",
+    "teamId": "LIV",
+    "squadNumber": 13,
+    "price": 4.9
+  },
+  {
+    "playerId": "P445",
+    "playerName": "Tsimikas",
+    "teamId": "LIV",
+    "squadNumber": 14,
+    "price": 4.9
+  },
+  {
+    "playerId": "P446",
+    "playerName": "Lucky",
+    "teamId": "LIV",
+    "squadNumber": 15,
+    "price": 4.0
+  },
+  {
+    "playerId": "P447",
+    "playerName": "Ramsay",
+    "teamId": "LIV",
+    "squadNumber": 16,
+    "price": 4.0
+  },
+  {
+    "playerId": "P448",
+    "playerName": "Leoni",
+    "teamId": "LIV",
+    "squadNumber": 17,
+    "price": 3.9
+  },
+  {
+    "playerId": "P449",
+    "playerName": "Barcola",
+    "teamId": "LIV",
+    "squadNumber": 18,
+    "price": 8.1
+  },
+  {
+    "playerId": "P450",
+    "playerName": "Wirtz",
+    "teamId": "LIV",
+    "squadNumber": 19,
+    "price": 7.2
+  },
+  {
+    "playerId": "P451",
+    "playerName": "Gakpo",
+    "teamId": "LIV",
+    "squadNumber": 20,
+    "price": 7.1
+  },
+  {
+    "playerId": "P452",
+    "playerName": "Szoboszlai",
+    "teamId": "LIV",
+    "squadNumber": 21,
+    "price": 6.7
+  },
+  {
+    "playerId": "P453",
+    "playerName": "Munoz",
+    "teamId": "LIV",
+    "squadNumber": 22,
+    "price": 6.5
+  },
+  {
+    "playerId": "P454",
+    "playerName": "Gravenberch",
+    "teamId": "LIV",
+    "squadNumber": 23,
+    "price": 5.8
+  },
+  {
+    "playerId": "P455",
+    "playerName": "Ngumoha",
+    "teamId": "LIV",
+    "squadNumber": 24,
+    "price": 5.7
+  },
+  {
+    "playerId": "P456",
+    "playerName": "C.Jones",
+    "teamId": "LIV",
+    "squadNumber": 25,
+    "price": 5.5
+  },
+  {
+    "playerId": "P457",
+    "playerName": "Elliott",
+    "teamId": "LIV",
+    "squadNumber": 26,
+    "price": 5.4
+  },
+  {
+    "playerId": "P458",
+    "playerName": "Mac Allister",
+    "teamId": "LIV",
+    "squadNumber": 27,
+    "price": 5.4
+  },
+  {
+    "playerId": "P459",
+    "playerName": "Chiesa",
+    "teamId": "LIV",
+    "squadNumber": 28,
+    "price": 5.3
+  },
+  {
+    "playerId": "P460",
+    "playerName": "Bajcetic",
+    "teamId": "LIV",
+    "squadNumber": 29,
+    "price": 5.0
+  },
+  {
+    "playerId": "P461",
+    "playerName": "Koumas",
+    "teamId": "LIV",
+    "squadNumber": 30,
+    "price": 5.0
+  },
+  {
+    "playerId": "P462",
+    "playerName": "Endo",
+    "teamId": "LIV",
+    "squadNumber": 31,
+    "price": 4.8
+  },
+  {
+    "playerId": "P463",
+    "playerName": "Nyoni",
+    "teamId": "LIV",
+    "squadNumber": 32,
+    "price": 4.8
+  },
+  {
+    "playerId": "P464",
+    "playerName": "McConnell",
+    "teamId": "LIV",
+    "squadNumber": 33,
+    "price": 4.4
+  },
+  {
+    "playerId": "P465",
+    "playerName": "Isak",
+    "teamId": "LIV",
+    "squadNumber": 34,
+    "price": 9.1
+  },
+  {
+    "playerId": "P466",
+    "playerName": "Ekitiké",
+    "teamId": "LIV",
+    "squadNumber": 35,
+    "price": 7.4
+  },
+  {
+    "playerId": "P467",
+    "playerName": "Danns",
+    "teamId": "LIV",
+    "squadNumber": 36,
+    "price": 4.5
+  },
+  {
+    "playerId": "P468",
+    "playerName": "Donnarumma",
+    "teamId": "MCI",
+    "squadNumber": 1,
+    "price": 5.5
+  },
+  {
+    "playerId": "P469",
+    "playerName": "Rulli",
+    "teamId": "MCI",
+    "squadNumber": 2,
+    "price": 4.9
+  },
+  {
+    "playerId": "P470",
+    "playerName": "Bettinelli",
+    "teamId": "MCI",
+    "squadNumber": 3,
+    "price": 4.4
+  },
+  {
+    "playerId": "P471",
+    "playerName": "O'Reilly",
+    "teamId": "MCI",
+    "squadNumber": 4,
+    "price": 6.2
+  },
+  {
+    "playerId": "P472",
+    "playerName": "Guéhi",
+    "teamId": "MCI",
+    "squadNumber": 5,
+    "price": 6.0
+  },
+  {
+    "playerId": "P473",
+    "playerName": "Matheus N.",
+    "teamId": "MCI",
+    "squadNumber": 6,
+    "price": 5.9
+  },
+  {
+    "playerId": "P474",
+    "playerName": "Gvardiol",
+    "teamId": "MCI",
+    "squadNumber": 7,
+    "price": 5.7
+  },
+  {
+    "playerId": "P475",
+    "playerName": "Rúben",
+    "teamId": "MCI",
+    "squadNumber": 8,
+    "price": 5.5
+  },
+  {
+    "playerId": "P476",
+    "playerName": "Khusanov",
+    "teamId": "MCI",
+    "squadNumber": 9,
+    "price": 5.3
+  },
+  {
+    "playerId": "P477",
+    "playerName": "Aït-Nouri",
+    "teamId": "MCI",
+    "squadNumber": 10,
+    "price": 5.2
+  },
+  {
+    "playerId": "P478",
+    "playerName": "Alleyne",
+    "teamId": "MCI",
+    "squadNumber": 11,
+    "price": 5.0
+  },
+  {
+    "playerId": "P479",
+    "playerName": "Vitor Reis",
+    "teamId": "MCI",
+    "squadNumber": 12,
+    "price": 4.4
+  },
+  {
+    "playerId": "P480",
+    "playerName": "Lewis",
+    "teamId": "MCI",
+    "squadNumber": 13,
+    "price": 4.3
+  },
+  {
+    "playerId": "P481",
+    "playerName": "Braithwaite",
+    "teamId": "MCI",
+    "squadNumber": 14,
+    "price": 3.9
+  },
+  {
+    "playerId": "P482",
+    "playerName": "Semenyo",
+    "teamId": "MCI",
+    "squadNumber": 15,
+    "price": 8.2
+  },
+  {
+    "playerId": "P483",
+    "playerName": "Cherki",
+    "teamId": "MCI",
+    "squadNumber": 16,
+    "price": 8.0
+  },
+  {
+    "playerId": "P484",
+    "playerName": "Doku",
+    "teamId": "MCI",
+    "squadNumber": 17,
+    "price": 7.5
+  },
+  {
+    "playerId": "P485",
+    "playerName": "Enzo",
+    "teamId": "MCI",
+    "squadNumber": 18,
+    "price": 6.9
+  },
+  {
+    "playerId": "P486",
+    "playerName": "Foden",
+    "teamId": "MCI",
+    "squadNumber": 19,
+    "price": 6.8
+  },
+  {
+    "playerId": "P487",
+    "playerName": "Rodrigo",
+    "teamId": "MCI",
+    "squadNumber": 20,
+    "price": 6.5
+  },
+  {
+    "playerId": "P488",
+    "playerName": "Anderson",
+    "teamId": "MCI",
+    "squadNumber": 21,
+    "price": 6.3
+  },
+  {
+    "playerId": "P489",
+    "playerName": "Allan",
+    "teamId": "MCI",
+    "squadNumber": 22,
+    "price": 6.0
+  },
+  {
+    "playerId": "P490",
+    "playerName": "Reijnders",
+    "teamId": "MCI",
+    "squadNumber": 23,
+    "price": 6.0
+  },
+  {
+    "playerId": "P491",
+    "playerName": "Ndiaye",
+    "teamId": "MCI",
+    "squadNumber": 24,
+    "price": 5.8
+  },
+  {
+    "playerId": "P492",
+    "playerName": "Bouaddi",
+    "teamId": "MCI",
+    "squadNumber": 25,
+    "price": 5.5
+  },
+  {
+    "playerId": "P493",
+    "playerName": "Kovačić",
+    "teamId": "MCI",
+    "squadNumber": 26,
+    "price": 5.3
+  },
+  {
+    "playerId": "P494",
+    "playerName": "Phillips",
+    "teamId": "MCI",
+    "squadNumber": 27,
+    "price": 5.0
+  },
+  {
+    "playerId": "P495",
+    "playerName": "Echeverri",
+    "teamId": "MCI",
+    "squadNumber": 28,
+    "price": 4.9
+  },
+  {
+    "playerId": "P496",
+    "playerName": "Monga",
+    "teamId": "MCI",
+    "squadNumber": 29,
+    "price": 4.9
+  },
+  {
+    "playerId": "P497",
+    "playerName": "Mukasa",
+    "teamId": "MCI",
+    "squadNumber": 30,
+    "price": 4.5
+  },
+  {
+    "playerId": "P498",
+    "playerName": "McAidoo",
+    "teamId": "MCI",
+    "squadNumber": 31,
+    "price": 4.4
+  },
+  {
+    "playerId": "P499",
+    "playerName": "Samba",
+    "teamId": "MCI",
+    "squadNumber": 32,
+    "price": 4.4
+  },
+  {
+    "playerId": "P500",
+    "playerName": "Haaland",
+    "teamId": "MCI",
+    "squadNumber": 33,
+    "price": 15.8
+  },
+  {
+    "playerId": "P501",
+    "playerName": "Lammens",
+    "teamId": "MUN",
+    "squadNumber": 1,
+    "price": 4.8
+  },
+  {
+    "playerId": "P502",
+    "playerName": "Bayindir",
+    "teamId": "MUN",
+    "squadNumber": 2,
+    "price": 4.5
+  },
+  {
+    "playerId": "P503",
+    "playerName": "Darlow",
+    "teamId": "MUN",
+    "squadNumber": 3,
+    "price": 4.5
+  },
+  {
+    "playerId": "P504",
+    "playerName": "Heaton",
+    "teamId": "MUN",
+    "squadNumber": 4,
+    "price": 4.0
+  },
+  {
+    "playerId": "P505",
+    "playerName": "De Ligt",
+    "teamId": "MUN",
+    "squadNumber": 5,
+    "price": 4.9
+  },
+  {
+    "playerId": "P506",
+    "playerName": "Dalot",
+    "teamId": "MUN",
+    "squadNumber": 6,
+    "price": 4.8
+  },
+  {
+    "playerId": "P507",
+    "playerName": "Martinez",
+    "teamId": "MUN",
+    "squadNumber": 7,
+    "price": 4.8
+  },
+  {
+    "playerId": "P508",
+    "playerName": "Yoro",
+    "teamId": "MUN",
+    "squadNumber": 8,
+    "price": 4.8
+  },
+  {
+    "playerId": "P509",
+    "playerName": "Maguire",
+    "teamId": "MUN",
+    "squadNumber": 9,
+    "price": 4.7
+  },
+  {
+    "playerId": "P510",
+    "playerName": "Heaven",
+    "teamId": "MUN",
+    "squadNumber": 10,
+    "price": 4.3
+  },
+  {
+    "playerId": "P511",
+    "playerName": "Mazraoui",
+    "teamId": "MUN",
+    "squadNumber": 11,
+    "price": 4.3
+  },
+  {
+    "playerId": "P512",
+    "playerName": "Shaw",
+    "teamId": "MUN",
+    "squadNumber": 12,
+    "price": 4.2
+  },
+  {
+    "playerId": "P513",
+    "playerName": "Amass",
+    "teamId": "MUN",
+    "squadNumber": 13,
+    "price": 4.0
+  },
+  {
+    "playerId": "P514",
+    "playerName": "Fredricson",
+    "teamId": "MUN",
+    "squadNumber": 14,
+    "price": 4.0
+  },
+  {
+    "playerId": "P515",
+    "playerName": "B.Fernandes",
+    "teamId": "MUN",
+    "squadNumber": 15,
+    "price": 11.7
+  },
+  {
+    "playerId": "P516",
+    "playerName": "Mbeumo",
+    "teamId": "MUN",
+    "squadNumber": 16,
+    "price": 7.9
+  },
+  {
+    "playerId": "P517",
+    "playerName": "Cunha",
+    "teamId": "MUN",
+    "squadNumber": 17,
+    "price": 7.8
+  },
+  {
+    "playerId": "P518",
+    "playerName": "Rashford",
+    "teamId": "MUN",
+    "squadNumber": 18,
+    "price": 6.8
+  },
+  {
+    "playerId": "P519",
+    "playerName": "Amad",
+    "teamId": "MUN",
+    "squadNumber": 19,
+    "price": 5.7
+  },
+  {
+    "playerId": "P520",
+    "playerName": "Dorgu",
+    "teamId": "MUN",
+    "squadNumber": 20,
+    "price": 5.7
+  },
+  {
+    "playerId": "P521",
+    "playerName": "Tielemans",
+    "teamId": "MUN",
+    "squadNumber": 21,
+    "price": 5.7
+  },
+  {
+    "playerId": "P522",
+    "playerName": "Mainoo",
+    "teamId": "MUN",
+    "squadNumber": 22,
+    "price": 5.5
+  },
+  {
+    "playerId": "P523",
+    "playerName": "Mount",
+    "teamId": "MUN",
+    "squadNumber": 23,
+    "price": 5.4
+  },
+  {
+    "playerId": "P524",
+    "playerName": "Collyer",
+    "teamId": "MUN",
+    "squadNumber": 24,
+    "price": 5.0
+  },
+  {
+    "playerId": "P525",
+    "playerName": "Ugarte",
+    "teamId": "MUN",
+    "squadNumber": 25,
+    "price": 5.0
+  },
+  {
+    "playerId": "P526",
+    "playerName": "Baleba",
+    "teamId": "MUN",
+    "squadNumber": 26,
+    "price": 4.9
+  },
+  {
+    "playerId": "P527",
+    "playerName": "J.Fletcher",
+    "teamId": "MUN",
+    "squadNumber": 27,
+    "price": 4.9
+  },
+  {
+    "playerId": "P528",
+    "playerName": "Lacey",
+    "teamId": "MUN",
+    "squadNumber": 28,
+    "price": 4.9
+  },
+  {
+    "playerId": "P529",
+    "playerName": "Andrey Santos",
+    "teamId": "MUN",
+    "squadNumber": 29,
+    "price": 4.7
+  },
+  {
+    "playerId": "P530",
+    "playerName": "Bendito Mantato",
+    "teamId": "MUN",
+    "squadNumber": 30,
+    "price": 4.4
+  },
+  {
+    "playerId": "P531",
+    "playerName": "Fletcher",
+    "teamId": "MUN",
+    "squadNumber": 31,
+    "price": 4.4
+  },
+  {
+    "playerId": "P532",
+    "playerName": "Šeško",
+    "teamId": "MUN",
+    "squadNumber": 32,
+    "price": 6.9
+  },
+  {
+    "playerId": "P533",
+    "playerName": "Zirkzee",
+    "teamId": "MUN",
+    "squadNumber": 33,
+    "price": 5.3
+  },
+  {
+    "playerId": "P534",
+    "playerName": "Obi",
+    "teamId": "MUN",
+    "squadNumber": 34,
+    "price": 4.5
+  },
+  {
+    "playerId": "P535",
+    "playerName": "Horníček",
+    "teamId": "NEW",
+    "squadNumber": 1,
+    "price": 5.0
+  },
+  {
+    "playerId": "P536",
+    "playerName": "Pope",
+    "teamId": "NEW",
+    "squadNumber": 2,
+    "price": 4.9
+  },
+  {
+    "playerId": "P537",
+    "playerName": "Gillespie",
+    "teamId": "NEW",
+    "squadNumber": 3,
+    "price": 4.5
+  },
+  {
+    "playerId": "P538",
+    "playerName": "Jaouen",
+    "teamId": "NEW",
+    "squadNumber": 4,
+    "price": 4.4
+  },
+  {
+    "playerId": "P539",
+    "playerName": "Hall",
+    "teamId": "NEW",
+    "squadNumber": 5,
+    "price": 5.3
+  },
+  {
+    "playerId": "P540",
+    "playerName": "Botman",
+    "teamId": "NEW",
+    "squadNumber": 6,
+    "price": 5.0
+  },
+  {
+    "playerId": "P541",
+    "playerName": "Thiaw",
+    "teamId": "NEW",
+    "squadNumber": 7,
+    "price": 5.0
+  },
+  {
+    "playerId": "P542",
+    "playerName": "Schär",
+    "teamId": "NEW",
+    "squadNumber": 8,
+    "price": 4.9
+  },
+  {
+    "playerId": "P543",
+    "playerName": "Burn",
+    "teamId": "NEW",
+    "squadNumber": 9,
+    "price": 4.8
+  },
+  {
+    "playerId": "P544",
+    "playerName": "Livramento",
+    "teamId": "NEW",
+    "squadNumber": 10,
+    "price": 4.8
+  },
+  {
+    "playerId": "P545",
+    "playerName": "Dedić",
+    "teamId": "NEW",
+    "squadNumber": 11,
+    "price": 4.5
+  },
+  {
+    "playerId": "P546",
+    "playerName": "A.Murphy",
+    "teamId": "NEW",
+    "squadNumber": 12,
+    "price": 4.0
+  },
+  {
+    "playerId": "P547",
+    "playerName": "Pivas",
+    "teamId": "NEW",
+    "squadNumber": 13,
+    "price": 4.0
+  },
+  {
+    "playerId": "P548",
+    "playerName": "Shahar",
+    "teamId": "NEW",
+    "squadNumber": 14,
+    "price": 4.0
+  },
+  {
+    "playerId": "P549",
+    "playerName": "Barnes",
+    "teamId": "NEW",
+    "squadNumber": 15,
+    "price": 6.1
+  },
+  {
+    "playerId": "P550",
+    "playerName": "Elanga",
+    "teamId": "NEW",
+    "squadNumber": 16,
+    "price": 6.0
+  },
+  {
+    "playerId": "P551",
+    "playerName": "J.Murphy",
+    "teamId": "NEW",
+    "squadNumber": 17,
+    "price": 5.9
+  },
+  {
+    "playerId": "P552",
+    "playerName": "Touré",
+    "teamId": "NEW",
+    "squadNumber": 18,
+    "price": 5.7
+  },
+  {
+    "playerId": "P553",
+    "playerName": "L.Miley",
+    "teamId": "NEW",
+    "squadNumber": 19,
+    "price": 5.5
+  },
+  {
+    "playerId": "P554",
+    "playerName": "N.Gonzalez",
+    "teamId": "NEW",
+    "squadNumber": 20,
+    "price": 5.5
+  },
+  {
+    "playerId": "P555",
+    "playerName": "Joelinton",
+    "teamId": "NEW",
+    "squadNumber": 21,
+    "price": 5.4
+  },
+  {
+    "playerId": "P556",
+    "playerName": "Willock",
+    "teamId": "NEW",
+    "squadNumber": 22,
+    "price": 5.0
+  },
+  {
+    "playerId": "P557",
+    "playerName": "Bamba",
+    "teamId": "NEW",
+    "squadNumber": 23,
+    "price": 4.8
+  },
+  {
+    "playerId": "P558",
+    "playerName": "J.Ramsey",
+    "teamId": "NEW",
+    "squadNumber": 24,
+    "price": 4.8
+  },
+  {
+    "playerId": "P559",
+    "playerName": "Steur",
+    "teamId": "NEW",
+    "squadNumber": 25,
+    "price": 4.8
+  },
+  {
+    "playerId": "P560",
+    "playerName": "Miley",
+    "teamId": "NEW",
+    "squadNumber": 26,
+    "price": 4.5
+  },
+  {
+    "playerId": "P561",
+    "playerName": "Mills",
+    "teamId": "NEW",
+    "squadNumber": 27,
+    "price": 4.5
+  },
+  {
+    "playerId": "P562",
+    "playerName": "Thompson",
+    "teamId": "NEW",
+    "squadNumber": 28,
+    "price": 4.5
+  },
+  {
+    "playerId": "P563",
+    "playerName": "Wissa",
+    "teamId": "NEW",
+    "squadNumber": 29,
+    "price": 6.0
+  },
+  {
+    "playerId": "P564",
+    "playerName": "Fernandez-Pardo",
+    "teamId": "NEW",
+    "squadNumber": 30,
+    "price": 5.9
+  },
+  {
+    "playerId": "P565",
+    "playerName": "Woltemade",
+    "teamId": "NEW",
+    "squadNumber": 31,
+    "price": 5.9
+  },
+  {
+    "playerId": "P566",
+    "playerName": "Osula",
+    "teamId": "NEW",
+    "squadNumber": 32,
+    "price": 5.8
+  },
+  {
+    "playerId": "P567",
+    "playerName": "Neave",
+    "teamId": "NEW",
+    "squadNumber": 33,
+    "price": 4.5
+  },
+  {
+    "playerId": "P568",
+    "playerName": "Salia",
+    "teamId": "NEW",
+    "squadNumber": 34,
+    "price": 4.5
+  },
+  {
+    "playerId": "P569",
+    "playerName": "Sels",
+    "teamId": "NFO",
+    "squadNumber": 1,
+    "price": 5.0
+  },
+  {
+    "playerId": "P570",
+    "playerName": "Benda",
+    "teamId": "NFO",
+    "squadNumber": 2,
+    "price": 4.5
+  },
+  {
+    "playerId": "P571",
+    "playerName": "John",
+    "teamId": "NFO",
+    "squadNumber": 3,
+    "price": 4.4
+  },
+  {
+    "playerId": "P572",
+    "playerName": "Murillo",
+    "teamId": "NFO",
+    "squadNumber": 4,
+    "price": 5.5
+  },
+  {
+    "playerId": "P573",
+    "playerName": "Milenković",
+    "teamId": "NFO",
+    "squadNumber": 5,
+    "price": 5.4
+  },
+  {
+    "playerId": "P574",
+    "playerName": "Diomande",
+    "teamId": "NFO",
+    "squadNumber": 6,
+    "price": 5.3
+  },
+  {
+    "playerId": "P575",
+    "playerName": "Muñoz",
+    "teamId": "NFO",
+    "squadNumber": 7,
+    "price": 5.3
+  },
+  {
+    "playerId": "P576",
+    "playerName": "Morato",
+    "teamId": "NFO",
+    "squadNumber": 8,
+    "price": 5.0
+  },
+  {
+    "playerId": "P577",
+    "playerName": "N.Williams",
+    "teamId": "NFO",
+    "squadNumber": 9,
+    "price": 5.0
+  },
+  {
+    "playerId": "P578",
+    "playerName": "Savona",
+    "teamId": "NFO",
+    "squadNumber": 10,
+    "price": 4.5
+  },
+  {
+    "playerId": "P579",
+    "playerName": "Jair Cunha",
+    "teamId": "NFO",
+    "squadNumber": 11,
+    "price": 4.4
+  },
+  {
+    "playerId": "P580",
+    "playerName": "Netz",
+    "teamId": "NFO",
+    "squadNumber": 12,
+    "price": 4.4
+  },
+  {
+    "playerId": "P581",
+    "playerName": "Aina",
+    "teamId": "NFO",
+    "squadNumber": 13,
+    "price": 4.3
+  },
+  {
+    "playerId": "P582",
+    "playerName": "Abbott",
+    "teamId": "NFO",
+    "squadNumber": 14,
+    "price": 4.0
+  },
+  {
+    "playerId": "P583",
+    "playerName": "Bindon",
+    "teamId": "NFO",
+    "squadNumber": 15,
+    "price": 4.0
+  },
+  {
+    "playerId": "P584",
+    "playerName": "O.Richards",
+    "teamId": "NFO",
+    "squadNumber": 16,
+    "price": 3.9
+  },
+  {
+    "playerId": "P585",
+    "playerName": "Gibbs-White",
+    "teamId": "NFO",
+    "squadNumber": 17,
+    "price": 7.9
+  },
+  {
+    "playerId": "P586",
+    "playerName": "Hudson-Odoi",
+    "teamId": "NFO",
+    "squadNumber": 18,
+    "price": 5.7
+  },
+  {
+    "playerId": "P587",
+    "playerName": "Bakwa",
+    "teamId": "NFO",
+    "squadNumber": 19,
+    "price": 5.5
+  },
+  {
+    "playerId": "P588",
+    "playerName": "McAtee",
+    "teamId": "NFO",
+    "squadNumber": 20,
+    "price": 5.5
+  },
+  {
+    "playerId": "P589",
+    "playerName": "Ndoye",
+    "teamId": "NFO",
+    "squadNumber": 21,
+    "price": 5.5
+  },
+  {
+    "playerId": "P590",
+    "playerName": "Hutchinson",
+    "teamId": "NFO",
+    "squadNumber": 22,
+    "price": 5.4
+  },
+  {
+    "playerId": "P591",
+    "playerName": "Schlager",
+    "teamId": "NFO",
+    "squadNumber": 23,
+    "price": 5.0
+  },
+  {
+    "playerId": "P592",
+    "playerName": "Dominguez",
+    "teamId": "NFO",
+    "squadNumber": 24,
+    "price": 4.8
+  },
+  {
+    "playerId": "P593",
+    "playerName": "I.Sangaré",
+    "teamId": "NFO",
+    "squadNumber": 25,
+    "price": 4.7
+  },
+  {
+    "playerId": "P594",
+    "playerName": "Yates",
+    "teamId": "NFO",
+    "squadNumber": 26,
+    "price": 4.4
+  },
+  {
+    "playerId": "P595",
+    "playerName": "Igor Jesus",
+    "teamId": "NFO",
+    "squadNumber": 27,
+    "price": 5.7
+  },
+  {
+    "playerId": "P596",
+    "playerName": "Wood",
+    "teamId": "NFO",
+    "squadNumber": 28,
+    "price": 5.7
+  },
+  {
+    "playerId": "P597",
+    "playerName": "Delap",
+    "teamId": "NFO",
+    "squadNumber": 29,
+    "price": 5.4
+  },
+  {
+    "playerId": "P598",
+    "playerName": "Kalimuendo",
+    "teamId": "NFO",
+    "squadNumber": 30,
+    "price": 5.4
+  },
+  {
+    "playerId": "P599",
+    "playerName": "Roefs",
+    "teamId": "SUN",
+    "squadNumber": 1,
+    "price": 4.9
+  },
+  {
+    "playerId": "P600",
+    "playerName": "Ellborg",
+    "teamId": "SUN",
+    "squadNumber": 2,
+    "price": 4.4
+  },
+  {
+    "playerId": "P601",
+    "playerName": "Patterson",
+    "teamId": "SUN",
+    "squadNumber": 3,
+    "price": 4.0
+  },
+  {
+    "playerId": "P602",
+    "playerName": "Mukiele",
+    "teamId": "SUN",
+    "squadNumber": 4,
+    "price": 5.4
+  },
+  {
+    "playerId": "P603",
+    "playerName": "Danso",
+    "teamId": "SUN",
+    "squadNumber": 5,
+    "price": 5.0
+  },
+  {
+    "playerId": "P604",
+    "playerName": "Alderete",
+    "teamId": "SUN",
+    "squadNumber": 6,
+    "price": 4.8
+  },
+  {
+    "playerId": "P605",
+    "playerName": "Ballard",
+    "teamId": "SUN",
+    "squadNumber": 7,
+    "price": 4.8
+  },
+  {
+    "playerId": "P606",
+    "playerName": "Methalie",
+    "teamId": "SUN",
+    "squadNumber": 8,
+    "price": 4.5
+  },
+  {
+    "playerId": "P607",
+    "playerName": "Seelt",
+    "teamId": "SUN",
+    "squadNumber": 9,
+    "price": 4.5
+  },
+  {
+    "playerId": "P608",
+    "playerName": "Meunier",
+    "teamId": "SUN",
+    "squadNumber": 10,
+    "price": 4.4
+  },
+  {
+    "playerId": "P609",
+    "playerName": "Reinildo",
+    "teamId": "SUN",
+    "squadNumber": 11,
+    "price": 4.4
+  },
+  {
+    "playerId": "P610",
+    "playerName": "Hume",
+    "teamId": "SUN",
+    "squadNumber": 12,
+    "price": 4.2
+  },
+  {
+    "playerId": "P611",
+    "playerName": "Hjelde",
+    "teamId": "SUN",
+    "squadNumber": 13,
+    "price": 4.0
+  },
+  {
+    "playerId": "P612",
+    "playerName": "Masuaku",
+    "teamId": "SUN",
+    "squadNumber": 14,
+    "price": 4.0
+  },
+  {
+    "playerId": "P613",
+    "playerName": "O'Nien",
+    "teamId": "SUN",
+    "squadNumber": 15,
+    "price": 3.9
+  },
+  {
+    "playerId": "P614",
+    "playerName": "E.Le Fée",
+    "teamId": "SUN",
+    "squadNumber": 16,
+    "price": 5.7
+  },
+  {
+    "playerId": "P615",
+    "playerName": "Fofana",
+    "teamId": "SUN",
+    "squadNumber": 17,
+    "price": 5.5
+  },
+  {
+    "playerId": "P616",
+    "playerName": "Xhaka",
+    "teamId": "SUN",
+    "squadNumber": 18,
+    "price": 5.4
+  },
+  {
+    "playerId": "P617",
+    "playerName": "Diarra",
+    "teamId": "SUN",
+    "squadNumber": 19,
+    "price": 5.3
+  },
+  {
+    "playerId": "P618",
+    "playerName": "Talbi",
+    "teamId": "SUN",
+    "squadNumber": 20,
+    "price": 5.2
+  },
+  {
+    "playerId": "P619",
+    "playerName": "N.Angulo",
+    "teamId": "SUN",
+    "squadNumber": 21,
+    "price": 5.0
+  },
+  {
+    "playerId": "P620",
+    "playerName": "Tutierov",
+    "teamId": "SUN",
+    "squadNumber": 22,
+    "price": 5.0
+  },
+  {
+    "playerId": "P621",
+    "playerName": "Adingra",
+    "teamId": "SUN",
+    "squadNumber": 23,
+    "price": 4.9
+  },
+  {
+    "playerId": "P622",
+    "playerName": "Jocelin.T",
+    "teamId": "SUN",
+    "squadNumber": 24,
+    "price": 4.9
+  },
+  {
+    "playerId": "P623",
+    "playerName": "Mundle",
+    "teamId": "SUN",
+    "squadNumber": 25,
+    "price": 4.8
+  },
+  {
+    "playerId": "P624",
+    "playerName": "Rigg",
+    "teamId": "SUN",
+    "squadNumber": 26,
+    "price": 4.8
+  },
+  {
+    "playerId": "P625",
+    "playerName": "Sadiki",
+    "teamId": "SUN",
+    "squadNumber": 27,
+    "price": 4.8
+  },
+  {
+    "playerId": "P626",
+    "playerName": "Ahoka",
+    "teamId": "SUN",
+    "squadNumber": 28,
+    "price": 4.4
+  },
+  {
+    "playerId": "P627",
+    "playerName": "Brobbey",
+    "teamId": "SUN",
+    "squadNumber": 29,
+    "price": 5.7
+  },
+  {
+    "playerId": "P628",
+    "playerName": "Isidor",
+    "teamId": "SUN",
+    "squadNumber": 30,
+    "price": 5.4
+  },
+  {
+    "playerId": "P629",
+    "playerName": "J.Angulo",
+    "teamId": "SUN",
+    "squadNumber": 31,
+    "price": 4.5
+  },
+  {
+    "playerId": "P630",
+    "playerName": "Vicario",
+    "teamId": "TOT",
+    "squadNumber": 1,
+    "price": 4.5
+  },
+  {
+    "playerId": "P631",
+    "playerName": "Kinsky",
+    "teamId": "TOT",
+    "squadNumber": 2,
+    "price": 4.4
+  },
+  {
+    "playerId": "P632",
+    "playerName": "Austin",
+    "teamId": "TOT",
+    "squadNumber": 3,
+    "price": 4.0
+  },
+  {
+    "playerId": "P633",
+    "playerName": "Dubravka",
+    "teamId": "TOT",
+    "squadNumber": 4,
+    "price": 4.0
+  },
+  {
+    "playerId": "P634",
+    "playerName": "Senesi",
+    "teamId": "TOT",
+    "squadNumber": 5,
+    "price": 5.7
+  },
+  {
+    "playerId": "P635",
+    "playerName": "Pedro Porro",
+    "teamId": "TOT",
+    "squadNumber": 6,
+    "price": 5.3
+  },
+  {
+    "playerId": "P636",
+    "playerName": "Romero",
+    "teamId": "TOT",
+    "squadNumber": 7,
+    "price": 5.0
+  },
+  {
+    "playerId": "P637",
+    "playerName": "Van de Ven",
+    "teamId": "TOT",
+    "squadNumber": 8,
+    "price": 5.0
+  },
+  {
+    "playerId": "P638",
+    "playerName": "Van Hecke",
+    "teamId": "TOT",
+    "squadNumber": 9,
+    "price": 4.9
+  },
+  {
+    "playerId": "P639",
+    "playerName": "Phillips",
+    "teamId": "TOT",
+    "squadNumber": 10,
+    "price": 4.5
+  },
+  {
+    "playerId": "P640",
+    "playerName": "Spence",
+    "teamId": "TOT",
+    "squadNumber": 11,
+    "price": 4.5
+  },
+  {
+    "playerId": "P641",
+    "playerName": "Udogie",
+    "teamId": "TOT",
+    "squadNumber": 12,
+    "price": 4.4
+  },
+  {
+    "playerId": "P642",
+    "playerName": "Robertson",
+    "teamId": "TOT",
+    "squadNumber": 13,
+    "price": 4.3
+  },
+  {
+    "playerId": "P643",
+    "playerName": "Tosin",
+    "teamId": "TOT",
+    "squadNumber": 14,
+    "price": 4.3
+  },
+  {
+    "playerId": "P644",
+    "playerName": "Byfield",
+    "teamId": "TOT",
+    "squadNumber": 15,
+    "price": 4.0
+  },
+  {
+    "playerId": "P645",
+    "playerName": "Rowswell",
+    "teamId": "TOT",
+    "squadNumber": 16,
+    "price": 4.0
+  },
+  {
+    "playerId": "P646",
+    "playerName": "Souza",
+    "teamId": "TOT",
+    "squadNumber": 17,
+    "price": 4.0
+  },
+  {
+    "playerId": "P647",
+    "playerName": "Davies",
+    "teamId": "TOT",
+    "squadNumber": 18,
+    "price": 3.9
+  },
+  {
+    "playerId": "P648",
+    "playerName": "Kudus",
+    "teamId": "TOT",
+    "squadNumber": 19,
+    "price": 6.5
+  },
+  {
+    "playerId": "P649",
+    "playerName": "Kulusevski",
+    "teamId": "TOT",
+    "squadNumber": 20,
+    "price": 6.5
+  },
+  {
+    "playerId": "P650",
+    "playerName": "Sávio",
+    "teamId": "TOT",
+    "squadNumber": 21,
+    "price": 6.5
+  },
+  {
+    "playerId": "P651",
+    "playerName": "Maddison",
+    "teamId": "TOT",
+    "squadNumber": 22,
+    "price": 6.2
+  },
+  {
+    "playerId": "P652",
+    "playerName": "Xavi",
+    "teamId": "TOT",
+    "squadNumber": 23,
+    "price": 5.9
+  },
+  {
+    "playerId": "P653",
+    "playerName": "Fernandes",
+    "teamId": "TOT",
+    "squadNumber": 24,
+    "price": 5.6
+  },
+  {
+    "playerId": "P654",
+    "playerName": "Tel",
+    "teamId": "TOT",
+    "squadNumber": 25,
+    "price": 5.6
+  },
+  {
+    "playerId": "P655",
+    "playerName": "Odobert",
+    "teamId": "TOT",
+    "squadNumber": 26,
+    "price": 5.5
+  },
+  {
+    "playerId": "P656",
+    "playerName": "Bentancur",
+    "teamId": "TOT",
+    "squadNumber": 27,
+    "price": 5.4
+  },
+  {
+    "playerId": "P657",
+    "playerName": "Bergvall",
+    "teamId": "TOT",
+    "squadNumber": 28,
+    "price": 5.3
+  },
+  {
+    "playerId": "P658",
+    "playerName": "Gallagher",
+    "teamId": "TOT",
+    "squadNumber": 29,
+    "price": 5.3
+  },
+  {
+    "playerId": "P659",
+    "playerName": "Mudryk",
+    "teamId": "TOT",
+    "squadNumber": 30,
+    "price": 5.3
+  },
+  {
+    "playerId": "P660",
+    "playerName": "Tonali",
+    "teamId": "TOT",
+    "squadNumber": 31,
+    "price": 5.3
+  },
+  {
+    "playerId": "P661",
+    "playerName": "Moore",
+    "teamId": "TOT",
+    "squadNumber": 32,
+    "price": 5.0
+  },
+  {
+    "playerId": "P662",
+    "playerName": "Gray",
+    "teamId": "TOT",
+    "squadNumber": 33,
+    "price": 4.9
+  },
+  {
+    "playerId": "P663",
+    "playerName": "P.M.Sarr",
+    "teamId": "TOT",
+    "squadNumber": 34,
+    "price": 4.9
+  },
+  {
+    "playerId": "P664",
+    "playerName": "Olusesi",
+    "teamId": "TOT",
+    "squadNumber": 35,
+    "price": 4.4
+  },
+  {
+    "playerId": "P665",
+    "playerName": "Williams-Barnett",
+    "teamId": "TOT",
+    "squadNumber": 36,
+    "price": 4.4
+  },
+  {
+    "playerId": "P666",
+    "playerName": "Marmoush",
+    "teamId": "TOT",
+    "squadNumber": 37,
+    "price": 7.0
+  },
+  {
+    "playerId": "P667",
+    "playerName": "Richarlison",
+    "teamId": "TOT",
+    "squadNumber": 38,
+    "price": 5.9
+  },
+  {
+    "playerId": "P668",
+    "playerName": "Solanke",
+    "teamId": "TOT",
+    "squadNumber": 39,
+    "price": 5.8
+  },
+  {
+    "playerId": "P669",
+    "playerName": "Scarlett",
+    "teamId": "TOT",
+    "squadNumber": 40,
+    "price": 4.5
+  }
+],
+"teams":[
+  {"teamId": "MCI", "teamName": "Manchester City", "points": 21},
+  {"teamId": "ARS", "teamName": "Arsenal", "points": 18},
+  {"teamId": "BHA", "teamName": "Brighton & Hove Albion", "points": 16},
+  {"teamId": "CHE", "teamName": "Chelsea", "points": 13},
+  {"teamId": "LIV", "teamName": "Liverpool", "points": 12},
+  {"teamId": "BRE", "teamName": "Brentford", "points": 10},
+  {"teamId": "LEE", "teamName": "Leeds United", "points": 10},
+  {"teamId": "EVE", "teamName": "Everton", "points": 10},
+  {"teamId": "HUL", "teamName": "Hull City", "points": 9},
+  {"teamId": "IPS", "teamName": "Ipswich Town", "points": 9},
+  {"teamId": "NEW", "teamName": "Newcastle United", "points": 8},
+  {"teamId": "AVL", "teamName": "Aston Villa", "points": 8},
+  {"teamId": "MUN", "teamName": "Manchester United", "points": 7},
+  {"teamId": "CRY", "teamName": "Crystal Palace", "points": 7},
+  {"teamId": "BOU", "teamName": "AFC Bournemouth", "points": 6},
+  {"teamId": "COV", "teamName": "Coventry City", "points": 6},
+  {"teamId": "FUL", "teamName": "Fulham", "points": 5},
+  {"teamId": "NFO", "teamName": "Nottingham Forest", "points": 5},
+  {"teamId": "SUN", "teamName": "Sunderland", "points": 4},
+  {"teamId": "TOT", "teamName": "Tottenham Hotspur", "points": 3}
+]
 }

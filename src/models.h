@@ -9,7 +9,7 @@
 #define PLAYER_ID_SIZE 16
 #define PLAYER_NAME_SIZE 100
 
-#define MAX_PLAYER 23
+#define MAX_PLAYER 100
 #define MAX_TEAM 10
 #define MAX_SQUAD_SIZE 99
 
